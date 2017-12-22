@@ -1,49 +1,32 @@
-import Auth from '../components/Auth'
-import firebase from 'firebase'
-require("firebase/firestore");
-import { fsFunctions } from '../firebase/firestore'
-import { firebaseInit } from '../firebase/auth'
+import React, { Component } from 'react'
+import Link from 'next/link'
+import { database } from '../functions/database'
+import PostList from '../components/PostList'
+import LoginButton from '../components/LoginButton'
 
-class Index extends React.Component {
-  constructor() {
-    super()
+export default class Index extends Component {
+  static async getInitialProps ({req, query}) {
+    const user = req && req.session ? req.session.decodedToken : null
+    const posts = await database.getCollection("post")
+    return { user, posts }
+  }
+
+  constructor (props) {
+    super(props)
     this.state = {
-      user: {}
+      user: this.props.user
     }
-    firebaseInit().then(() => {
-      this.loaded = true
-      this.firestore = firebase.firestore()
-      this.fs = fsFunctions(this.firestore)
-    })
-
-    this.updateUser = (val) => this.setState({ user: val })
   }
 
-  async requestData() {
-    this.fs.requestCollection('posts').then(data => {
-      this.setState({ data: data })
-    })
-
+  componentDidMount () {
+    database.auth().then(a => this.setState({user: a[0]})).catch(a => console.log(a))
   }
-  render() {
-    const { user, data } = this.state
-    const updateUser = this.updateUser
-    const loaded = this.loaded
-    const requestData = this.requestData.bind(this)
-    return (
 
-      <div>
-        {firebase &&
-          <div>
-            <button onClick={requestData}>Request</button>
-            <p>Hello {user.displayName}!</p>
-            <Auth updateUser={updateUser} />
-          </div>
-        }
-      </div>
-
-    )
+  render () {
+    const { user } = this.state
+    return <div>
+      <LoginButton user={user} />
+      <PostList posts={this.props.posts} />
+    </div>
   }
 }
-
-export default Index

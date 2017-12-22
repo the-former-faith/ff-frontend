@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "body-parser": "^1.17.1",
-    "dom-storage": "^2.0.2",
     "express": "^4.14.0",
     "express-session": "^1.15.2",
     "firebase": "^4.8.0",
@@ -17,9 +16,7 @@
     "next": "latest",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-jsonschema-form": "^1.0.0",
     "session-file-store": "^1.0.0"
-  },
-  "devDependencies": {
-    "standard": "^10.0.3"
   }
 }

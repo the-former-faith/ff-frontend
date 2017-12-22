@@ -19,6 +19,18 @@ app.prepare()
 .then(() => {
   const server = express()
 
+  server.get('/post/:id', (req, res) => {
+    const actualPage = '/post'
+    const queryParams = { title: req.params.id } 
+    app.render(req, res, actualPage, queryParams)
+  })
+
+  server.get('/edit/:id', (req, res) => {
+    const actualPage = '/edit'
+    const queryParams = { title: req.params.id } 
+    app.render(req, res, actualPage, queryParams)
+  })
+
   server.use(bodyParser.json())
   server.use(session({
     secret: 'geheimnis',

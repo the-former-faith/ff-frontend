@@ -1,5 +1,6 @@
 import firebase from 'firebase'
 require("firebase/firestore")
+import 'isomorphic-unfetch'
 import clientCredentials from '../credentials/client'
 
 class Database {
@@ -10,41 +11,30 @@ class Database {
     }
   }
 
-  auth() {
-    this.init();
-    const user = new Promise((resolve, reject) => {
-      firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-          user.getIdToken().then(token => {
-            // eslint-disable-next-line no-undef
-            return fetch("/api/login", {
-              method: "POST",
-              // eslint-disable-next-line no-undef
-              headers: new Headers({ "Content-Type": "application/json" }),
-              credentials: "same-origin",
-              body: JSON.stringify({ token })
-            }
-           )
-           return user  
-          })
-          const currentUser = JSON.parse(JSON.stringify(user))
-          const userRole = this.getQuery("user", ["uid","==",currentUser.uid], 1).then(thisUser => {
-            const myUser = currentUser
-            myUser.role = thisUser.data.role
-            return myUser
-          })
-          resolve(userRole)
-        } else {
-          // eslint-disable-next-line no-undef
-          fetch("/api/logout", {
-            method: "POST",
-            credentials: "same-origin"
-          });
-          reject(null);
-        }
-      });
-    });
-    return Promise.all([user]);
+  serverLogin(user) {
+    return user.getIdToken()
+    .then((token) => {
+      // eslint-disable-next-line no-undef
+      return fetch('/api/login', {
+        method: 'POST',
+        // eslint-disable-next-line no-undef
+        headers: new Headers({ 'Content-Type': 'application/json' }),
+        credentials: 'same-origin',
+        body: JSON.stringify({ token })
+      })
+    })   
+  }
+
+  serverLogout() {
+    // eslint-disable-next-line no-undef
+    fetch('/api/logout', {
+      method: 'POST',
+      credentials: 'same-origin'
+    })
+  }
+
+  getUserRole(user) {
+    return this.getQuery("user", ["uid", "==", user], 1).then(a => a = a.data.role)
   }
 
   //Use to check if user exists
@@ -110,6 +100,16 @@ class Database {
     return db.collection(collection).doc(docRef).set(JSON.parse(JSON.stringify(data)))
   }
 
+  setDate(form) {
+    const formSubmission = form.formData
+    if (formSubmission.datePublished == undefined && formSubmission.status == "published") {
+      formSubmission.datePublished = new Date().toString()
+      
+    }
+    console.log(formSubmission)
+    return formSubmission
+  }
+
   addDoc(collection, data) {
     this.init()
     const db = firebase.firestore();
@@ -119,6 +119,7 @@ class Database {
   }
 
   saveDoc(collection, data, docRef) {
+    console.log(data)
     if(docRef == null) {
       return this.addDoc(collection, data)
     } else {

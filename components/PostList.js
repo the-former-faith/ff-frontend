@@ -8,9 +8,14 @@ export default class PostList extends Component {
         <Link as={`/post/${post.data.url}`}href={`/post?title=${post.data.url}`}>
           <a>{post.data.title}</a>
         </Link>
-        <Link as={`/edit/${post.data.url}`}href={`/edit?title=${post.data.url}`}>
-          <a>Edit</a>
-        </Link>
+
+        {this.props.role == "admin" &&
+          <Link as={`/edit/${post.data.url}`}href={`/edit?title=${post.data.url}`}>
+            <a>Edit</a>
+          </Link>
+        }
+        
+
       </li>
     });
     return <ul>

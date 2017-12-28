@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import firebase from 'firebase'
 import { database } from '../functions/database'
-import LoginButton from '../components/LoginButton'
 import ContentForm from '../components/ContentForm'
 import 'isomorphic-unfetch'
 
@@ -87,7 +86,6 @@ export default class Index extends Component {
 
     return <div>
       <p>{this.state.save}</p>
-      <LoginButton user={user} />
       {page}
       {this.state.formData.datePublished}
     </div>

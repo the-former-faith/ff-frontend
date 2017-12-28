@@ -15,7 +15,7 @@ export default class LoginButton extends Component {
       {
         this.props.user
         ? <button onClick={this.handleLogout}>Logout</button>
-        : <button onClick={this.handleLogin}>Login</button>
+        : <button onClick={this.handleLogin}>Admin Login</button>
       }
     </div>
   }

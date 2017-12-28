@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import firebase from 'firebase'
 import { database } from '../functions/database'
 import PostList from '../components/PostList'
-import LoginButton from '../components/LoginButton'
+import PageLayout from '../components/PageLayout'
 
 export default class Index extends Component {
   static async getInitialProps ({req, query}) {
@@ -35,10 +35,8 @@ export default class Index extends Component {
   }
 
   render () {
-    const { user } = this.state
-    return <div>
-      <LoginButton user={user} />
-      <PostList posts={this.props.posts} role={this.state.role} />
-    </div>
+    return <PageLayout user={this.state.user} >
+        <PostList posts={this.props.posts} role={this.state.role} />
+    </PageLayout>
   }
 }

@@ -4,15 +4,18 @@
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js"
+    "start": "NODE_ENV=production node server.js",
+    "Modernizr": "./node_modules/.bin/modernizr -uc ./modernizr.json -d ./functions/modernizr.min.js"
   },
   "dependencies": {
     "body-parser": "^1.17.1",
+    "draft-js": "^0.10.4",
     "express": "^4.14.0",
     "express-session": "^1.15.2",
     "firebase": "4.8.0",
     "firebase-admin": "^4.2.0",
     "isomorphic-unfetch": "2.0.0",
+    "modernizr": "^3.5.0",
     "next": "latest",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",

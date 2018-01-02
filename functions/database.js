@@ -100,16 +100,6 @@ class Database {
     return db.collection(collection).doc(docRef).set(JSON.parse(JSON.stringify(data)))
   }
 
-  setDate(form) {
-    const formSubmission = form.formData
-    if (formSubmission.datePublished == undefined && formSubmission.status == "published") {
-      formSubmission.datePublished = new Date().toString()
-      
-    }
-    console.log(formSubmission)
-    return formSubmission
-  }
-
   addDoc(collection, data) {
     this.init()
     const db = firebase.firestore();
@@ -119,7 +109,6 @@ class Database {
   }
 
   saveDoc(collection, data, docRef) {
-    console.log(data)
     if(docRef == null) {
       return this.addDoc(collection, data)
     } else {

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import firebase from 'firebase'
 import { database } from '../functions/database'
 import ContentForm from '../components/ContentForm'
+import PageLayout from '../components/PageLayout'
 import 'isomorphic-unfetch'
 
 export default class Index extends Component {
@@ -53,10 +54,9 @@ export default class Index extends Component {
   onSubmit = (form) => { 
     this.setState({save: "saving"})
     
-    if (form.formData.datePublished == undefined && form.formData.status == "published") {
-      form.formData.body = "babalu"
-      console.log(form.formData)
-      this.setState({formData: form.formData})
+    if (form.formData.datePublished == undefined && form.formData.published == true) {
+      let newForm = Object.assign({},form.formData,{datePublished: new Date().toString()})
+      this.setState({formData: newForm})
     }
     database.saveDoc(
       this.props.schema.schema.title, form.formData, this.state.docRef
@@ -84,10 +84,11 @@ export default class Index extends Component {
       page = <p>You must log in and be an admin to see this page.</p>;
     }
 
-    return <div>
-      <p>{this.state.save}</p>
-      {page}
-      {this.state.formData.datePublished}
-    </div>
+    return <PageLayout user={this.state.user} >
+      <div>
+        {page}
+        <p>{this.state.save}</p>
+      </div>
+    </PageLayout>
   }
 }

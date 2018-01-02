@@ -7,8 +7,9 @@ import PageLayout from '../components/PageLayout'
 export default class Index extends Component {
   static async getInitialProps ({req, query}) {
     const user = req && req.session ? req.session.decodedToken : null
-    const role = req && req.session ? await database.getUserRole(user.user_id) : null
-    const posts = await database.getCollection("post")
+    const role = user ? await database.getUserRole(user.user_id) : null
+    const posts = role == "admin"  ? await database.getCollection("post") :
+        await database.getQuery("post", ["published", "==", true], 25)
     return { user, posts, role }
   }
 

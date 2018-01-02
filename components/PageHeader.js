@@ -7,10 +7,11 @@ const PageHeader = () => (
       {`
         header {
           display: flex;
-          justify-content: flex-start;
+          justify-content: center;
+          padding: 1em;
         }
         header > :global(svg) {
-          max-width: 100px;
+          max-width: 200px;
         }
       `}
     </style>

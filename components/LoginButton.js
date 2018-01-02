@@ -12,6 +12,15 @@ export default class LoginButton extends Component {
 
   render () {
      return <div>
+      <style jsx>
+        {`
+          button {
+            background-color: transparent;
+            border: none;
+            padding: 0;
+          }
+        `}
+      </style>
       {
         this.props.user
         ? <button onClick={this.handleLogout}>Logout</button>

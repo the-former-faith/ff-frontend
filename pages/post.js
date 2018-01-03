@@ -15,7 +15,7 @@ export default class Post extends Component {
 
     //these could be grouped together and used on other pages
     const user = req && req.session ? req.session.decodedToken : null
-    const role = req && req.session ? await database.getUserRole(user.user_id) : null
+    const role = req && req.session && user !== null ? await database.getUserRole(user.user_id) : null
     
     return { page, user, role }
   }
@@ -27,7 +27,6 @@ export default class Post extends Component {
       page: this.props.page,
       role: this.props.role
     }
-    console.log(this.state.page)
   }
 
   componentDidMount () {

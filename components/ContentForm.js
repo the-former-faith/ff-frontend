@@ -1,75 +1,181 @@
 import React, { Component } from 'react'
 import Form from "react-jsonschema-form"
-import {Editor, EditorState, convertToRaw} from 'draft-js'
+import {Editor, EditorState, convertToRaw, RichUtils} from 'draft-js'
 import { content } from '../functions/content'
-import { database } from '../functions/database'
-import firebase from 'firebase'
+import ContentFormImgUpload from '../components/ContentFormImgUpload'
 
-const BodyWidget = (props) => {
-  return (
-    <Editor 
-      editorState={props.value ? content.loadDraft(props.value) : EditorState.createEmpty()}
-      onChange={(event) => props.onChange(content.saveDraft(event))}
-    />
-  );
-};
+class BodyWidget extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {editorState: props.value ? content.loadDraft(props.value) : EditorState.createEmpty()};
+    this.focus = () => this.refs.editor.focus();
+    this.onChange = (editorState) => {
+      this.setState({editorState})
+      props.onChange(content.saveDraft(editorState))
+    };
+    this.handleKeyCommand = this._handleKeyCommand.bind(this);
+    this.toggleBlockType = this._toggleBlockType.bind(this);
+    this.toggleInlineStyle = this._toggleInlineStyle.bind(this);
+  }
 
-export class Upload extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      value: 0,
-      max: 0,
-      url: props.value ? props.value : ''
+  _handleKeyCommand(command, editorState) {
+    const newState = RichUtils.handleKeyCommand(editorState, command);
+    if (newState) {
+      this.onChange(newState);
+      return true;
     }
-    this.onChange = this.onChange.bind(this)
+    return false;
   }
-  componentDidMount() {
-    database.init()
+
+  _toggleBlockType(blockType) {
+    this.onChange(
+      RichUtils.toggleBlockType(
+        this.state.editorState,
+        blockType
+      )
+    );
   }
-  onFormChange(name) {
-    this.props.onChange(name);
+
+  _toggleInlineStyle(inlineStyle) {
+    this.onChange(
+      RichUtils.toggleInlineStyle(
+        this.state.editorState,
+        inlineStyle
+      )
+    );
   }
-  onChange = (e) => {
-    e.preventDefault();
-    let file = e.target.files[0];
-    const storageRef = firebase.storage().ref('photos/' + file.name)
-    const task = storageRef.put(file)
-    task.on('state_changed',
-      function progress(snapshot) {
-        this.setState({
-          value: snapshot.bytesTransferred,
-          max: snapshot.totalBytes
-        })
-      }.bind(this),
-      function error(err) {
-        console.log(err)
-      },
-      function complete() {
-        storageRef.getDownloadURL().then(imageUrl => {
-          this.setState({
-            url: imageUrl
-          })
-          this.props.onChange(imageUrl)
-        })
-      }.bind(this)
-    )
-  }
-  render () {
-    return <div>
-      {this.state.url !== '' &&
-        <img src={this.state.url} />
+
+  render() {
+    const {editorState} = this.state;
+
+    // If the user changes block type before entering any text, we can
+    // either style the placeholder or hide it. Let's just hide it now.
+    let className = 'RichEditor-editor';
+    var contentState = editorState.getCurrentContent();
+    if (!contentState.hasText()) {
+      if (contentState.getBlockMap().first().getType() !== 'unstyled') {
+        className += ' RichEditor-hidePlaceholder';
       }
-      <progress value={this.state.value} max={this.state.max} ></progress>
-      <input type="file" onChange={e => this.onChange(e)} />
-      <input type="url" value={this.state.url}  onChange={(event) => this.props.onChange(event.target.value)} />
-    </div>
+    }
+
+    return (
+      <div className="RichEditor-root">
+        <BlockStyleControls
+          editorState={editorState}
+          onToggle={this.toggleBlockType}
+        />
+        <InlineStyleControls
+          editorState={editorState}
+          onToggle={this.toggleInlineStyle}
+        />
+        <div className={className} onClick={this.focus}>
+          <Editor
+            editorKey={this.props.id}
+            blockStyleFn={getBlockStyle}
+            editorState={editorState}
+            handleKeyCommand={this.handleKeyCommand}
+            onChange={this.onChange}
+            onTab={this.onTab}
+            placeholder="Tell a story..."
+            ref="editor"
+            spellCheck={true}
+          />
+        </div>
+      </div>
+    );
   }
 }
 
+function getBlockStyle(block) {
+  switch (block.getType()) {
+    case 'blockquote': return 'RichEditor-blockquote';
+    default: return null;
+  }
+}
+
+class StyleButton extends React.Component {
+  constructor() {
+    super();
+    this.onToggle = (e) => {
+      e.preventDefault();
+      this.props.onToggle(this.props.style);
+    };
+  }
+
+  render() {
+    let className = 'RichEditor-styleButton';
+    if (this.props.active) {
+      className += ' RichEditor-activeButton';
+    }
+
+    return (
+      <span className={className} onMouseDown={this.onToggle}>
+        {this.props.label}
+      </span>
+    );
+  }
+}
+
+const BLOCK_TYPES = [
+  {label: 'H1', style: 'header-one'},
+  {label: 'H2', style: 'header-two'},
+  {label: 'H3', style: 'header-three'},
+  {label: 'H4', style: 'header-four'},
+  {label: 'H5', style: 'header-five'},
+  {label: 'H6', style: 'header-six'},
+  {label: 'Blockquote', style: 'blockquote'},
+  {label: 'UL', style: 'unordered-list-item'},
+  {label: 'OL', style: 'ordered-list-item'},
+];
+
+const BlockStyleControls = (props) => {
+  const {editorState} = props;
+  const selection = editorState.getSelection();
+  const blockType = editorState
+    .getCurrentContent()
+    .getBlockForKey(selection.getStartKey())
+    .getType();
+
+  return (
+    <div className="RichEditor-controls">
+      {BLOCK_TYPES.map((type) =>
+        <StyleButton
+          key={type.label}
+          active={type.style === blockType}
+          label={type.label}
+          onToggle={props.onToggle}
+          style={type.style}
+        />
+      )}
+    </div>
+  );
+};
+
+var INLINE_STYLES = [
+  {label: 'Bold', style: 'BOLD'},
+  {label: 'Italic', style: 'ITALIC'},
+];
+
+const InlineStyleControls = (props) => {
+  var currentStyle = props.editorState.getCurrentInlineStyle();
+  return (
+    <div className="RichEditor-controls">
+      {INLINE_STYLES.map(type =>
+        <StyleButton
+          key={type.label}
+          active={currentStyle.has(type.style)}
+          label={type.label}
+          onToggle={props.onToggle}
+          style={type.style}
+        />
+      )}
+    </div>
+  );
+};
+
 const widgets = {
   body: BodyWidget,
-  upload: Upload
+  upload: ContentFormImgUpload
 }
 
 export default class ContentForm extends Component {

@@ -84,11 +84,35 @@ export default class Index extends Component {
       page = <p>You must log in and be an admin to see this page.</p>;
     }
 
-    return <PageLayout user={this.state.user} >
-      <div>
-        {page}
-        <p>{this.state.save}</p>
-      </div>
+    return <PageLayout user={this.state.user} className="edit">
+      <style jsx>
+      {`
+        :global(fieldset) {
+          border: none;
+          padding: 0;
+          margin: 0;
+        }
+        :global(legend) {
+          display: none;
+        }
+        :global(label) {
+          margin: 1.2rem 0 .2rem 0;
+          display: block;
+          font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+          font-weight: bold;
+        }
+        :global(input[type=text]), :global(input[type=url]) {
+          width: 100%;
+          font-size: 1.2rem;
+        }
+        :global(textarea) {
+          width: 100%;
+          font-size: 1.2rem;
+        }
+      `}
+      </style>
+      {page}
+      <p>{this.state.save}</p>
     </PageLayout>
   }
 }

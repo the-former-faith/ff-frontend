@@ -3,6 +3,8 @@ import Form from "react-jsonschema-form"
 import {Editor, EditorState, convertToRaw, RichUtils} from 'draft-js'
 import { content } from '../functions/content'
 import ContentFormImgUpload from '../components/ContentFormImgUpload'
+import Button from '../components/Button'
+import HeaderSticky from  '../components/HeaderSticky'
 
 class BodyWidget extends React.Component {
   constructor(props) {
@@ -60,14 +62,16 @@ class BodyWidget extends React.Component {
 
     return (
       <div className="RichEditor-root">
-        <BlockStyleControls
-          editorState={editorState}
-          onToggle={this.toggleBlockType}
-        />
-        <InlineStyleControls
-          editorState={editorState}
-          onToggle={this.toggleInlineStyle}
-        />
+        <HeaderSticky>
+          <BlockStyleControls
+            editorState={editorState}
+            onToggle={this.toggleBlockType}
+          />
+          <InlineStyleControls
+            editorState={editorState}
+            onToggle={this.toggleInlineStyle}
+          />
+        </HeaderSticky>
         <div className={className} onClick={this.focus}>
           <Editor
             editorKey={this.props.id}
@@ -103,21 +107,20 @@ class StyleButton extends React.Component {
   }
 
   render() {
-    let className = 'RichEditor-styleButton';
+    let className = '';
     if (this.props.active) {
-      className += ' RichEditor-activeButton';
+      className += 'active';
     }
 
     return (
-      <span className={className} onMouseDown={this.onToggle}>
+      <Button className={className} onMouseDown={this.onToggle}>
         {this.props.label}
-      </span>
+      </Button>
     );
   }
 }
 
 const BLOCK_TYPES = [
-  {label: 'H1', style: 'header-one'},
   {label: 'H2', style: 'header-two'},
   {label: 'H3', style: 'header-three'},
   {label: 'H4', style: 'header-four'},
@@ -187,6 +190,8 @@ export default class ContentForm extends Component {
       onChange={this.props.onChange} 
       formData={this.props.formData}
       widgets={widgets}
-    />
+    >
+      <Button type="submit">Save</Button>
+    </Form>
   }
 }

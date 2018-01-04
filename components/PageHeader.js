@@ -1,8 +1,13 @@
 import Logo from './Logo'
+import Link from 'next/link'
 
 const PageHeader = () => (
   <header>
-    <Logo />
+    <Link href={`/`}>
+      <a>
+        <Logo />
+      </a>
+    </Link>
     <style jsx>
       {`
         header {

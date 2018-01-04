@@ -1,8 +1,8 @@
 import PageHeader from '../components/PageHeader'
 import PageFooter from '../components/PageFooter'
 
-const PageLayout = ({user, children}) => (
-  <div className="root">
+const PageLayout = ({user, children, className}) => (
+  <div className={"root " + className}>
     <style jsx>
       {`
         .root {

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Form from "react-jsonschema-form"
 import {Editor, EditorState, convertToRaw, RichUtils} from 'draft-js'
 import { content } from '../functions/content'
-import ContentFormImgUpload from '../components/ContentFormImgUpload'
+import { ImgUpload, PredictiveSearch } from '../components/FormComponents'
 import Button from '../components/Button'
 import HeaderSticky from  '../components/HeaderSticky'
 
@@ -178,7 +178,11 @@ const InlineStyleControls = (props) => {
 
 const widgets = {
   body: BodyWidget,
-  upload: ContentFormImgUpload
+  upload: ImgUpload
+}
+
+const fields = {
+  predictiveSearch: PredictiveSearch
 }
 
 export default class ContentForm extends Component {
@@ -190,6 +194,7 @@ export default class ContentForm extends Component {
       onChange={this.props.onChange} 
       formData={this.props.formData}
       widgets={widgets}
+      fields={fields}
     >
       <Button type="submit">Save</Button>
     </Form>

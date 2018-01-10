@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { database } from '../functions/database'
 import firebase from 'firebase'
+import Autocomplete from 'react-autocomplete'
 
-export default class ContentFormImgUpload extends Component {
+export class ImgUpload extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -86,5 +87,62 @@ export default class ContentFormImgUpload extends Component {
         <progress value={this.state.value} max={this.state.max} ></progress>
       }
     </div>
+  }
+}
+
+export class PredictiveSearch extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: props.formData.name ? props.formData.name : '',
+      id: props.formData.id ? props.formData.id : ''
+    };
+  }
+
+  onNameChange(name) {
+    return (event) => {
+      this.setState({
+        name: event.target.value,
+        id: event.target.dataset.id
+      }, () => {
+        //this.props.formData.id = "chicken"
+        //console.log(this.props.formData.id)
+        this.props.onChange(this.state)});
+    };
+  }
+  onIdChange(name) {
+    return (event) => {
+      this.setState({
+        id: event.target.value
+      }, () => {
+        this.props.onChange(this.state)});
+    };
+  }
+
+  render() {
+    console.log(this.props)
+    const {name, id} = this.state;
+    return (
+      <div>
+        <input type="text"  onChange={this.onNameChange("name")} data-id="fred"/>
+        <input type="text" value={this.state.id} onChange={this.onIdChange("id")} />
+        <Autocomplete
+  getItemValue={(item) => item.label}
+  items={[
+    { label: 'apple' },
+    { label: 'banana' },
+    { label: 'pear' }
+  ]}
+  renderItem={(item, isHighlighted) =>
+    <div style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
+      {item.label}
+    </div>
+  }
+  value={value}
+  onChange={(e) => value = e.target.value}
+  onSelect={(val) => value = val}
+/>
+      </div>
+    );
   }
 }

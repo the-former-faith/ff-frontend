@@ -13,7 +13,7 @@ export default class Index extends Component {
     const page = query.title ? await database.getQuery("post", ["url", "==", query.title], 1) : null
     const formData = query.title ? page.data : {}
     const docRef = query.title ? page.id : null
-    const schema = await database.getDoc("schema","jPn07suotpNjwThzggHI")
+    const schema = await database.getDoc("schema","lrp2IEuN2K6EkQQq6MnK")
     
     //these could be grouped together and used on other pages
     const user = req && req.session ? req.session.decodedToken : null

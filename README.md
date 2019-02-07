@@ -1,42 +1,45 @@
-Sanity + Next.js frontend example
-===
+[![Deploy to now](https://deploy.now.sh/static/button.svg)](https://deploy.now.sh/?repo=https://github.com/zeit/next.js/tree/master/examples/with-firebase-authentication)
 
-DEMO 👉 https://sanity-example-frontend.now.sh
+# With Firebase Authentication example
 
-This is an example [Sanity](https://www.sanity.io/) powered frontend for the movie dataset using [Next.js](https://github.com/zeit/next.js/).
+## How to use
 
-## Prerequisites
-You will need [Node.js](https://nodejs.org) version 6.0 or greater installed on your system.
+### Using `create-next-app`
 
-## Setup
-
-Get the code by either cloning this repository using git
-
-    > git clone https://github.com/sanity-io/example-frontend-next-js.git
-
-... or [downloading source code](https://github.com/sanity-io/example-frontend-next-js/archive/master.zip) code as a zip archive.
-
-Once downloaded, open the terminal in the project directory, and install dependencies with:
-
-    > npm install
-
-If you're running your own Sanity project with the example movie dataset, go to `lib/sanity.js` and change the following lines:
+Download [`create-next-app`](https://github.com/segmentio/create-next-app) to bootstrap the example:
 
 ```
-  projectId: 'YOUR_PROJECT_ID',
-  dataset: 'NAME_OF_YOUR_DATASET',
+npm i -g create-next-app
+create-next-app --example with-firebase-authentication with-firebase-authentication-app
 ```
 
-You can locate the ID of your project in the header of the [management page for your project](https://manage.sanity.io/).
+### Download manually
 
-You also need to enable `localhost:3000` in your CORS Origins settings! Either through the [management page](https://manage.sanity.io/) under `settings` or by running the below in the project folder you set up with `sanity init`:
+Download the example [or clone the repo](https://github.com/zeit/next.js):
 
-  > sanity cors add http://localhost:3000
+```bash
+curl https://codeload.github.com/zeit/next.js/tar.gz/canary | tar -xz --strip=2 next.js-canary/examples/with-firebase-authentication
+cd with-firebase
+```
 
+Set up firebase:
+- create a project
+- get your service account credentials and client credentials and set both in firebaseCredentials.js
+- set your firebase database url in server.js
+- on the firebase Authentication console, select Google as your provider
 
+Install it and run:
 
-Then start the example app with:
+```bash
+npm install
+npm run dev
+```
 
-    > npm run dev
+Deploy it to the cloud with [now](https://zeit.co/now) ([download](https://zeit.co/download))
 
-The app should now be up and running at http://localhost:3000 🚀
+```bash
+now
+```
+
+## The idea behind the example
+The goal is to authenticate users with firebase and store their auth token in sessions. A logged in user will see their messages on page load and then be able to post new messages. 

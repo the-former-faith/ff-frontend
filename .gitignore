@@ -1,7 +1,2 @@
-node_modules/
-
-.next/
-
-credentials/
-
-.vscode
+node_modules
+.next

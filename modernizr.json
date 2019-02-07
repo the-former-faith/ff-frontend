@@ -1,0 +1,7 @@
+{
+  "feature-detects": [
+    "css/flexbox",
+    "css/flexboxlegacy",
+    "svg/inline"
+  ]
+}

@@ -1,20 +1,19 @@
 import Head from 'next/head'
-import Link from 'next/link'
+import SiteHeader from './SiteHeader'
+import "./styles/styles.scss"
 
 export default props => (
-  <div>
+  <React.Fragment>
     <Head>
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <title>The Former Faith</title>
     </Head>
-    <nav>
-      <Link href="/posts"><a>Posts</a></Link>
-    </nav>
+    <SiteHeader />
     <main>
       {props.children}
     </main>
-    <footer>
+    <footer className="site-footer">
     </footer>
-  </div>
+  </React.Fragment>
 )

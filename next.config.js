@@ -1,7 +1,7 @@
 const withSass = require('@zeit/next-sass')
 module.exports = withSass({
   webpack (config) {
-    const { module = {} } = config
+    const { module = {target: 'serverless'} } = config
     return {
       ...config,
       module: {

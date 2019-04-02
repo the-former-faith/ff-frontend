@@ -2,15 +2,16 @@ import React from 'react'
 import Link from 'next/link'
 import BlockContent from '@sanity/block-content-to-react'
 import Layout from '../components/Layout'
-import sanity from '../lib/sanity'
-import sanityClient from '../lib/sanity'
+import sanity from '../config/sanity'
+import sanityClient from '../config/sanity'
+import localize from '../utils/localize'
 
 import Image from '../components/Image'
 
-const query = `*[_type == "post" && _id == $id] {
+//const query = `*[_type == "post" && slug[$lang].current == $slug] {
+const query = `*[_type == "post" && _id == "3556c959-a866-475d-9946-b4ebd761b728"] {
   _id,
   title,
-  "imageUrl": mainImage.asset->url,
   "body": body[]->{
     _id,
     heading,
@@ -22,20 +23,32 @@ const query = `*[_type == "post" && _id == $id] {
 export default class Post extends React.Component {
 
   static async getInitialProps(req) {
+    console.log('request:', req)
     return {
-      post: await sanity.fetch(query, {id: req.query.id})
+      //unfilteredPost: await sanity.fetch(query, {lang: req.query.lang, slug: req.query.slug})
+      unfilteredPost: await sanity.fetch(query)
     }
   }
 
   render() {
-    const {post} = this.props
+    const {unfilteredPost} = this.props
+    const post = localize(unfilteredPost, ['sw', 'en'])
     console.log(post)
     return (
       <Layout>
         <article>
-          <h1>{post.title}</h1>
+          
+          
+        </article>
+      </Layout>
+    )
+  }
+}
+
+/*
+<h1>{post.title}</h1>
           {post.imageUrl && <Image imgUrl={post.imageUrl} />}
-          {post.body.map(section => {
+{post.body.map(section => {
               return (
                 <section key={section._key}>
                   <h2>{section.heading}</h2>
@@ -43,9 +56,4 @@ export default class Post extends React.Component {
                 </section>
               )
             })
-          }
-        </article>
-      </Layout>
-    )
-  }
-}
+          }*/

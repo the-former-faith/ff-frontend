@@ -14,15 +14,13 @@ const query = `*[_type == "post"] {
 
 export default class posts extends React.Component {
   static async getInitialProps(req) {
-    console.log('request:', req)
     return {
-      posts: await sanity.fetch(query),
-      lang: 'sw'
+      posts: await sanity.fetch(query)
     }
   }
 
   render() {
-    const {posts, lang} = this.props
+    const {posts, lang, langCookie} = this.props
     const filteredPosts = localize(posts, [lang, 'en'])
     return (
       <Layout>
@@ -41,5 +39,3 @@ export default class posts extends React.Component {
     )
   }
 }
-
-/**/

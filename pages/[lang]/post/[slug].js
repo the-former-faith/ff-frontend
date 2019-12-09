@@ -13,6 +13,14 @@ const serializers = (parent) => ({
     abbrTag: props => (
       <abbr title={props.mark.title}>{props.children}</abbr>
     ),
+    footnote: ({mark, children}) => {
+      console.log(mark)
+      return (
+        <span>
+          {children}
+        </span>
+      )
+    },
     internalLink: ({mark, children}) => {
       const href = `/${mark.lang}/post/${mark.slug}`
       return (

@@ -16,7 +16,7 @@ function Post(props) {
         {post.imageUrl && <Image imgUrl={post.imageUrl} />}
         {post.sections.map(section => {
           return (
-            <section key={section._key}>
+            <section key={section._id}>
               <h2>{section.heading}</h2>
               <BlockContent blocks={section.content} serializers={Serializers(props)} />
             </section>

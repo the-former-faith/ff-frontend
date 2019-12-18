@@ -56,3 +56,54 @@ h1 {
 section {
 	grid-column: content;
 }
+
+/*Toggletip*/
+.tooltip-container {
+  position: relative;
+}
+
+.tooltip-container button {
+  width: 2rem;
+}
+
+.toggletip-bubble {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 12px);
+  transform: translateX(-50%);
+  background-color: green;
+  padding: 1rem;
+}
+
+.toggletip-bubble::before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 9px 12px 9px;
+  border-color: transparent transparent green transparent;
+  position: absolute;
+  top: -12px;
+}
+
+.toggletip-bubble.toggle-right {
+  left: 0%;
+  transform: translateX(0%);
+}
+
+.toggletip-bubble.toggle-left {
+  left: 100%;
+  transform: translateX(-100%);
+}
+
+.toggle-right.toggletip-bubble::before {
+  left: 6px;
+}
+
+.toggle-left.toggletip-bubble::before {
+  right: calc(1rem - 9px);
+}
+
+.toggle-center.toggletip-bubble::before {
+  left: calc(50% - (1rem - 6px));
+}

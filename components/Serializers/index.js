@@ -1,6 +1,6 @@
 import BlockContent from '@sanity/block-content-to-react'
 import Link from 'next/link'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 const Serializers = (pageData) => ({
   marks: {
@@ -8,16 +8,58 @@ const Serializers = (pageData) => ({
       <abbr title={props.mark.title}>{props.children}</abbr>
     ),
     footnote: ({mark, children}) => {
-      //console.log(mark)
+      //Move this hasJavascript state to parent, and pass it down to here as a prop
+      const toggleWidth = 300;
+      const [hasJavascript, setHasJavascript] = useState(false)
+      const [isToggled, setIsToggled] = useState(false)
+      const [bubblePosition, setBubblePosition] = useState("toggle-center")
+      const footnoteButton = useRef(null);
       useEffect(() => {
-        function handleStatusChange() {
-          setHasJavascript(true);
-        }
+          setHasJavascript(true)
       })
-      console.log()
+      const handleToggle = () => {
+        isToggled ? setIsToggled(false) : setIsToggled(true)
+      }
+      const handleHover = () => {
+        //console.log("Hovering")
+        const rect = footnoteButton.current.getBoundingClientRect();
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        const positionRight = windowWidth - rect.right
+        const positionLeft = rect.left
+        const allignHorizontal = (left, right, width) => {
+          if (left >= (width / 2)  && right >= (width / 2)) {
+            return "toggle-center"
+          } else if (left >= (width / 2)) {
+            return "toggle-left"
+          } else {
+            return "toggle-right"
+          }
+        }
+        setBubblePosition(allignHorizontal(positionLeft, positionRight, toggleWidth))
+      }
       return (
         <>
           {children}
+          {hasJavascript
+            ? <span className="tooltip-container">
+                <button 
+                  type="button" 
+                  aria-label="footnote" 
+                  onClick={handleToggle}
+                  onMouseOver={handleHover}
+                  ref={footnoteButton}
+                >
+                  &#8230;
+                </button>
+                <span role="status">
+                  {isToggled &&
+                    <span className={`toggletip-bubble ${bubblePosition}`} style={{width: `${toggleWidth}px`}}>This clarifies whatever needs clarifying</span>
+                  }
+                </span>
+              </span>
+            : <span>No JavaScript.</span>
+          }
         </>
       )
     },

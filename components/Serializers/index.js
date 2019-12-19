@@ -14,17 +14,25 @@ const Serializers = (pageData) => ({
       const [isToggled, setIsToggled] = useState(false)
       const [bubblePosition, setBubblePosition] = useState("toggle-center")
       const footnoteButton = useRef(null);
+
+      const addFootnote = (footnotes, current) => {
+        const x = footnotes.find(a => a._key === current._key)
+        if(typeof x == 'undefined') {
+          pageData.setFootnotes(oldArray => [...oldArray, current])
+        }
+      }
+      addFootnote(pageData.footnotes, mark)
+      //console.log(mark)
       useEffect(() => {
           setHasJavascript(true)
-      })
+      }, [hasJavascript])
       const handleToggle = () => {
         isToggled ? setIsToggled(false) : setIsToggled(true)
       }
       const handleHover = () => {
-        //console.log("Hovering")
-        const rect = footnoteButton.current.getBoundingClientRect();
-        const windowWidth = window.innerWidth;
-        const windowHeight = window.innerHeight;
+        const rect = footnoteButton.current.getBoundingClientRect()
+        const windowWidth = window.innerWidth
+        const windowHeight = window.innerHeight
         const positionRight = windowWidth - rect.right
         const positionLeft = rect.left
         const allignHorizontal = (left, right, width) => {
@@ -54,7 +62,12 @@ const Serializers = (pageData) => ({
                 </button>
                 <span role="status">
                   {isToggled &&
-                    <span className={`toggletip-bubble ${bubblePosition}`} style={{width: `${toggleWidth}px`}}>This clarifies whatever needs clarifying</span>
+                    <span 
+                      className={`toggletip-bubble ${bubblePosition}`}
+                      style={{width: `${toggleWidth}px`}}
+                    >
+                      <BlockContent blocks={mark.lang} />
+                    </span>
                   }
                 </span>
               </span>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import BlockContent from '@sanity/block-content-to-react'
 import Layout from '../../../components/Layout'
 import sanity from '../../../config/sanity'
@@ -7,6 +7,8 @@ import Serializers from '../../../components/Serializers'
 import localize from '../../../utils/localize'
 
 function Post(props) {
+  const [footnotes, setFootnotes] = useState([])
+  console.log(footnotes)
   const {unfilteredPost} = props
   const post = localize(unfilteredPost, [props.lang, 'en'])
   return (
@@ -18,7 +20,10 @@ function Post(props) {
           return (
             <section key={section._id}>
               <h2>{section.heading}</h2>
-              <BlockContent blocks={section.content} serializers={Serializers(props)} />
+              <BlockContent 
+                blocks={section.content} 
+                serializers={Serializers({footnotes, setFootnotes, ...props})}
+              />
             </section>
           )
         })} 

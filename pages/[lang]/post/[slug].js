@@ -8,7 +8,6 @@ import localize from '../../../utils/localize'
 
 function Post(props) {
   const [footnotes, setFootnotes] = useState([])
-  console.log(footnotes)
   const {unfilteredPost} = props
   const post = localize(unfilteredPost, [props.lang, 'en'])
   return (

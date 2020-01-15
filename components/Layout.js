@@ -1,19 +1,33 @@
+import React, { useState } from 'react'
 import Head from 'next/head'
 import SiteHeader from './SiteHeader'
-import "./styles/styles.scss"
+import Modal from './Modal'
+import './styles/styles.scss'
+import ModalContext from '../context/ModalContext'
 
-export default props => (
-  <React.Fragment>
-    <Head>
-      <meta charSet="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <title>The Former Faith</title>
-    </Head>
-    <SiteHeader />
-    <main>
-      {props.children}
-    </main>
-    <footer className="site-footer">
-    </footer>
-  </React.Fragment>
-)
+export default (props) => {
+  const [modalStatus, setModalStatus] = useState({
+    'isToggled': false,
+    'title': null,
+    'content': null
+  })
+
+  return (
+    <ModalContext.Provider value={[modalStatus, setModalStatus]}>
+      <Head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>The Former Faith</title>
+      </Head>
+      <SiteHeader />
+      <main>
+        {props.children}
+      </main>
+      <footer className="site-footer">
+      </footer>
+      {modalStatus.isToggled &&
+        <Modal />
+      }
+    </ModalContext.Provider>
+  )
+}

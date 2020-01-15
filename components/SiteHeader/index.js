@@ -9,6 +9,6 @@ const SiteHeader = () => (
       </a>
     </Link>
   </header>
-);
+)
 
-export default SiteHeader;
+export default SiteHeader

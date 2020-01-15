@@ -57,65 +57,34 @@ section {
 	grid-column: content;
 }
 
-/*Toggletip*/
-.tooltip-container {
-  position: relative;
+/*Modal*/
+.modal-wrapper {
+  position: fixed;
+  display: grid;
+  grid-template-columns: minmax(5vw,1fr) 2fr minmax(5vw,1fr);
+  grid-template-rows: 1fr minmax(auto,90vh) 1fr;
+  height: 100%;
 }
 
-.tooltip-container button {
-  width: 2rem;
+.modal {
+  z-index: 2;
+  background-color: #fff;
+  grid-column: 2/3;
+  grid-row: 2/3;
+  max-height: 80vh;
+  overflow-x: hidden;
 }
 
-.toggletip-bubble {
-  position: absolute;
-  left: 50%;
-  top: calc(100% + 12px);
-  transform: translateX(-50%);
-  background-color: green;
-  padding: 1rem;
-  overflow-y: scroll;
-}
-
-.toggletip-bubble::before {
-  content: '';
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 9px 12px 9px;
-  border-color: transparent transparent green transparent;
-  position: absolute;
-  top: -12px;
-}
-
-.toggletip-bubble.toggle-right {
-  left: 0%;
-  transform: translateX(0%);
-}
-
-.toggletip-bubble.toggle-left {
-  left: 100%;
-  transform: translateX(-100%);
-}
-
-.toggle-right.toggletip-bubble::before {
-  left: 6px;
-}
-
-.toggle-left.toggletip-bubble::before {
-  right: calc(1rem - 9px);
-}
-
-.toggle-center.toggletip-bubble::before {
-  left: calc(50% - (1rem - 6px));
-}
-
-.toggletip-bubble.toggle-top {
-  transform: translateY(calc(-100% + -12px));
+.modal-header {
+  position: sticky;
   top: 0;
+  background-color: #fff;
+  display: flex;
 }
 
-.toggletip-bubble.toggle-top::before {
-  bottom: -12px;
-  top: initial;
-  transform: rotate(180deg);
+.modal-overlay {
+  background-color: rgba(0,0,0, .7);
+  z-index: 1;
+  grid-column: 1/end;
+  grid-row: 1/end;
 }

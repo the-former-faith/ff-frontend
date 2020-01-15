@@ -4,6 +4,9 @@
   "description": "Sanity + Next.js frontend example",
   "private": true,
   "main": "index.js",
+  "engines": {
+    "node": "12.x"
+  },
   "dependencies": {
     "@sanity/block-content-to-react": "^1.3.12",
     "@sanity/client": "^0.132.10",
@@ -17,6 +20,7 @@
     "node-sass": "^4.12.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-focus-lock": "^2.2.1",
     "react-inlinesvg": "^1.1.6",
     "styled-jsx": "^2.2.7"
   },

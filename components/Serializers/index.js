@@ -1,6 +1,7 @@
 import BlockContent from '@sanity/block-content-to-react'
 import Link from 'next/link'
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
+import ModalContext from '../../context/ModalContext'
 
 const Serializers = (pageData) => ({
   marks: {
@@ -9,13 +10,7 @@ const Serializers = (pageData) => ({
     ),
     footnote: ({mark, children}) => {
       //Move this hasJavascript state to parent, and pass it down to here as a prop
-      const toggleWidth = 300;
       const [hasJavascript, setHasJavascript] = useState(false)
-      const [isToggled, setIsToggled] = useState(false)
-      const [bubblePosition, setBubblePosition] = useState({'x': 'toggle-center', 'y': 'toggle-bottom'})
-      const [margin, setMargin] = useState(1000)
-      const footnoteButton = useRef(null);
-
       const addFootnote = (footnotes, current) => {
         const x = footnotes.find(a => a._key === current._key)
         if(typeof x == 'undefined') {
@@ -23,73 +18,33 @@ const Serializers = (pageData) => ({
         }
       }
       addFootnote(pageData.footnotes, mark)
-      //console.log(mark)
-      useEffect(() => {
-          setHasJavascript(true)
-      }, [hasJavascript])
+      useEffect(() => {setHasJavascript(true)}, [hasJavascript])
+
+      const[modalStatus, setModalStatus] = useContext(ModalContext);
+
       const handleToggle = () => {
-        isToggled ? setIsToggled(false) : setIsToggled(true)
-      }
-      const handleHover = () => {
-        const rect = footnoteButton.current.getBoundingClientRect()
-        const windowWidth = window.innerWidth
-        const windowHeight = window.innerHeight
-        const positionRight = windowWidth - rect.right
-        const positionLeft = rect.left
-        const positionTop = rect.top
-        const positionBottom = windowHeight - rect.bottom
-        console.log(positionBottom)
-        const allignVertical = (top, bottom, height) => {
-          if (bottom > top) {
-            setMargin((bottom - 50))
-            return 'toggle-bottom'
-          } else {
-            setMargin((top - 50))
-            return 'toggle-top'
-          }
-        }
-        const allignHorizontal = (left, right, width) => {
-          if (left >= (width / 2)  && right >= (width / 2)) {
-            return 'toggle-center'
-          } else if (left >= (width / 2)) {
-            return 'toggle-left'
-          } else {
-            return 'toggle-right'
-          }
-        }
-        setBubblePosition({
-          'x': allignHorizontal(positionLeft, positionRight, toggleWidth),
-          'y': allignVertical(positionTop, positionBottom, windowHeight)
+        setModalStatus({
+          isToggled: modalStatus.isToggled === true ? false: true
         })
       }
       return (
         <>
           {children}
           {hasJavascript
-            ? <span className="tooltip-container">
-                <button 
+            ? <>
+              <button 
                   type="button" 
                   aria-label="footnote" 
                   onClick={handleToggle}
-                  onMouseOver={handleHover}
-                  ref={footnoteButton}
                 >
                   &#8230;
                 </button>
-                <span role="status">
-                  {isToggled &&
-                    <span 
-                      className={`toggletip-bubble ${bubblePosition.x} ${bubblePosition.y}`}
-                      style={{
-                        width: `${toggleWidth}px`,
-                        maxHeight: `${margin}px`
-                      }}
-                    >
-                      <BlockContent blocks={mark.lang} />
-                    </span>
-                  }
-                </span>
-              </span>
+                {modalStatus.isToggled
+                  ? <span>Open</span>
+                  : <span>Closed</span>
+                }
+                </>
+
             : <span>No JavaScript.</span>
           }
         </>

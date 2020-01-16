@@ -34,19 +34,18 @@ const Serializers = (pageData) => ({
           {children}
           {hasJavascript
             ? <>
-              <button 
-                  type="button" 
-                  aria-label="footnote" 
-                  onClick={handleToggle}
-                >
-                  &#8230;
-                </button>
-                {modalStatus.isToggled
-                  ? <span>Open</span>
-                  : <span>Closed</span>
-                }
+                <button 
+                    type="button" 
+                    aria-label="footnote" 
+                    onClick={handleToggle}
+                  >
+                    &#8230;
+                  </button>
+                  {modalStatus.isToggled
+                    ? <span>Open</span>
+                    : <span>Closed</span>
+                  }
                 </>
-
             : <span>No JavaScript.</span>
           }
         </>

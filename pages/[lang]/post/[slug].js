@@ -5,8 +5,11 @@ import sanity from '../../../config/sanity'
 import sanityClient from '../../../config/sanity'
 import Serializers from '../../../components/Serializers'
 import localize from '../../../utils/localize'
+//import victorian from '../../../themes/themeRegistry'
+import dynamic from 'next/dynamic'
 
 function Post(props) {
+  console.log(dynamic(import(`../../../themes/${props.unfilteredPost.theme}`)))
   const [footnotes, setFootnotes] = useState([])
   const {unfilteredPost} = props
   const post = localize(unfilteredPost, [props.lang, 'en'])
@@ -37,6 +40,7 @@ Post.getInitialProps = async (req) => {
         `*[_type == "post" && slug[$lang].current == $slug] {
           _id,
           title,
+          theme,
           "sections": sections[]->{
             _id,
             heading,

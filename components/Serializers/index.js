@@ -24,8 +24,10 @@ const Serializers = (pageData) => ({
 
       const handleToggle = () => {
         setModalStatus({
-          isToggled: modalStatus.isToggled === true ? false: true
+          isToggled: modalStatus.isToggled === true ? false: true,
+          content: <BlockContent blocks={mark.content} />
         })
+        console.log(mark)
       }
       return (
         <>

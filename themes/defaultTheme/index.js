@@ -1,4 +1,4 @@
-import styles from './styles.scss'
+import styles from './styles.css'
 import serializers from './serializers'
 
 const defaultTheme = {

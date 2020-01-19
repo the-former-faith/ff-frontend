@@ -20,7 +20,7 @@
 	margin: 0;
 }
 
-body {
+#body {
   --color__branding-primary: #000;
 	font-family: 'Jost';
 	font-size: 1em;
@@ -34,7 +34,7 @@ body {
 }
 
 @supports (font-variation-settings: normal) {
-  body {
+  #body {
     font-family: 'JostVariable', sans-serif;
     font-variation-settings: "wght" 400;
   }

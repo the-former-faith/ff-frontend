@@ -1,9 +1,12 @@
-import styles from './styles.scss'
+import styles from './victorian.module.css'
 import serializers from './serializers'
 
-const victorian = {
-	'styles': styles,	
-	'serializers': serializers
+const theme = (props) => {
+	return (<div id="body" className={styles.victorian}>
+		{props.children}
+	</div>)
 }
 
-export default victorian
+export {serializers}
+
+export default theme

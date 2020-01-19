@@ -5,32 +5,42 @@ import sanity from '../../../config/sanity'
 import sanityClient from '../../../config/sanity'
 import Serializers from '../../../components/Serializers'
 import localize from '../../../utils/localize'
-//import victorian from '../../../themes/themeRegistry'
+
+//import styles from `../../../themes/victorian/${props.unfilteredPost.theme}.module.css`
+
 import dynamic from 'next/dynamic'
 
 function Post(props) {
-  console.log(dynamic(import(`../../../themes/${props.unfilteredPost.theme}`)))
+  const Theme = dynamic(import(`../../../themes/victorian/`))
+  const serializers = require('../../../themes/victorian/').serializers
+  //const serializers = dynamic(import('../../../themes/victorian/').then(mod => mod.serializers))
+  console.log(serializers)
   const [footnotes, setFootnotes] = useState([])
   const {unfilteredPost} = props
   const post = localize(unfilteredPost, [props.lang, 'en'])
+
   return (
-    <Layout>
-      <article>
-        <h1>{post.title}</h1>
-        {post.imageUrl && <Image imgUrl={post.imageUrl} />}
-        {post.sections.map(section => {
-          return (
-            <section key={section._id}>
-              <h2>{section.heading}</h2>
-              <BlockContent 
-                blocks={section.content} 
-                serializers={Serializers({footnotes, setFootnotes, ...props})}
-              />
-            </section>
-          )
-        })} 
-      </article>
-    </Layout>
+    <Theme>
+      <Layout>
+        {props.hello}
+        <article>
+
+          <h1>{post.title}</h1>
+          {post.imageUrl && <Image imgUrl={post.imageUrl} />}
+          {post.sections.map(section => {
+            return (
+              <section key={section._id}>
+                <h2>{section.heading}</h2>
+                <BlockContent 
+                  blocks={section.content} 
+                  serializers={Serializers({footnotes, setFootnotes, ...props})}
+                />
+              </section>
+            )
+          })} 
+        </article>
+      </Layout>
+    </Theme>
   )
 }
 

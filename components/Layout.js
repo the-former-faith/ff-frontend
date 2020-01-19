@@ -3,7 +3,6 @@ import Head from 'next/head'
 import SiteHeader from './SiteHeader'
 import Modal from './Modal'
 import ModalContext from '../context/ModalContext'
-import '../themes/defaultTheme/styles.scss'
 
 export default (props) => {
   const [modalStatus, setModalStatus] = useState({
@@ -13,7 +12,7 @@ export default (props) => {
   })
 
   return (
-    <ModalContext.Provider value={[modalStatus, setModalStatus]}>
+    <ModalContext.Provider value={[modalStatus, setModalStatus]}>    
       <Head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

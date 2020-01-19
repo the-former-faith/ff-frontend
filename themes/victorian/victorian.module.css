@@ -1,4 +1,8 @@
-body {
+.victorian {
 	--color__branding-primary: #fff;
 	background-color: green;
+}
+
+.victorian p {
+	color: blue;
 }

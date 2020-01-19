@@ -1,6 +1,7 @@
 import App from 'next/app'
 import React from 'react'
 import setCookieLang from '../utils/setCookieLang'
+import '../themes/defaultTheme/styles.css'
 
 class MyApp extends App {
   static async getInitialProps(appContext) {

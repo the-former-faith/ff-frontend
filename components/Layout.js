@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import Head from 'next/head'
 import SiteHeader from './SiteHeader'
 import Modal from './Modal'
-import './styles/styles.scss'
 import ModalContext from '../context/ModalContext'
+import '../themes/defaultTheme/styles.scss'
 
 export default (props) => {
   const [modalStatus, setModalStatus] = useState({

@@ -16,16 +16,15 @@
   font-weight: 800; 
 }
 
-$color__branding-primary: #000;
-
 * {
 	margin: 0;
 }
 
 body {
+  --color__branding-primary: #000;
 	font-family: 'Jost';
 	font-size: 1em;
-	color: $color__branding-primary;
+	color: var(--color__branding-primary);
 	min-height: 100vh;
 	display: grid;
 	grid-template-rows: 6rem 1fr 2rem;

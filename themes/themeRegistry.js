@@ -1,3 +1,5 @@
 import victorian from './victorian'
+export {victorian}
 
-export default victorian
+import defaultTheme from './defaultTheme'
+export default defaultTheme

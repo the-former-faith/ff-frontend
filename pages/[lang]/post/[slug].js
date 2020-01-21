@@ -1,37 +1,40 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import BlockContent from '@sanity/block-content-to-react'
 import Layout from '../../../components/Layout'
 import ThemeWrapper from '../../../components/ThemeWrapper'
 import sanity from '../../../config/sanity'
-import sanityClient from '../../../config/sanity'
 import localize from '../../../utils/localize'
+import FootnotesContext from '../../../context/FootnotesContext'
 
 function Post(props) {
   const [serializers, setSerializers] = useState({})
+  const [footnotes, setFootnotes] = useState([])
   const theme = props.unfilteredPost.theme
   const {unfilteredPost} = props
   const post = localize(unfilteredPost, [props.lang, 'en'])
 
   return (
-    <ThemeWrapper theme={theme} setSerializers={setSerializers}>
-      <Layout>
-        <article>
-          <h1>{post.title}</h1>
-          {post.imageUrl && <Image imgUrl={post.imageUrl} />}
-          {post.sections.map(section => {
-            return (
-              <section key={section._id}>
-                <h2>{section.heading}</h2>
-                <BlockContent 
-                  blocks={section.content} 
-                  serializers={serializers}
-                />
-              </section>
-            )
-          })} 
-        </article>
-      </Layout>
-    </ThemeWrapper>
+    <FootnotesContext.Provider value={[footnotes, setFootnotes]}>
+      <ThemeWrapper theme={theme} setSerializers={setSerializers}>
+        <Layout>
+          <article>
+            <h1>{post.title}</h1>
+            {post.imageUrl && <Image imgUrl={post.imageUrl} />}
+            {post.sections.map(section => {
+              return (
+                <section key={section._id}>
+                  <h2>{section.heading}</h2>
+                  <BlockContent 
+                    blocks={section.content} 
+                    serializers={serializers}
+                  />
+                </section>
+              )
+            })} 
+          </article>
+        </Layout>
+      </ThemeWrapper>
+    </FootnotesContext.Provider>
   )
 }
 

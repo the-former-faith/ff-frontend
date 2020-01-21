@@ -1,20 +1,22 @@
 import BlockContent from '@sanity/block-content-to-react'
-import React, { useState, useEffect, useRef, useContext } from 'react'
+import React, { useState, useRef, useContext } from 'react'
 import ModalContext from '../../context/ModalContext'
+import JavascriptContext from '../../context/JavascriptContext'
+import FootnotesContext from '../../context/FootnotesContext'
 
 const Footnote = ({mark, children}) => {
-  //Move this hasJavascript state to parent, and pass it down to here as a prop
-  const [hasJavascript, setHasJavascript] = useState(false)
+  const[footnotes, setFootnotes] = useContext(FootnotesContext)
   const addFootnote = (footnotes, current) => {
     const x = footnotes.find(a => a._key === current._key)
     if(typeof x == 'undefined') {
-      //pageData.setFootnotes(oldArray => [...oldArray, current])
+      setFootnotes(oldArray => [...oldArray, current])
     }
   }
-  //addFootnote(pageData.footnotes, mark)
-  useEffect(() => {setHasJavascript(true)}, [hasJavascript])
+  addFootnote(footnotes, mark)
+  console.log(footnotes)
 
-  const[modalStatus, setModalStatus] = useContext(ModalContext);
+  const[modalStatus, setModalStatus] = useContext(ModalContext)
+  const hasJavascript = useContext(JavascriptContext)
 
   const handleToggle = () => {
     setModalStatus({
@@ -34,10 +36,6 @@ const Footnote = ({mark, children}) => {
               >
                 &#8230;
               </button>
-              {modalStatus.isToggled
-                ? <span>Open</span>
-                : <span>Closed</span>
-              }
             </>
         : <span>No JavaScript.</span>
       }

@@ -1,9 +1,11 @@
-import styles from './styles.css'
 import serializers from './serializers'
 
-const defaultTheme = {
-	'styles': styles,	
-	'serializers': serializers
+const theme = (props) => {
+	return (<div id="body">
+		{props.children}
+	</div>)
 }
 
-export default defaultTheme
+export {serializers}
+
+export default theme

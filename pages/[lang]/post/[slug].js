@@ -1,30 +1,21 @@
 import React, { useState } from 'react'
 import BlockContent from '@sanity/block-content-to-react'
 import Layout from '../../../components/Layout'
+import ThemeWrapper from '../../../components/ThemeWrapper'
 import sanity from '../../../config/sanity'
 import sanityClient from '../../../config/sanity'
-import Serializers from '../../../components/Serializers'
 import localize from '../../../utils/localize'
 
-//import styles from `../../../themes/victorian/${props.unfilteredPost.theme}.module.css`
-
-import dynamic from 'next/dynamic'
-
 function Post(props) {
-  const Theme = dynamic(import(`../../../themes/victorian/`))
-  const serializers = require('../../../themes/victorian/').serializers
-  //const serializers = dynamic(import('../../../themes/victorian/').then(mod => mod.serializers))
-  console.log(serializers)
-  const [footnotes, setFootnotes] = useState([])
+  const [serializers, setSerializers] = useState({})
+  const theme = props.unfilteredPost.theme
   const {unfilteredPost} = props
   const post = localize(unfilteredPost, [props.lang, 'en'])
 
   return (
-    <Theme>
+    <ThemeWrapper theme={theme} setSerializers={setSerializers}>
       <Layout>
-        {props.hello}
         <article>
-
           <h1>{post.title}</h1>
           {post.imageUrl && <Image imgUrl={post.imageUrl} />}
           {post.sections.map(section => {
@@ -33,14 +24,14 @@ function Post(props) {
                 <h2>{section.heading}</h2>
                 <BlockContent 
                   blocks={section.content} 
-                  serializers={Serializers({footnotes, setFootnotes, ...props})}
+                  serializers={serializers}
                 />
               </section>
             )
           })} 
         </article>
       </Layout>
-    </Theme>
+    </ThemeWrapper>
   )
 }
 

@@ -13,7 +13,6 @@ const Footnote = ({mark, children}) => {
     }
   }
   addFootnote(footnotes, mark)
-  console.log(footnotes)
 
   const[modalStatus, setModalStatus] = useContext(ModalContext)
   const hasJavascript = useContext(JavascriptContext)

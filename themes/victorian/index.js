@@ -1,4 +1,4 @@
-import styles from './victorian.module.css'
+import styles from './victorian.module.scss'
 import serializers from './serializers'
 
 const theme = (props) => {

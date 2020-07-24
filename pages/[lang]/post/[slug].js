@@ -38,8 +38,10 @@ function Post(props) {
   )
 }
 
-Post.getInitialProps = async (req) => {
+
+export async function getStaticProps({ params, preview = false }) {
   return {
+    props: {
       unfilteredPost: await sanity.fetch(
         `*[_type == "post" && slug[$lang].current == $slug] {
           _id,
@@ -50,7 +52,7 @@ Post.getInitialProps = async (req) => {
             heading,
             "content": content {
               ...,
-              $lang: ${req.query.lang}[]{
+              $lang: ${params.lang}[]{
                 ...,
                 _type == "blockQuoteObject" => {
                   ...,
@@ -70,9 +72,37 @@ Post.getInitialProps = async (req) => {
             }
           }
         }[0]`, 
-        {lang: req.query.lang, slug: req.query.slug}
+        {lang: params.lang, slug: params.slug}
       )
     }
+  }
 }
+
+export async function getStaticPaths() {
+  const allPosts = await sanity.fetch(`*[_type == "post"]{slug[]}`)
+  console.log(allPosts)
+  return { 
+    paths:
+      allPosts?.map((post) => ({
+        params: {
+          slug: post.slug.en.current,
+          lang: 'en'
+        },
+      })) || [],
+    fallback: true,
+  }
+}
+
+/*
+export async function getStaticPaths() {
+  const allPosts = await sanity.fetch(`*[_type == "post"]{slug[]}`)
+  console.log(allPosts[0].slug.en.current)
+  return { 
+    paths: [
+      {params: {lang: 'en', slug: 'faith'}}
+    ],
+    fallback: true,
+  }
+}*/
 
 export default Post

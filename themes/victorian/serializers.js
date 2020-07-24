@@ -1,5 +1,5 @@
 const TestTag = props => (
-  <strong style={{'color': 'red'}}>{props.children}</strong>
+  <strong>{props.children}</strong>
 )
 
 const serializers = {

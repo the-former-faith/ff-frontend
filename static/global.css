@@ -1,0 +1,35 @@
+@font-face {
+	font-family: 'Pathway Extreme';
+	src: url('./fonts/pathway-extreme.ttf') format('truetype');
+	font-weight: 1 9999;
+	unicode-range: U+0020-007e, U+00a0-00be;
+}
+
+:root {
+	--color-action: #870069;
+	--color-foreground: #000;
+	--color-background: #fff;
+}
+
+body {
+	color: var(--color-foreground);
+	background-color: var(--color-background);
+	font-family: 'Pathway Extreme', sans-serif;
+}
+
+@supports (font-variation-settings: normal) {
+	body {
+		font-weight: 30;
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	body {
+		--color-foreground: #efe6c2;
+		--color-background: #0d0018;
+	}
+}
+
+a {
+	color: var(--color-action);
+}

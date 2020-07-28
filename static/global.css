@@ -19,14 +19,27 @@ body {
 
 @supports (font-variation-settings: normal) {
 	body {
-		font-weight: 30;
+		font-size: 18px;
+		font-weight: 50;
+		font-variation-settings: 'wdth' 90, 'opsz' 18;
 	}
+
+	h1, h2, h3, h4, h5, h6, strong {
+		font-weight: 120;
+		font-variation-settings: "wdth" 5;
+		margin: 0;
+	}
+}
+
+h1 {
+	font-size: 3rem;
+	text-transform: uppercase;
 }
 
 @media (prefers-color-scheme: dark) {
 	body {
-		--color-foreground: #efe6c2;
-		--color-background: #0d0018;
+		--color-foreground: #fff6db;
+		--color-background: #131115;
 	}
 }
 

@@ -1,4 +1,4 @@
-<svg viewBox="0 0 2305.66 1570.19" fill="#870069" width="200px">
+<svg viewBox="0 0 2305.66 1570.19" fill="#870069" width="150px">
     <title>The Former Faith logo</title>
     <g>
         <g>

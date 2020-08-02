@@ -38,8 +38,8 @@ h1 {
 
 @media (prefers-color-scheme: dark) {
 	body {
-		--color-foreground: #fff6db;
-		--color-background: #131115;
+		--color-foreground: #ddd8ca;
+		--color-background: #1d1722;
 	}
 }
 

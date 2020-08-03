@@ -7,6 +7,7 @@ import client from '../sanityClient';
 import Link from './Link.svelte';
 import AbbrTag from './AbbrTag.svelte';
 import ImageObject from './ImageObject.svelte';
+import ChartBlock from './ChartBlock.svelte';
 
 const urlFor = source => urlBuilder(client).image(source);
 
@@ -25,7 +26,6 @@ export default {
   },
   types: {
     imageObject: ({ node, children }) => {
-      console.log(node)
       return ({
       component: ImageObject,
       childNodes: children,
@@ -36,6 +36,21 @@ export default {
           .url(),
         alt: node.imageFile.image.altText.en,
       },
-    })}
+    })},
+    chartBlock: ({ node, children }) => {
+      console.log(node)
+      return ({
+        component: ChartBlock,
+        childNodes: children,
+        props: {
+          data: {
+            labels: node.labels,
+            datasets: node.datasets
+          },
+          title: node.title,
+          type: node.type
+        }
+      })
+    }
   }
 };

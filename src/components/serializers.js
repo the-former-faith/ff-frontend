@@ -8,6 +8,7 @@ import Link from './Link.svelte';
 import AbbrTag from './AbbrTag.svelte';
 import ImageObject from './ImageObject.svelte';
 import ChartBlock from './ChartBlock.svelte';
+import BlockQuote from './BlockQuote.svelte';
 
 const urlFor = source => urlBuilder(client).image(source);
 
@@ -38,7 +39,6 @@ export default {
       },
     })},
     chartBlock: ({ node, children }) => {
-      console.log(node)
       return ({
         component: ChartBlock,
         childNodes: children,
@@ -49,6 +49,17 @@ export default {
           },
           title: node.title,
           type: node.type
+        }
+      })
+    },
+    blockQuoteObject: ({ node, children }) => {
+      console.log(node)
+      return ({
+        component: BlockQuote,
+        childNodes: children,
+        props: {
+          author: node.source.author,
+          text: node.text
         }
       })
     }

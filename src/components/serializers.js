@@ -12,6 +12,7 @@ import BlockQuote from './BlockQuote.svelte';
 
 const urlFor = source => urlBuilder(client).image(source);
 
+
 export default {
   marks: {
     link: ({ children, mark }) => ({
@@ -53,12 +54,11 @@ export default {
       })
     },
     blockQuoteObject: ({ node, children }) => {
-      console.log(node)
       return ({
         component: BlockQuote,
         childNodes: children,
         props: {
-          author: node.source.author,
+          source: node.source,
           text: node.text
         }
       })

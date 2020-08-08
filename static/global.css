@@ -5,21 +5,194 @@
 	unicode-range: U+0020-007e, U+00a0-00be;
 }
 
+/*--- Reset ---*/
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default padding */
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Set core root defaults */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* Remove list styles on ul, ol elements with a class attribute */
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Natural flow and rhythm in articles by default */
+article > * + * {
+  margin-top: 1em;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Blur images when they have no alt attribute */
+img:not([alt]) {
+  filter: blur(10px);
+}
+
+/* Remove all animations and transitions for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/*--- End Reset ---*/
+
 :root {
+	/*--- Colors ---*/
 	--color-action: #870069;
 	--color-foreground: #000;
 	--color-background: #fff;
+
+	/*--- Typographic scale ---*/
+	--fluid-min-width: 320;
+	--fluid-max-width: 1140;
+	--fluid-min-size: 18;
+	--fluid-max-size: 24;
+	--fluid-min-ratio: 1.333;
+	--fluid-max-ratio: 1.5;
+  
+	--fluid-screen: 100vw;
+	--fluid-bp: calc(
+	  (var(--fluid-screen) - ((var(--fluid-min-width) / 16) * 1rem)) /
+		((var(--fluid-max-width) / 16) - (var(--fluid-min-width) / 16))
+	);
+}
+  
+@media screen and (min-width: 1140px) {
+	:root {
+	  --fluid-screen: calc(var(--fluid-max-width) * 1px);
+	}
+}
+  
+:root {
+	--fluid-max-negative: (1 / var(--fluid-max-ratio) / var(--fluid-max-ratio));
+	--fluid-min-negative: (1 / var(--fluid-min-ratio) / var(--fluid-min-ratio));
+	
+	--fluid-min-scale--2: var(--fluid-min-scale--1) * var(--fluid-min-ratio) * var(--fluid-min-negative);
+	--fluid-max-scale--2: var(--fluid-max-scale--1) * var(--fluid-max-ratio) * var(--fluid-max-negative);
+	--fluid-min-size--2: (var(--fluid-min-size) * var(--fluid-min-scale--2)) / 16;
+	--fluid-max-size--2: (var(--fluid-max-size) * var(--fluid-max-scale--2)) / 16;
+	--step--2: calc(((var(--fluid-min-size--2) * 1rem) + (var(--fluid-max-size--2) - var(--fluid-min-size--2)) * var(--fluid-bp))); 
+	
+	--fluid-min-scale--1: var(--fluid-min-ratio) * var(--fluid-min-negative);
+	--fluid-max-scale--1: var(--fluid-max-ratio) * var(--fluid-max-negative);
+	--fluid-min-size--1: (var(--fluid-min-size) * var(--fluid-min-scale--1)) / 16;
+	--fluid-max-size--1: (var(--fluid-max-size) * var(--fluid-max-scale--1)) / 16;
+	--step--1: calc(((var(--fluid-min-size--1) * 1rem) + (var(--fluid-max-size--1) - var(--fluid-min-size--1)) * var(--fluid-bp)));
+	
+	--fluid-min-scale-0: var(--fluid-min-ratio);
+	--fluid-max-scale-0: var(--fluid-max-ratio);
+	--fluid-min-size-0: (var(--fluid-min-size)) / 16;
+	--fluid-max-size-0: (var(--fluid-max-size)) / 16;
+	--step-0: calc(((var(--fluid-min-size-0) * 1rem) + (var(--fluid-max-size-0) - var(--fluid-min-size-0)) * var(--fluid-bp)));
+	
+	--fluid-min-scale-1: var(--fluid-min-scale-0) * var(--fluid-min-ratio);
+	--fluid-max-scale-1: var(--fluid-max-scale-0) * var(--fluid-max-ratio);
+	--fluid-min-size-1: (var(--fluid-min-size) * var(--fluid-min-scale-0)) / 16;
+	--fluid-max-size-1: (var(--fluid-max-size) * var(--fluid-max-scale-0)) / 16;
+	--step-1: calc(((var(--fluid-min-size-1) * 1rem) + (var(--fluid-max-size-1) - var(--fluid-min-size-1)) * var(--fluid-bp)));
+  
+	--fluid-min-scale-2: var(--fluid-min-scale-1) * var(--fluid-min-ratio);
+	--fluid-max-scale-2: var(--fluid-max-scale-1) * var(--fluid-max-ratio);
+	--fluid-min-size-2: (var(--fluid-min-size) * var(--fluid-min-scale-1)) / 16;
+	--fluid-max-size-2: (var(--fluid-max-size) * var(--fluid-max-scale-1)) / 16;
+	--step-2: calc(((var(--fluid-min-size-2) * 1rem) + (var(--fluid-max-size-2) - var(--fluid-min-size-2)) * var(--fluid-bp)));
+  
+	--fluid-min-scale-3: var(--fluid-min-scale-2) * var(--fluid-min-ratio);
+	--fluid-max-scale-3: var(--fluid-max-scale-2) * var(--fluid-max-ratio);
+	--fluid-min-size-3: (var(--fluid-min-size) * var(--fluid-min-scale-2)) / 16;
+	--fluid-max-size-3: (var(--fluid-max-size) * var(--fluid-max-scale-2)) / 16;
+	--step-3: calc(((var(--fluid-min-size-3) * 1rem) + (var(--fluid-max-size-3) - var(--fluid-min-size-3)) * var(--fluid-bp)));
+  
+	--fluid-min-scale-4: var(--fluid-min-scale-3) * var(--fluid-min-ratio);
+	--fluid-max-scale-4: var(--fluid-max-scale-3) * var(--fluid-max-ratio);
+	--fluid-min-size-4: (var(--fluid-min-size) * var(--fluid-min-scale-3)) / 16;
+	--fluid-max-size-4: (var(--fluid-max-size) * var(--fluid-max-scale-3)) / 16;
+	--step-4: calc(((var(--fluid-min-size-4) * 1rem) + (var(--fluid-max-size-4) - var(--fluid-min-size-4)) * var(--fluid-bp)));
+  
+	--fluid-min-scale-5: var(--fluid-min-scale-4) * var(--fluid-min-ratio);
+	--fluid-max-scale-5: var(--fluid-max-scale-4) * var(--fluid-max-ratio);
+	--fluid-min-size-5: (var(--fluid-min-size) * var(--fluid-min-scale-4)) / 16;
+	--fluid-max-size-5: (var(--fluid-max-size) * var(--fluid-max-scale-4)) / 16;
+	--step-5: calc(((var(--fluid-min-size-5) * 1rem) + (var(--fluid-max-size-5) - var(--fluid-min-size-5)) * var(--fluid-bp)));
 }
 
 body {
 	color: var(--color-foreground);
 	background-color: var(--color-background);
 	font-family: 'Pathway Extreme', sans-serif;
+	display: grid;
+	grid-template-columns: minmax(1rem, auto) minmax(auto, 1024px) minmax(1rem, auto);
+	grid-template-rows: 2rem 1fr 2rem;
+}
+
+body > div {
+	grid-column: 2;
+	grid-row: 2;
 }
 
 @supports (font-variation-settings: normal) {
 	body {
-		font-size: 18px;
+		font-size: var(--step-0);
 		font-weight: 50;
 		font-variation-settings: 'wdth' 90, 'opsz' 18;
 	}
@@ -31,9 +204,33 @@ body {
 	}
 }
 
-h1 {
-	font-size: 3rem;
+h1, h2, h3, h4, h5, h6 {
+	line-height: 0.9;
 	text-transform: uppercase;
+}
+
+h1 {
+	font-size: var(--step-5);
+}
+
+h2 {
+	font-size: var(--step-4);
+}
+
+h3 {
+	font-size: var(--step-3);
+}
+
+h4 {
+	font-size: var(--step-2);
+}
+
+h5 {
+	font-size: var(--step-1);
+}
+
+h6 {
+	font-size: var(--step-0);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -45,4 +242,8 @@ h1 {
 
 a {
 	color: var(--color-action);
+}
+
+.chart-container {
+	width: 100%;
 }

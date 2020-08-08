@@ -4,54 +4,54 @@
   import FootnotesList from "../../../components/FootnotesList.svelte";
   import serializers from "../../../components/serializers";
   import urlBuilder from '@sanity/image-url';
-  import { currentPath } from '../../../stores.js'
+  import { currentPath, footnotes } from '../../../stores.js'
 
   const urlFor = source => urlBuilder(client).image(source);
   
   export async function preload({ params }) {
     const { slug } = params
     const query = `*[_type == "post" && slug.en.current == $slug]{
-          _id,
-          title,
-          theme,
-          mainImage{
+      _id,
+      title,
+      theme,
+      mainImage{
+        ...,
+        "imageFile":  imageFile->{
+          ...
+        }
+      },
+      "sections": sections[]{
+        _id,
+        headingText,
+        headingLevel,
+        content {
+          "en": en[]{
             ...,
-            "imageFile":  imageFile->{
-              ...
-            }
-          },
-          "sections": sections[]{
-            _id,
-            headingText,
-            headingLevel,
-            content {
-              "en": en[]{
+            _type == "blockQuoteObject" => {
+              ...,
+              "source": source {
                 ...,
-                _type == "blockQuoteObject" => {
-                  ...,
-                  "source": source {
-                    ...,
-                    "author": author->
-                  }
-                },
-                _type == "imageObject" => {
-                  ...,
-                  "imageFile":  imageFile->{
-                    ...
-                  }
-                },
-                markDefs[]{
-                  ...,
-                  _type == "internalLink" => {
-                    "slug": @.reference->slug.en.current,
-                    "lang": en,
-                    "type": @.reference->_type,
-                  }
-                }
+                "author": author->
+              }
+            },
+            _type == "imageObject" => {
+              ...,
+              "imageFile":  imageFile->{
+                ...
+              }
+            },
+            markDefs[]{
+              ...,
+              _type == "internalLink" => {
+                "slug": @.reference->slug.en.current,
+                "lang": en,
+                "type": @.reference->_type,
               }
             }
           }
-        }[0]`;
+        }
+      }
+    }[0]`;
 
     const post = await client
       .fetch(query, { slug })
@@ -63,6 +63,7 @@
 <script>
   export let post
   export let slug
+  footnotes.update(x => [])
   currentPath.update(x => `/en/post/${slug}`)
 </script>
 

@@ -1,13 +1,15 @@
 <script context="module">
   import client from "../../../sanityClient";
   import BlockContent from "@movingbrands/svelte-portable-text";
+  import FootnotesList from "../../../components/FootnotesList.svelte";
   import serializers from "../../../components/serializers";
   import urlBuilder from '@sanity/image-url';
+  import { currentPath } from '../../../stores.js'
 
   const urlFor = source => urlBuilder(client).image(source);
   
   export async function preload({ params }) {
-    const { slug } = params;
+    const { slug } = params
     const query = `*[_type == "post" && slug.en.current == $slug]{
           _id,
           title,
@@ -54,12 +56,14 @@
     const post = await client
       .fetch(query, { slug })
       .catch(err => this.error(500, err));
-    return { post };
+    return { post, slug };
   }
 </script>
 
 <script>
-  export let post;
+  export let post
+  export let slug
+  currentPath.update(x => `/en/post/${slug}`)
 </script>
 
 <svelte:head>
@@ -90,4 +94,5 @@
 			<BlockContent blocks={section.content.en} {serializers} />
 		</section>
 	{/each}
+  <FootnotesList />
 </article>

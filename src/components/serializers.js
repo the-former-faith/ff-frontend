@@ -6,6 +6,7 @@ import urlBuilder from '@sanity/image-url';
 import client from '../sanityClient';
 import Link from './Link.svelte';
 import AbbrTag from './AbbrTag.svelte';
+import FootnoteTag from './FootnoteTag.svelte';
 import ImageObject from './ImageObject.svelte';
 import LangTag from './LangTag.svelte';
 import ChartBlock from './ChartBlock.svelte';
@@ -20,6 +21,13 @@ export default {
       component: AbbrTag,
       childNodes: children,
       props: mark,
+    }),
+    footnote: ({ children, mark }) => ({
+      component: FootnoteTag,
+      childNodes: children,
+      props: {
+        mark: mark
+      }
     }),
     internalLink: ({ children, mark }) => ({
       component: Link,
@@ -46,7 +54,7 @@ export default {
       props: {
         cite: mark.source
       }
-    }),
+    })
   },
   types: {
     imageObject: ({ node, children }) => {

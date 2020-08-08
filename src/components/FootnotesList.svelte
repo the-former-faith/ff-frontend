@@ -1,6 +1,6 @@
 <script context="module">
     import BlockContent from "@movingbrands/svelte-portable-text"
-    import serializers from "./serializers"
+    import serializers from "./serializersSimple"
     import { footnotes } from '../stores.js'
 </script>
 

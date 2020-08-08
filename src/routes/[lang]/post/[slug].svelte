@@ -95,5 +95,7 @@
 			<BlockContent blocks={section.content.en} {serializers} />
 		</section>
 	{/each}
-  <FootnotesList />
+  {#if $footnotes.length > 0}
+    <FootnotesList />
+  {/if}
 </article>

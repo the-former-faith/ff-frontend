@@ -7,24 +7,46 @@ import client from '../sanityClient';
 import Link from './Link.svelte';
 import AbbrTag from './AbbrTag.svelte';
 import ImageObject from './ImageObject.svelte';
+import LangTag from './LangTag.svelte';
 import ChartBlock from './ChartBlock.svelte';
 import BlockQuote from './BlockQuote.svelte';
+import QuoteTag from './QuoteTag.svelte';
 
 const urlFor = source => urlBuilder(client).image(source);
 
-
 export default {
   marks: {
+    abbrTag: ({ children, mark }) => ({
+      component: AbbrTag,
+      childNodes: children,
+      props: mark,
+    }),
+    internalLink: ({ children, mark }) => ({
+      component: Link,
+      childNodes: children,
+      props: {
+        href: `/en/${mark.type}/${mark.slug}`
+      },
+    }),
+    langTag: ({ children, mark }) => ({
+      component: LangTag,
+      childNodes: children,
+      props: {
+        lang: mark.lang
+      }
+    }),
     link: ({ children, mark }) => ({
       component: Link,
       childNodes: children,
       props: mark,
     }),
-    abbrTag: ({ children, mark }) => ({
-      component: AbbrTag,
+    quoteTag: ({ children, mark }) => ({
+      component: QuoteTag,
       childNodes: children,
-      props: mark,
-    })
+      props: {
+        cite: mark.source
+      }
+    }),
   },
   types: {
     imageObject: ({ node, children }) => {

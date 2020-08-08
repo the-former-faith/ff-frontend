@@ -1,7 +1,8 @@
 <script>
-  export let url;
+  export let href;
+  console.log(href)
 </script>
 
-<a href={url}>
+<a {href} >
   <slot />
 </a>

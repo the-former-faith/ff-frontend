@@ -42,7 +42,8 @@
                   ...,
                   _type == "internalLink" => {
                     "slug": @.reference->slug.en.current,
-                    "lang": en
+                    "lang": en,
+                    "type": @.reference->_type,
                   }
                 }
               }

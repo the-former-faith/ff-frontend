@@ -1,5 +1,5 @@
 <svelte:head>
-	<title>Sapper project template</title>
+	<title>The Former Faith</title>
 </svelte:head>
 
 <script>

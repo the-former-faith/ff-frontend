@@ -53,6 +53,8 @@
       }
     }[0]`;
 
+    footnotes.update(x => [])
+
     const post = await client
       .fetch(query, { slug })
       .catch(err => this.error(500, err));
@@ -63,7 +65,6 @@
 <script>
   export let post
   export let slug
-  footnotes.update(x => [])
   currentPath.update(x => `/en/post/${slug}`)
 </script>
 

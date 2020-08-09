@@ -247,3 +247,38 @@ a {
 .chart-container {
 	width: 100%;
 }
+
+/*--- Main Menu ---*/
+.site-header {
+	display: grid;
+	grid-template-columns: min-content 1fr;
+}
+
+ul.main-menu {
+	display: flex;
+	justify-content: flex-end;
+	border: 7px solid;
+	height: 80%;
+	border-left: 0 solid;
+	margin-left: 5px;
+}
+
+ul.main-menu.home {
+	height: 75%;
+	margin-top: 20px;
+}
+
+.main-menu li {
+	display: flex;
+	align-items: center;
+}
+
+.main-menu a {
+	text-decoration: none;
+	display: block;
+	font-size: 1.2rem;
+	font-variation-settings: "wdth" 18, "opsz" 18;
+	font-weight: 200;
+	text-transform: uppercase;
+	padding: .5rem 1rem;
+}

@@ -3,15 +3,11 @@
 </script>
 
 <script>
+	import { currentPath } from '../stores.js'
 	export let segment;
 </script>
 
 <style>
-	nav {
-		display: flex;
-		justify-content: space-between;
-	}
-
 	[aria-current] {
 		position: relative;
 		display: inline-block;
@@ -26,29 +22,12 @@
 		display: block;
 		bottom: -1px;
 	}
-
-	a {
-		text-decoration: none;
-		display: block;
-	}
-
-	ul {
-		display: flex;
-		margin: 0;
-		padding: 0;
-		list-style: none;
-	}
-
-	li a {
-		padding: 1em 0.5em;
-	}
-
 </style>
 
 
-<nav>
+<nav class="site-header">
 	<a aria-current='{segment === undefined ? "page" : undefined}' href='/en'><Logo {segment} /></a>
-	<ul>
+	<ul class="main-menu {$currentPath === '/en' ? 'home' : ''}">
 		<li><a aria-current='{segment === undefined ? "page" : undefined}' href='/en'>home</a></li>
 		<li><a aria-current='{segment === "about" ? "page" : undefined}' href='/en/about'>about</a></li>
 	</ul>

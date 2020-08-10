@@ -1,11 +1,11 @@
 <script>
   import LogoSmall from "./LogoSmall.svelte"
   import LogoLarge from "./LogoLarge.svelte"
-
-  import { currentPath } from '../stores.js'
+  import { stores } from '@sapper/app'
+  const { page } = stores()
 </script>
 
-{#if $currentPath === '/en'}
+{#if $page.path === '/en'}
   <LogoLarge />
 {:else}
   <LogoSmall />

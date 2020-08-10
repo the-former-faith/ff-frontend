@@ -1,8 +1,3 @@
-<script>
-	import { currentPath } from '../../stores.js'
-	currentPath.update(x => 'en/about')
-</script>
-
 <svelte:head>
 	<title>About</title>
 </svelte:head>

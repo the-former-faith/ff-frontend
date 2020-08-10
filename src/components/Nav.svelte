@@ -3,7 +3,8 @@
 </script>
 
 <script>
-	import { currentPath } from '../stores.js'
+	import { stores } from '@sapper/app'
+  	const { page } = stores()
 	export let segment;
 </script>
 
@@ -27,7 +28,7 @@
 
 <nav class="site-header">
 	<a aria-current='{segment === undefined ? "page" : undefined}' href='/en'><Logo {segment} /></a>
-	<ul class="main-menu {$currentPath === '/en' ? 'home' : ''}">
+	<ul class="main-menu {$page.path === '/en' ? 'home' : ''}">
 		<li><a aria-current='{segment === undefined ? "page" : undefined}' href='/en'>home</a></li>
 		<li><a aria-current='{segment === "about" ? "page" : undefined}' href='/en/about'>about</a></li>
 	</ul>

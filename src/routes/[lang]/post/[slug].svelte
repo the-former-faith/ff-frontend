@@ -4,7 +4,7 @@
   import FootnotesList from "../../../components/FootnotesList.svelte";
   import serializers from "../../../components/serializers";
   import urlBuilder from '@sanity/image-url';
-  import { currentPath, footnotes } from '../../../stores.js'
+  import { footnotes } from '../../../stores.js'
 
   const urlFor = source => urlBuilder(client).image(source);
   
@@ -64,8 +64,6 @@
 
 <script>
   export let post
-  export let slug
-  currentPath.update(x => `/en/post/${slug}`)
 </script>
 
 <svelte:head>

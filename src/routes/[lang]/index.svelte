@@ -5,12 +5,10 @@
 			return { posts };
 		}).catch(err => this.error(500, err));
 	}
-	import { currentPath } from '../../stores.js'
 </script>
 
 <script>
 	export let posts;
-	currentPath.update(x => '/en')
 </script>
 
 <svelte:head>

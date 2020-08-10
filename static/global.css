@@ -186,6 +186,7 @@ body {
 	display: grid;
 	grid-template-columns: minmax(1rem, auto) minmax(auto, 1024px) minmax(1rem, auto);
 	padding-top: 2rem;
+	min-height: 100vh;
 }
 
 main,
@@ -297,6 +298,7 @@ ul.main-menu.home {
 	background-color: var(--color-foreground);
 	grid-column: 1 / -1;
 	font-size: var(--step--2);
+	max-width: 100vw;
 }
 
 .site-footer-wrapper {

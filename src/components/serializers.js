@@ -1,9 +1,7 @@
 // https://www.sanity.io/docs/what-you-need-to-know-about-block-text/presenting-block-text
 // https://github.com/movingbrands/svelte-portable-text
 import BlockContent from '@movingbrands/svelte-portable-text';
-// https://www.npmjs.com/package/@sanity/image-url
-import urlBuilder from '@sanity/image-url';
-import client from '../sanityClient';
+
 import Link from './Link.svelte';
 import AbbrTag from './AbbrTag.svelte';
 import FootnoteTag from './FootnoteTag.svelte';
@@ -12,8 +10,6 @@ import LangTag from './LangTag.svelte';
 import ChartBlock from './ChartBlock.svelte';
 import BlockQuote from './BlockQuote.svelte';
 import QuoteTag from './QuoteTag.svelte';
-
-const urlFor = source => urlBuilder(client).image(source);
 
 export default {
   marks: {
@@ -62,11 +58,9 @@ export default {
       component: ImageObject,
       childNodes: children,
       props: {
-        url: urlFor(node.imageFile.image)
-          .width(800)
-          .auto('format')
-          .url(),
+        url: node.imageFile.image,
         alt: node.imageFile.image.altText.en,
+        caption: node.caption
       },
     })},
     chartBlock: ({ node, children }) => {

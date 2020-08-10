@@ -11,7 +11,7 @@
 			<LogoLarge />
 		</div>
 		<div>
-			<ul>
+			<ul class="bar-list">
 				<li>
 					<strong>Email:</strong> <a href="mailto:hello@theforemer.faith">hello@theforemer.faith</a>
 				</li>

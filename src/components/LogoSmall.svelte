@@ -8,5 +8,6 @@
 <style>
     svg {
       fill: var(--color-action, #870069);
+      display: block;
     }
 </style>

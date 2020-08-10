@@ -73,15 +73,16 @@
 	<link rel="stylesheet" href={post.css} >
 </svelte:head>
 
-<article>
-	<h1>{post.title.en}</h1>
+<article class="flow">
 
   {#if post.mainImage}
     <img src={urlFor(post.mainImage.imageFile.image).width(800).auto('format').url()} alt={post.mainImage.imageFile.image.altText.en} />
   {/if}
 
+  <h1>{post.title.en}</h1>
+
 	{#each post.sections as section}
-		<section>
+		<section class="flow">
       {#if section.headingLevel === 'h2'}
         <h2>{section.headingText.en}</h2>
       {:else if section.headingLevel === 'h3'}

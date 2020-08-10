@@ -5,6 +5,8 @@
 </script>
 
 <aside>
+    <hr />
+    <h2>Footnotes</h2>
     <ol>
         {#each $footnotes as footnote, i}
             <li id={`footnote-${i + 1}`}>

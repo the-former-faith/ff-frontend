@@ -27,7 +27,7 @@
 
 
 <nav class="site-header">
-	<a aria-current='{segment === undefined ? "page" : undefined}' href='/en'><Logo {segment} /></a>
+	<a class="site-logo" aria-current='{segment === undefined ? "page" : undefined}' href='/en'><Logo {segment} /></a>
 	<ul class="main-menu {$page.path === '/en' ? 'home' : ''}">
 		<li><a aria-current='{segment === undefined ? "page" : undefined}' href='/en'>home</a></li>
 		<li><a aria-current='{segment === "about" ? "page" : undefined}' href='/en/about'>about</a></li>

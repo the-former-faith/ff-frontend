@@ -1,7 +1,20 @@
 <script context="module">
-  	import client from '../../sanityClient'
+	import client from '../../sanityClient'
+	import ImageObject from '../../components/ImageObject.svelte'
+	import { displayName } from '../../utilities'
 	export function preload({ params, query }) {
-    	return client.fetch('*[_type == "post"]').then(posts => {
+    	return client.fetch(`*[_type == "post"]{
+		title,
+		"author": author->,
+		publishedAt,
+		slug,
+		mainImage{
+			...,
+			"imageFile":  imageFile->{
+			...
+			}
+		}
+		}`).then(posts => {
 			return { posts };
 		}).catch(err => this.error(500, err));
 	}
@@ -14,10 +27,18 @@
 <svelte:head>
 	<title>The Former Faith</title>
 </svelte:head>
-
-<ul>
+<h2>Latest Articles</h2>
+<ul class="posts-list">
 	{#each posts as post}
-		<li><a rel='prefetch' href='en/post/{post.slug.en.current}'>{post.title.en}</a></li>
+		<li>
+			<h3><a rel='prefetch' href='en/post/{post.slug.en.current}'>{post.title.en}</a></h3>
+			{#if post.mainImage}
+				<ImageObject url={post.mainImage.imageFile.image} alt={post.mainImage.imageFile.image.altText.en} />
+			{/if}
+			<div class="post-meta">
+				<p>{displayName(post.author)}</p>
+				<p>{new Date(post.publishedAt).toDateString()}</p>
+			</div>
+		</li>
 	{/each}
 </ul>
-

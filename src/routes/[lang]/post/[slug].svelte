@@ -1,12 +1,13 @@
 <script context="module">
-  import client from "../../../sanityClient";
-  import BlockContent from "@movingbrands/svelte-portable-text";
-  import FootnotesList from "../../../components/FootnotesList.svelte";
-  import serializers from "../../../components/serializers";
-  import urlBuilder from '@sanity/image-url';
+  import client from "../../../sanityClient"
+  import BlockContent from "@movingbrands/svelte-portable-text"
+  import FootnotesList from "../../../components/FootnotesList.svelte"
+  import serializers from "../../../components/serializers"
+  import urlBuilder from '@sanity/image-url'
   import { footnotes } from '../../../stores.js'
+  import { displayName } from '../../../utilities'
 
-  const urlFor = source => urlBuilder(client).image(source);
+  const urlFor = source => urlBuilder(client).image(source)
   
   export async function preload({ params }) {
     const { slug } = params
@@ -14,6 +15,8 @@
       _id,
       title,
       theme,
+      "author": author->,
+      publishedAt,
       mainImage{
         ...,
         "imageFile":  imageFile->{
@@ -64,6 +67,8 @@
 
 <script>
   export let post
+  let author = displayName(post.author)
+  let publishDate = new Date(post.publishedAt)
 </script>
 
 <svelte:head>
@@ -78,6 +83,11 @@
   {/if}
 
   <h1>{post.title.en}</h1>
+
+  <div class="post-meta">
+    <p>{author}</p>
+    <p>{publishDate.toDateString()}</p>
+  </div>
 
 	{#each post.sections as section}
 		<section class="flow">

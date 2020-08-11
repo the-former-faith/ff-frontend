@@ -225,7 +225,6 @@ main,
 h1, h2, h3, h4, h5, h6 {
 	line-height: 0.9;
 	text-transform: uppercase;
-	letter-spacing: -0.05em;
 }
 
 h1 {
@@ -282,6 +281,7 @@ blockquote {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
+	margin-bottom: 2rem;
 }
 
 ul.main-menu {
@@ -299,6 +299,10 @@ ul.main-menu {
 	border: 1px solid;
 }
 
+.site-logo {
+	margin-left: 1rem;
+}
+
 /*--- Site footer ---*/
 .site-footer {
 	display: grid;
@@ -307,6 +311,7 @@ ul.main-menu {
 	background-color: var(--color-foreground);
 	grid-column: 1 / -1;
 	font-size: var(--step--1);
+	margin-top: 2rem;
 }
 
 .site-footer-wrapper {
@@ -348,4 +353,38 @@ ul.main-menu {
 /*--- Posts page ---*/
 article {
 	margin-top: 2rem;
+}
+
+.post-meta {
+	font-size: var(--step--1);
+	display: flex;
+	flex-wrap: wrap;
+	text-transform: uppercase;
+}
+
+.post-meta p {
+	border: 1px solid;
+	padding: 0.5rem;
+}
+
+/*-- Posts list --*/
+ul.posts-list {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+}
+
+.posts-list li {
+	border: 1px solid;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.posts-list h3 {
+	padding: 0.5rem;
+}
+
+.posts-list .post-meta p {
+	border: none;
+	padding: .5rem;
 }

@@ -1,8 +1,8 @@
 {
 	"background_color": "#ffffff",
-	"theme_color": "#333333",
-	"name": "TODO",
-	"short_name": "TODO",
+	"theme_color": "#870069",
+	"name": "The Former Faith",
+	"short_name": "FF",
 	"display": "minimal-ui",
 	"start_url": "/",
 	"icons": [

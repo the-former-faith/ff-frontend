@@ -72,14 +72,34 @@
 </script>
 
 <svelte:head>
-	<title>{post.title.en}</title>
-	<link rel="stylesheet" href={post.css} >
+  <title>{post.title.en}</title>
+  
+  {#if post.css}
+    <link rel="stylesheet" href={post.css} >
+  {/if}
+
+  <meta property="og:title" content={post.title.en} />
+  <meta property="og:type" content="article" />
+
+  {#if post.mainImage}
+    <meta property="og:image" content={
+      urlFor(post.mainImage.imageFile.image)
+        .size(1200, 630)
+        .format('jpg')
+        .fit('max')
+        .url()
+      }
+    />
+  {:else}
+    <meta property="og:image" content="https://tender-panini-0676cc.netlify.app/logo-large.png" /> 
+  {/if}
+  
 </svelte:head>
 
 <article class="flow">
 
   {#if post.mainImage}
-    <img src={urlFor(post.mainImage.imageFile.image).width(800).auto('format').url()} alt={post.mainImage.imageFile.image.altText.en} />
+    <img src={urlFor(post.mainImage.imageFile.image).width(800).fit('max').auto('format').url()} alt={post.mainImage.imageFile.image.altText.en} />
   {/if}
 
   <h1>{post.title.en}</h1>

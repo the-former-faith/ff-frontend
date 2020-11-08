@@ -6,6 +6,7 @@ import Link from './Link.svelte';
 import AbbrTag from './AbbrTag.svelte';
 import FootnoteTag from './FootnoteTag.svelte';
 import ImageObject from './ImageObject.svelte';
+import VideoObject from './VideoObject.svelte';
 import LangTag from './LangTag.svelte';
 import ChartBlock from './ChartBlock.svelte';
 import BlockQuote from './BlockQuote.svelte';
@@ -60,6 +61,15 @@ export default {
       props: {
         url: node.imageFile.image,
         alt: node.imageFile.image.altText.en,
+        caption: node.caption
+      },
+    })},
+    videoObject: ({ node, children }) => {
+      return ({
+      component: VideoObject,
+      childNodes: children,
+      props: {
+        url: node.url,
         caption: node.caption
       },
     })},

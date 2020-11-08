@@ -36,13 +36,7 @@
     //    the player should play for six seconds and then stop.
     var done = false;
     function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.PLAYING && !done) {
-            setTimeout(stopVideo, 6000);
-            done = true;
-        }
-    }
-    function stopVideo() {
-        player.stopVideo();
+        console.log(event)
     }
 </script>
 
@@ -57,7 +51,7 @@
         position: relative;
         overflow: hidden;
         width: 100%;
-        height: 100vh;
+        height: 90vh;
     }
 
     .container > * {
@@ -65,7 +59,7 @@
         top: 50%;
         left: 50%;
         width: 100vw;
-        height: 100vh;
+        height: 90vh;
         transform: translate(-50%, -50%);
     }
 

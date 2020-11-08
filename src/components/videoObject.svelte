@@ -8,6 +8,7 @@
   let mute = false
   let reduceMotion = false
   let featured = true
+  
 
   function extractYoutubeId(youtubeUrl){
     var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;

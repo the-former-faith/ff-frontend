@@ -70,6 +70,8 @@ export default {
       childNodes: children,
       props: {
         url: node.url,
+        startTime: node.startTime,
+        endTime: node.endTime,
         caption: node.caption
       },
     })},

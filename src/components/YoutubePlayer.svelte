@@ -1,10 +1,12 @@
 <svelte:head>
-    <script type="text/javascript" src="https://www.youtube.com/iframe_api" on:load={onYouTubeIframeAPIReady}></script>
+    <script type="text/javascript" src="https://www.youtube.com/iframe_api" on:load={forward}></script>
 </svelte:head>
+
+<svelte:window on:message={createPlayer()} />
 
 <script>
     import { muted } from '../stores.js'
-    import { onDestroy } from 'svelte'
+    import { onDestroy, onMount, createEventDispatcher } from 'svelte'
     export let youtubeId
     export let startTimeCalculated
     export let endTimeCalculated
@@ -13,21 +15,28 @@
     let player
     let paused = false
 
+    let options = {
+        iv_load_policy: 3,
+        modestbranding: 1,
+        controls: 0,
+        rel: 0,
+        start: startTimeCalculated
+    }
+
+    if (endTimeCalculated) {
+        options.end = endTimeCalculated
+    }
+
+    //Create dispatcher
+    const dispatch = createEventDispatcher()
+
+    function forward() {
+        dispatch('message');
+	}
+
     // This function creates an <iframe> (and YouTube player) after the API code downloads.
-    function onYouTubeIframeAPIReady() {
-        let options = {
-            iv_load_policy: 3,
-            modestbranding: 1,
-            controls: 0,
-            rel: 0,
-            start: startTimeCalculated
-        }
-
-        if (endTimeCalculated) {
-            console.log("has end time")
-            options.end = endTimeCalculated
-        }
-
+    function createPlayer() {
+        console.log('loaded')
         player = new YT.Player(htmlId, {
             height: '390',
             width: '640',
@@ -66,7 +75,7 @@
     }
 
     //The API will call this function when the video player is ready.
-    function onPlayerReady(event) {
+    function onPlayerReady() {
         if ($muted) {
             player.mute()
         } else {

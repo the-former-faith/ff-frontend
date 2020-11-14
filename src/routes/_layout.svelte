@@ -5,8 +5,6 @@
 	export let segment
 </script>
 
-<YouTubeScriptTag />
-
 <Nav {segment}/>
 
 <main> 
@@ -14,3 +12,5 @@
 </main>
 
 <Footer />
+
+<YouTubeScriptTag />

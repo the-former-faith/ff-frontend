@@ -10,13 +10,18 @@
     let paused = false
     let ready = false
 
-    hasYoutube.update(()=> true)
+    hasYoutube.update(()=> "requested")
+    let isMounted = false
 
     onMount(()=>{
+        isMounted = true
+    })
+
+    $: if (isMounted && $hasYoutube) {
         window.YT.ready(function() {
             createPlayer()
         })
-    })
+    }
 
     let options = {
         iv_load_policy: 3,

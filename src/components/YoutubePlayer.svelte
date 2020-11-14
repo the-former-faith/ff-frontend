@@ -6,7 +6,7 @@
     export let endTimeCalculated
 
     let htmlId = 'player-' + youtubeId
-    let player
+    let player = null
     let paused = false
 
     hasYoutube.update(()=> true)
@@ -50,6 +50,7 @@
 
     const unsubscribe = muted.subscribe(muteState => {
         if (player) {
+            console.log(player)
             if (muteState) {
                 player.mute()
             } else {

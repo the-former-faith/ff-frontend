@@ -7,4 +7,4 @@
   export let position = $footnotes.length;
 </script>
 
-<slot /><sup><a href={`${$page.path}/#footnote-${position}`} >{position}</a></sup>
+<slot /><sup><a href={`${$page.path}#footnote-${position}`} >{position}</a></sup>

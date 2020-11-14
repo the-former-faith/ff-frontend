@@ -97,7 +97,6 @@
     }
 </script>
 
-<a href="/en/post/test-post">Test link</a>
 <div class="container">
     <div id={htmlId} class="youtube-player"></div>
     {#if ready}

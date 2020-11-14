@@ -5,8 +5,10 @@
   const { page } = stores()
 </script>
 
-<p>{$page.path}</p>
-{#if $page.path === '/en'}
+<!--A bug in Chrome is making the page show up as '/en/' instead of '/en'. 
+  I added both for now to fix it.
+  I can research it later to see if I can fix it.-->
+{#if $page.path === '/en' || $page.path === '/en/'}
   <LogoLarge />
 {:else}
   <LogoSmall />

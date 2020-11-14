@@ -51,7 +51,6 @@
 
     const unsubscribe = muted.subscribe(muteState => {
         if (ready) {
-            console.log(player)
             if (muteState) {
                 player.mute()
             } else {
@@ -74,21 +73,20 @@
     //The API will call this function when the video player is ready.
     function onPlayerReady() {
         ready = true
-        console.log('Player ' + youtubeId + ' is ready')
         if ($muted) {
             player.mute()
         } else {
             player.unMute()
         }
 
-        //event.target.playVideo();
         let observer = new IntersectionObserver(handleInsterction)
         observer.observe(document.getElementById(htmlId))
     }
 
     // The API calls this function when the player's state changes.
     function onPlayerStateChange(event) {
-        if(event.data === 0) {          
+        if(event.data === 0) {    
+            ready = false      
             player.destroy()
         } else if (event.data === 1 && paused === true){
             //Add slight delay to hide YouTube transition
@@ -102,7 +100,9 @@
 <a href="/en/post/test-post">Test link</a>
 <div class="container">
     <div id={htmlId} class="youtube-player"></div>
-    <button class="mute" on:click={handleMuted}>Muted: {$muted}</button>
+    {#if ready}
+        <button class="mute" on:click={handleMuted}>Muted: {$muted}</button>
+    {/if}
     {#if paused}
         <button class="cover" on:click={()=>{player.playVideo()}}>Resume</button>
     {/if}

@@ -5,6 +5,7 @@
   const { page } = stores()
 </script>
 
+<p>{$page.path}</p>
 {#if $page.path === '/en'}
   <LogoLarge />
 {:else}

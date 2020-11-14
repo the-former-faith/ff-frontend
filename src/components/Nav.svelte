@@ -1,8 +1,5 @@
-<script context="module">
-  import Logo from "./Logo.svelte";
-</script>
-
 <script>
+  	import Logo from "./Logo.svelte";
 	import { stores } from '@sapper/app'
   	const { page } = stores()
 	export let segment;
@@ -27,7 +24,7 @@
 
 
 <nav class="site-header">
-	<a class="site-logo" aria-current='{segment === undefined ? "page" : undefined}' href='/en'><Logo {segment} /></a>
+	<a class="site-logo" aria-current='{segment === undefined ? "page" : undefined}' href='/en'><Logo /></a>
 	<ul class="main-menu {$page.path === '/en' ? 'home' : ''}">
 		<li><a aria-current='{segment === undefined ? "page" : undefined}' href='/en'>home</a></li>
 		<li><a aria-current='{segment === "about" ? "page" : undefined}' href='/en/about'>about</a></li>

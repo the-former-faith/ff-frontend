@@ -71,6 +71,7 @@
 
     //The API will call this function when the video player is ready.
     function onPlayerReady() {
+        console.log('Player ' + youtubeId + ' is ready')
         if ($muted) {
             player.mute()
         } else {
@@ -95,6 +96,7 @@
     }
 </script>
 
+<a href="/en/post/test-post">Test link</a>
 <div class="container">
     <div id={htmlId} class="youtube-player"></div>
     <button class="mute" on:click={handleMuted}>Muted: {$muted}</button>

@@ -1,12 +1,6 @@
-<svelte:head>
-    <script type="text/javascript" src="https://www.youtube.com/iframe_api" on:load={forward}></script>
-</svelte:head>
-
-<svelte:window on:message={createPlayer()} />
-
 <script>
-    import { muted } from '../stores.js'
-    import { onDestroy, onMount, createEventDispatcher } from 'svelte'
+    import { muted, hasYoutube} from '../stores.js'
+    import { onDestroy, onMount } from 'svelte'
     export let youtubeId
     export let startTimeCalculated
     export let endTimeCalculated
@@ -14,6 +8,14 @@
     let htmlId = 'player-' + youtubeId
     let player
     let paused = false
+
+    hasYoutube.update(()=> true)
+
+    onMount(()=>{
+        window.YT.ready(function() {
+            createPlayer()
+        })
+    })
 
     let options = {
         iv_load_policy: 3,
@@ -27,28 +29,21 @@
         options.end = endTimeCalculated
     }
 
-    //Create dispatcher
-    const dispatch = createEventDispatcher()
-
-    function forward() {
-        dispatch('message');
-	}
-
     // This function creates an <iframe> (and YouTube player) after the API code downloads.
     function createPlayer() {
-        console.log('loaded')
         player = new YT.Player(htmlId, {
             height: '390',
             width: '640',
             videoId: youtubeId,
             playerVars: options,
             events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange
             }
         })
     }
 
+    
     let handleMuted = () => {
         muted.update(()=> $muted ? false : true)
     }
@@ -113,7 +108,7 @@
         width: 100%;
     }
 
-.container { 
+    .container { 
         position: relative;
         overflow: hidden;
         width: 100%;

@@ -6,8 +6,9 @@
     export let endTimeCalculated
 
     let htmlId = 'player-' + youtubeId
-    let player = null
+    let player
     let paused = false
+    let ready = false
 
     hasYoutube.update(()=> true)
 
@@ -49,7 +50,7 @@
     }
 
     const unsubscribe = muted.subscribe(muteState => {
-        if (player) {
+        if (ready) {
             console.log(player)
             if (muteState) {
                 player.mute()
@@ -72,6 +73,7 @@
 
     //The API will call this function when the video player is ready.
     function onPlayerReady() {
+        ready = true
         console.log('Player ' + youtubeId + ' is ready')
         if ($muted) {
             player.mute()

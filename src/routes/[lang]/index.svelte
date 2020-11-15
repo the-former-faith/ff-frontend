@@ -1,11 +1,13 @@
 <script context="module">
 	import client from '../../sanityClient'
 	import ImageObject from '../../components/ImageObject.svelte'
-	import { displayName } from '../../utilities'
+	import MetaAuthors from '../../components/MetaAuthors.svelte'
 	export function preload({ params, query }) {
     	return client.fetch(`*[_type == "post"]{
 		title,
-		"author": author->,
+		"authors": authors[]-> {
+			title
+		},
 		publishedAt,
 		slug,
 		mainImage{
@@ -21,7 +23,7 @@
 </script>
 
 <script>
-	export let posts;
+	export let posts
 </script>
 
 <svelte:head>
@@ -36,7 +38,9 @@
 				<ImageObject url={post.mainImage.imageFile.image} alt={post.mainImage.imageFile.image.altText.en} />
 			{/if}
 			<div class="post-meta">
-				<p>{displayName(post.author)}</p>
+				{#if post.authors}
+					<p><MetaAuthors authors={post.authors} /></p>
+				{/if}
 				<p>{new Date(post.publishedAt).toDateString()}</p>
 			</div>
 		</li>

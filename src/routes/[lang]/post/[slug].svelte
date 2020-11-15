@@ -5,7 +5,7 @@
   import serializers from "../../../components/serializers"
   import urlBuilder from '@sanity/image-url'
   import { footnotes } from '../../../stores.js'
-  import { displayName } from '../../../utilities'
+  import MetaAuthors from '../../../components/MetaAuthors.svelte'
 
   const urlFor = source => urlBuilder(client).image(source)
   
@@ -15,7 +15,7 @@
       _id,
       title,
       theme,
-      "author": author->,
+      "authors": authors[]->,
       publishedAt,
       mainImage{
         ...,
@@ -39,7 +39,7 @@
             },
             _type == "imageObject" => {
               ...,
-              "imageFile":  imageFile->{
+              "imageFile": imageFile->{
                 ...
               }
             },
@@ -49,6 +49,21 @@
                 "slug": @.reference->slug.en.current,
                 "lang": en,
                 "type": @.reference->_type,
+              },
+              _type == "footnote" => {
+                ...,
+                "citations": citations[]{
+                  ...,
+                  "source": source-> {
+                    ...,
+                    newspaper-> {
+                      title
+                    },
+                    "authors": authors[]-> {
+                      title
+                    }
+                  }
+                }
               }
             }
           }
@@ -67,7 +82,7 @@
 
 <script>
   export let post
-  let author = displayName(post.author)
+  let authors = post.authors
   let publishDate = new Date(post.publishedAt)
 </script>
 
@@ -105,7 +120,9 @@
   <h1>{post.title.en}</h1>
 
   <div class="post-meta">
-    <p>{author}</p>
+    {#if authors}
+      <p><MetaAuthors {authors} /></p>
+    {/if}
     <p>{publishDate.toDateString()}</p>
   </div>
 

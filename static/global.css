@@ -218,12 +218,13 @@ blockquote {
 	display: grid;
 	grid-template-columns: minmax(auto, 100px) 1fr max-content;
 	grid-gap: 0.5rem;
-	margin-bottom: 2rem;
+	margin-bottom: 1rem;
 }
 
 .site-header.home {
 	display: flex;
 	flex-direction: column;
+	margin-bottom: 2rem;
 }
 
 @media screen and (min-width: 414px) {
@@ -323,9 +324,6 @@ ul.main-menu {
 }
 
 /*--- Posts page ---*/
-article {
-	margin-top: 2rem;
-}
 
 .post-meta {
 	font-size: var(--step--1);

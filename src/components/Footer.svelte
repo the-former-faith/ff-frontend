@@ -13,10 +13,10 @@
 		<div>
 			<ul class="bar-list">
 				<li>
-					<strong>Email:</strong> <a href="mailto:hello@theforemer.faith">hello@theforemer.faith</a>
+					<strong>Email:</strong> <a href="mailto:hello@theformer.faith">hello@theformer.faith</a>
 				</li>
 				<li>
-					<strong>Twitter:</strong> <a href="https://twitter.com/theformerfaith">@theforemerfaith</a>
+					<strong>Twitter:</strong> <a href="https://twitter.com/theformerfaith">@theformerfaith</a>
 				</li>
 			</ul>
 		</div>

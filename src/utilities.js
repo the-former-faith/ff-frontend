@@ -9,4 +9,8 @@ const combineNames = (x) => {
     return givenName && familyName ? `${givenName} ${familyName}` : familyName || givenName
 }
 
-export const displayName = x => combineNames(x) || ''
+export const displayName = (x) => combineNames(x) || ''
+
+const extractTitles = (x) => x.map(y => y.title.en)
+
+export const displayTitles = (x) => extractTitles(x)

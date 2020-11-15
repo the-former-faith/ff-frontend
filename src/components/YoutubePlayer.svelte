@@ -10,7 +10,7 @@
     let paused = false
     let ready = false
 
-    hasYoutube.update(()=> "requested")
+    hasYoutube.update(()=> true)
     let isMounted = false
 
     onMount(()=>{

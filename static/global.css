@@ -115,16 +115,16 @@ img:not([alt]) {
 	--color-foreground: #000;
 	--color-background: #fff;
 	/*--- Typographic scale ---*/
-	/* @link https://utopia.fyi/generator-mk-ii?c=320,18,1.333,1140,24,1.333,5,2, */
-	--step--2: clamp(0.6331rem, 0.5507rem + 0.4122vw, 0.8444rem);
-	--step--1: clamp(0.8438rem, 0.734rem + 0.5488vw, 1.125rem);
-	--step-0: clamp(1.125rem, 0.9787rem + 0.7317vw, 1.5rem);
-	--step-1: clamp(1.4994rem, 1.3043rem + 0.9756vw, 1.9994rem);
-	--step-2: clamp(1.9988rem, 1.7385rem + 1.3012vw, 2.6656rem);
-	--step-3: clamp(2.6644rem, 2.3175rem + 1.7341vw, 3.5531rem);
-	--step-4: clamp(3.5519rem, 3.0897rem + 2.311vw, 4.7363rem);
-	--step-5: clamp(4.735rem, 4.1191rem + 3.0793vw, 6.3131rem);
-}
+	/* @link https://utopia.fyi/generator-mk-ii?c=320,18,1.25,1140,22,1.333,5,2, */
+	--step--2: clamp(0.72rem, 0.699rem + 0.1049vw, 0.7738rem);
+	--step--1: clamp(0.9rem, 0.8488rem + 0.2561vw, 1.0313rem);
+	--step-0: clamp(1.125rem, 1.0274rem + 0.4878vw, 1.375rem);
+	--step-1: clamp(1.4063rem, 1.2397rem + 0.8329vw, 1.8331rem);
+	--step-2: clamp(1.7581rem, 1.4908rem + 1.3366vw, 2.4431rem);
+	--step-3: clamp(2.1975rem, 1.7841rem + 2.0671vw, 3.2569rem);
+	--step-4: clamp(2.7469rem, 2.1247rem + 3.111vw, 4.3412rem);
+	--step-5: clamp(3.4331rem, 2.5146rem + 4.5927vw, 5.7869rem);
+  }
 
 body {
 	color: var(--color-foreground);
@@ -216,7 +216,7 @@ blockquote {
 /*--- Main Menu ---*/
 .site-header {
 	display: grid;
-	grid-template-columns: minmax(auto, 100px) 1fr max-content;
+	grid-template-columns: minmax(auto, 80px) 1fr max-content;
 	grid-gap: 0.5rem;
 	margin-bottom: 1rem;
 }
@@ -245,7 +245,7 @@ ul.main-menu {
 .main-menu a {
 	text-decoration: none;
 	display: block;
-	font-size: 1.2rem;
+	font-size: var(--step--1);
 	text-transform: uppercase;
 	padding: .5rem 1rem;
 	border: 1px solid;

@@ -17,12 +17,7 @@
       theme,
       "authors": authors[]->,
       publishedAt,
-      mainImage{
-        ...,
-        "imageFile":  imageFile->{
-          ...
-        }
-      },
+      mainImage->,
       "sections": sections[]{
         _id,
         headingText,
@@ -98,7 +93,7 @@
 
   {#if post.mainImage}
     <meta property="og:image" content={
-      urlFor(post.mainImage.imageFile.image)
+      urlFor(post.mainImage.image)
         .size(1200, 630)
         .format('jpg')
         .fit('max')
@@ -114,7 +109,7 @@
 <article class="flow">
 
   {#if post.mainImage}
-    <img src={urlFor(post.mainImage.imageFile.image).width(800).fit('max').auto('format').url()} alt={post.mainImage.imageFile.image.altText.en} />
+    <img src={urlFor(post.mainImage.image).width(800).fit('max').auto('format').url()} alt={post.mainImage.image.altText.en} />
   {/if}
 
   <h1>{post.title.en}</h1>

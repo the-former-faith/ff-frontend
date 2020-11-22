@@ -10,12 +10,7 @@
 		},
 		publishedAt,
 		slug,
-		mainImage{
-			...,
-			"imageFile":  imageFile->{
-			...
-			}
-		}
+		mainImage->
 		}`).then(posts => {
 			return { posts };
 		}).catch(err => this.error(500, err));
@@ -24,6 +19,7 @@
 
 <script>
 	export let posts
+	console.log(posts)
 </script>
 
 <svelte:head>
@@ -35,7 +31,7 @@
 		<li>
 			<h3><a rel='prefetch' href='en/post/{post.slug.en.current}'>{post.title.en}</a></h3>
 			{#if post.mainImage}
-				<ImageObject url={post.mainImage.imageFile.image} alt={post.mainImage.imageFile.image.altText.en} />
+				<ImageObject url={post.mainImage.image} alt={post.mainImage.image.altText.en} />
 			{/if}
 			<div class="post-meta">
 				{#if post.authors}

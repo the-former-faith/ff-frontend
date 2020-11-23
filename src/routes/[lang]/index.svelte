@@ -1,25 +1,30 @@
 <script context="module">
-	import client from '../../sanityClient'
-	import ImageObject from '../../components/ImageObject.svelte'
-	import MetaAuthors from '../../components/MetaAuthors.svelte'
-	export function preload({ params, query }) {
-    	return client.fetch(`*[_type == "post"]{
-		title,
-		"authors": authors[]-> {
-			title
-		},
-		publishedAt,
-		slug,
-		mainImage->
-		}`).then(posts => {
-			return { posts };
-		}).catch(err => this.error(500, err));
+	import client from "../../sanityClient";
+	import groq from "groq";
+	import ImageObject from "../../components/ImageObject.svelte";
+	import MetaAuthors from "../../components/MetaAuthors.svelte";
+	export function preload() {
+		return client
+			.fetch(
+				groq`*[_type == "post"]{
+					title,
+					"authors": authors[]-> {
+						title
+					},
+					publishedAt,
+					slug,
+					mainImage->
+				}`
+			)
+			.then((posts) => {
+				return { posts };
+			})
+			.catch((err) => this.error(500, err));
 	}
 </script>
 
 <script>
-	export let posts
-	console.log(posts)
+	export let posts;
 </script>
 
 <svelte:head>
@@ -29,13 +34,22 @@
 <ul class="posts-list">
 	{#each posts as post}
 		<li>
-			<h3><a rel='prefetch' href='en/post/{post.slug.en.current}'>{post.title.en}</a></h3>
+			<h3>
+				<a
+					rel="prefetch"
+					href="en/post/{post.slug.en.current}">{post.title.en}</a>
+			</h3>
 			{#if post.mainImage}
-				<ImageObject url={post.mainImage.image} alt={post.mainImage.image.altText.en} />
+				<ImageObject
+					url={post.mainImage.image}
+					alt={post.mainImage.image.altText.en}
+					ratio={{ x: 4, y: 3 }} />
 			{/if}
 			<div class="post-meta">
 				{#if post.authors}
-					<p><MetaAuthors authors={post.authors} /></p>
+					<p>
+						<MetaAuthors authors={post.authors} />
+					</p>
 				{/if}
 				<p>{new Date(post.publishedAt).toDateString()}</p>
 			</div>

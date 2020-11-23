@@ -7,15 +7,25 @@
   export let url
   export let alt
   export let caption
+  export let ratio
   const urlFor = source => urlBuilder(client).image(source)
+
+  const findRatioHeightbyWidth = (x, y)=> {
+    const commonDenominator = x / y.x
+    return commonDenominator * y.y
+  }
+
   const processedUrl = (url, width) => {
     return urlFor(url)
           .width(width)
+          .height(ratio ? findRatioHeightbyWidth(width, ratio) : undefined)
           .auto('format')
           .fit('max')
           .url()
   }
+
   const sizes = [300, 400, 600, 800, 1000, 1200, 2000, 2400]
+  
   const srcSet = sizes.map(x => {
     return `${processedUrl(url, x)} ${x}w`
   })
@@ -23,7 +33,6 @@
 </script>
 
 <figure>
-
   <img 
     {alt} 
     srcset={srcSet.toString()}

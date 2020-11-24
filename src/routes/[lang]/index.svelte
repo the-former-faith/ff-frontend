@@ -1,12 +1,12 @@
 <script context="module">
-	import client from "../../sanityClient";
-	import groq from "groq";
-	import ImageObject from "../../components/ImageObject.svelte";
-	import MetaAuthors from "../../components/MetaAuthors.svelte";
-	export function preload() {
-		return client
-			.fetch(
-				groq`*[_type == "post"]{
+  import client from '../../sanityClient'
+  import groq from 'groq'
+  import ImageObject from '../../components/ImageObject.svelte'
+  import MetaAuthors from '../../components/MetaAuthors.svelte'
+  export function preload() {
+    return client
+      .fetch(
+        groq`*[_type == "post"]{
 					title,
 					"authors": authors[]-> {
 						title
@@ -15,44 +15,44 @@
 					slug,
 					mainImage->
 				}`
-			)
-			.then((posts) => {
-				return { posts };
-			})
-			.catch((err) => this.error(500, err));
-	}
+      )
+      .then((posts) => {
+        return { posts }
+      })
+      .catch((err) => this.error(500, err))
+  }
 </script>
 
 <script>
-	export let posts;
+  export let posts
 </script>
 
 <svelte:head>
-	<title>The Former Faith</title>
+  <title>The Former Faith</title>
 </svelte:head>
 <h2>Latest Articles</h2>
 <ul class="posts-list">
-	{#each posts as post}
-		<li>
-			<h3>
-				<a
-					rel="prefetch"
-					href="en/post/{post.slug.en.current}">{post.title.en}</a>
-			</h3>
-			{#if post.mainImage}
-				<ImageObject
-					url={post.mainImage.image}
-					alt={post.mainImage.image.altText.en}
-					ratio={{ x: 4, y: 3 }} />
-			{/if}
-			<div class="post-meta">
-				{#if post.authors}
-					<p>
-						<MetaAuthors authors={post.authors} />
-					</p>
-				{/if}
-				<p>{new Date(post.publishedAt).toDateString()}</p>
-			</div>
-		</li>
-	{/each}
+  {#each posts as post}
+    <li>
+      <h3>
+        <a
+          rel="prefetch"
+          href="en/post/{post.slug.en.current}">{post.title.en}</a>
+      </h3>
+      {#if post.mainImage}
+        <ImageObject
+          url={post.mainImage.image}
+          alt={post.mainImage.image.altText.en}
+          ratio={{ x: 4, y: 3 }} />
+      {/if}
+      <div class="post-meta">
+        {#if post.authors}
+          <p>
+            <MetaAuthors authors={post.authors} />
+          </p>
+        {/if}
+        <p>{new Date(post.publishedAt).toDateString()}</p>
+      </div>
+    </li>
+  {/each}
 </ul>

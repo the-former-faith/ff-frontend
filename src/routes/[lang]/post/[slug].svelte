@@ -1,17 +1,17 @@
 <script context="module">
-  import client from "../../../sanityClient";
-  import BlockContent from "@movingbrands/svelte-portable-text";
-  import FootnotesList from "../../../components/FootnotesList.svelte";
-  import serializers from "../../../components/serializers";
-  import urlBuilder from "@sanity/image-url";
-  import { footnotes } from "../../../stores.js";
-  import MetaAuthors from "../../../components/MetaAuthors.svelte";
-  import groq from "groq";
+  import client from '../../../sanityClient'
+  import BlockContent from '@movingbrands/svelte-portable-text'
+  import FootnotesList from '../../../components/FootnotesList.svelte'
+  import serializers from '../../../components/serializers'
+  import urlBuilder from '@sanity/image-url'
+  import { footnotes } from '../../../stores.js'
+  import MetaAuthors from '../../../components/MetaAuthors.svelte'
+  import groq from 'groq'
 
-  const urlFor = (source) => urlBuilder(client).image(source);
+  const urlFor = (source) => urlBuilder(client).image(source)
 
   export async function preload({ params }) {
-    const { slug } = params;
+    const { slug } = params
     const query = groq`*[_type == "post" && slug.en.current == $slug]{
       _id,
       title,
@@ -65,21 +65,21 @@
           }
         }
       }
-    }[0]`;
+    }[0]`
 
-    footnotes.update((x) => []);
+    footnotes.update((x) => [])
 
     const post = await client
       .fetch(query, { slug })
-      .catch((err) => this.error(500, err));
-    return { post, slug };
+      .catch((err) => this.error(500, err))
+    return { post, slug }
   }
 </script>
 
 <script>
-  export let post;
-  let authors = post.authors;
-  let publishDate = new Date(post.publishedAt);
+  export let post
+  let authors = post.authors
+  let publishDate = new Date(post.publishedAt)
 </script>
 
 <svelte:head>

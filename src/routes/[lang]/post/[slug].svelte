@@ -129,22 +129,24 @@
     <p>{publishDate.toDateString()}</p>
   </div>
 
-  {#each post.sections as section}
-    <section class="flow">
-      {#if section.headingLevel === 'h2'}
-        <h2>{section.headingText.en}</h2>
-      {:else if section.headingLevel === 'h3'}
-        <h3>{section.headingText.en}</h3>
-      {:else if section.headingLevel === 'h4'}
-        <h4>{section.headingText.en}</h4>
-      {:else if section.headingLevel === 'h5'}
-        <h5>{section.headingText.en}</h5>
-      {:else if section.headingLevel === 'h6'}
-        <h6>{section.headingText.en}</h6>
-      {/if}
-      <BlockContent blocks={section.content.en} {serializers} />
-    </section>
-  {/each}
+  {#if post.sections}
+    {#each post.sections as section}
+      <section class="flow">
+        {#if section.headingLevel === 'h2'}
+          <h2>{section.headingText.en}</h2>
+        {:else if section.headingLevel === 'h3'}
+          <h3>{section.headingText.en}</h3>
+        {:else if section.headingLevel === 'h4'}
+          <h4>{section.headingText.en}</h4>
+        {:else if section.headingLevel === 'h5'}
+          <h5>{section.headingText.en}</h5>
+        {:else if section.headingLevel === 'h6'}
+          <h6>{section.headingText.en}</h6>
+        {/if}
+        <BlockContent blocks={section.content.en} {serializers} />
+      </section>
+    {/each}
+  {/if}
   {#if $footnotes.length > 0}
     <FootnotesList />
   {/if}

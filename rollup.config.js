@@ -1,5 +1,4 @@
 import path from 'path';
-import dotenv from 'dotenv';
 import resolve from '@rollup/plugin-node-resolve';
 import svelte from 'rollup-plugin-svelte';
 import replace from '@rollup/plugin-replace';
@@ -10,9 +9,7 @@ import { terser } from 'rollup-plugin-terser';
 import config from 'sapper/config/rollup.js';
 import pkg from './package.json';
 
-dotenv.config();
 const mode = process.env.NODE_ENV;
-const sanityRead = process.env.SANITY_READ;
 const dev = mode === 'development';
 const legacy = !!process.env.SAPPER_LEGACY_BUILD;
 
@@ -29,7 +26,6 @@ export default {
 			replace({
 				'process.browser': true,
 				'process.env.NODE_ENV': JSON.stringify(mode),
-				'process.env.SANITY_READ': JSON.stringify(sanityRead),
 			}),
 			svelte({
 				dev,
@@ -79,7 +75,6 @@ export default {
 			replace({
 				'process.browser': false,
 				'process.env.NODE_ENV': JSON.stringify(mode),
-				'process.env.SANITY_READ': JSON.stringify(sanityRead),
 			}),
 			svelte({
 				generate: 'ssr',
@@ -110,7 +105,6 @@ export default {
 			replace({
 				'process.browser': true,
 				'process.env.NODE_ENV': JSON.stringify(mode),
-				'process.env.SANITY_READ': JSON.stringify(sanityRead),
 			}),
 			commonjs(),
 			!dev && terser()

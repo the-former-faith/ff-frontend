@@ -1,14 +1,14 @@
 <script>
-	import Nav from '../components/Nav.svelte'
-	import Footer from '../components/Footer.svelte'
-	import YouTubeScriptTag from '../components/YouTubeScriptTag.svelte'
-	export let segment
+  import Nav from '../components/Nav.svelte'
+  import Footer from '../components/Footer.svelte'
+  import YouTubeScriptTag from '../components/YouTubeScriptTag.svelte'
+  export let segment
 </script>
 
-<Nav {segment}/>
+<Nav {segment} />
 
-<main> 
-	<slot></slot>
+<main>
+  <slot />
 </main>
 
 <Footer />

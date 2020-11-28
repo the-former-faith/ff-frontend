@@ -4,7 +4,8 @@ const client = sanityClient({
   projectId: 'tuiw9zvo',
   dataset: 'production',
   withCredentials: true,
-  useCdn: true
+  //token: process.env.SANITY_READ,
+  //useCdn: true
 })
 
 export default client

@@ -7,6 +7,7 @@
   import { footnotes } from '../../../stores.js'
   import MetaAuthors from '../../../components/MetaAuthors.svelte'
   import groq from 'groq'
+  import { onMount } from 'svelte'
 
   const urlFor = (source) => urlBuilder(client).image(source)
 
@@ -64,7 +65,8 @@
             }
           }
         }
-      }
+      },
+      ...
     }[0]`
 
     footnotes.update((x) => [])
@@ -78,8 +80,16 @@
 
 <script>
   export let post
+
   let authors = post.authors
   let publishDate = new Date(post.publishedAt)
+
+  onMount(() => {
+    var request = new Request('https://tuiw9zvo.api.sanity.io/v1/users/me')
+    fetch(request)
+      .then((response) => response.text())
+      .then((result) => console.log('Result: ', result))
+  })
 </script>
 
 <svelte:head>

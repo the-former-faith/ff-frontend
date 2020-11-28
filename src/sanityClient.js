@@ -1,11 +1,18 @@
 import sanityClient from '@sanity/client'
 
-const client = sanityClient({
+const unauthicatedClient = sanityClient({
   projectId: 'tuiw9zvo',
   dataset: 'production',
-  withCredentials: true,
-  //token: process.env.SANITY_READ,
-  //useCdn: true
+  useCdn: true
 })
+
+const authenticatedClient = sanityClient({
+  projectId: 'tuiw9zvo',
+  dataset: 'production',
+  token: process.env.SANITY_READ,
+  useCdn: false
+})
+
+const client = (x) => x ? authenticatedClient : unauthicatedClient
 
 export default client

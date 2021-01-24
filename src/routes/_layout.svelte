@@ -5,13 +5,14 @@
   import * as R from 'ramda'
   import { stores } from '@sapper/app'
   import { onMount } from 'svelte'
-  import client from '../sanityClient.js'
+  import { clientWithCredentials } from '../sanityClient.js'
   export let segment
 
   const { session } = stores()
 
   onMount(async () => {
-    let sanityUser = await client(true).users.getById('me')
+    let sanityUser = await clientWithCredentials.users.getById('me')
+    console.log(sanityUser)
     if (!R.equals($session.user, sanityUser)) {
       document.cookie = `user=${JSON.stringify(sanityUser)}`
       location.reload()

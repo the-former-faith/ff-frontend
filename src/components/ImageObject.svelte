@@ -8,7 +8,7 @@
   export let alt
   export let caption
   export let ratio
-  const urlFor = (source) => urlBuilder(client()).image(source)
+  const urlFor = (source) => urlBuilder(client).image(source)
 
   const findRatioHeightbyWidth = (x, y) => {
     const commonDenominator = x / y.x

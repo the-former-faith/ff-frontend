@@ -4,7 +4,7 @@
   import ImageObject from '../../components/ImageObject.svelte'
   import MetaAuthors from '../../components/MetaAuthors.svelte'
   export function preload() {
-    return client()
+    return client
       .fetch(
         groq`*[_type == "post"]{
 					title,

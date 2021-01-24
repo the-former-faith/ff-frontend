@@ -1,5 +1,3 @@
-import BlockContent from '@movingbrands/svelte-portable-text'
-import client from '../sanityClient'
 import Link from './Link.svelte'
 
 export default {

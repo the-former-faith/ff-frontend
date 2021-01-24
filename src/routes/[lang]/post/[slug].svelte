@@ -5,12 +5,12 @@
   import serializers from '../../../components/serializers'
   import urlBuilder from '@sanity/image-url'
   import { footnotes } from '../../../stores.js'
-  import MetaAuthors from '../../../components/MetaAuthors.svelte'
+  import MetaData from '../../../components/MetaData.svelte'
   import groq from 'groq'
 
-  const urlFor = (source) => urlBuilder(client()).image(source)
+  const urlFor = (source) => urlBuilder(client).image(source)
 
-  export async function preload({ params }) {
+  export async function preload({ params }, session) {
     const { slug } = params
     const query = groq`*[_type == "post" && slug.en.current == $slug]{
       _id,
@@ -19,45 +19,40 @@
       "authors": authors[]->,
       publishedAt,
       mainImage->,
-      "sections": sections[]{
-        _id,
-        headingText,
-        headingLevel,
-        content {
-          "en": en[]{
+      content {
+        "en": en[]{
+          ...,
+          _type == "blockQuoteObject" => {
             ...,
-            _type == "blockQuoteObject" => {
+            "source": source {
               ...,
-              "source": source {
-                ...,
-                "author": author->
-              }
+              "author": author->
+            }
+          },
+          _type == "imageObject" => {
+            ...,
+            "imageFile": imageFile->{
+              ...
+            }
+          },
+          markDefs[]{
+            ...,
+            _type == "internalLink" => {
+              "slug": @.reference->slug.en.current,
+              "lang": en,
+              "type": @.reference->_type,
             },
-            _type == "imageObject" => {
+            _type == "footnote" => {
               ...,
-              "imageFile": imageFile->{
-                ...
-              }
-            },
-            markDefs[]{
-              ...,
-              _type == "internalLink" => {
-                "slug": @.reference->slug.en.current,
-                "lang": en,
-                "type": @.reference->_type,
-              },
-              _type == "footnote" => {
+              "citations": citations[]{
                 ...,
-                "citations": citations[]{
+                "source": source-> {
                   ...,
-                  "source": source-> {
-                    ...,
-                    newspaper-> {
-                      title
-                    },
-                    "authors": authors[]-> {
-                      title
-                    }
+                  newspaper-> {
+                    title
+                  },
+                  "authors": authors[]-> {
+                    title
                   }
                 }
               }
@@ -70,85 +65,54 @@
 
     footnotes.update(() => [])
 
-    const post = await client()
-      .fetch(query, { slug })
-      .catch((err) => this.error(500, err))
+    const post = await client.fetch(query, { slug }).catch((err) => this.error(404, err))
+
+    console.log(post)
+
     return { post, slug }
   }
 </script>
 
 <script>
   export let post
-  let authors = post.authors
-  let publishDate = new Date(post.publishedAt)
 </script>
 
 <svelte:head>
-  <title>{post.title.en}</title>
-
-  {#if post.css}
-    <link rel="stylesheet" href={post.css} />
+  {#if post.theme !== 'defaultTheme'}
+    <link rel="stylesheet" href={`/styles/${post.theme}.css`} />
+  {/if}
+  {#if post}
+    <title>{post.title.en}</title>
+    <meta property="og:title" content={post.title.en} />
+    <meta property="og:type" content="article" />
   {/if}
 
-  <meta property="og:title" content={post.title.en} />
-  <meta property="og:type" content="article" />
-
-  {#if post.mainImage}
-    <meta
-      property="og:image"
-      content={urlFor(post.mainImage.image)
-        .size(1200, 630)
-        .format('jpg')
-        .fit('max')
-        .url()} />
+  {#if post && post.mainImage}
+    <meta property="og:image" content={urlFor(post.mainImage.image).size(1200, 630).format('jpg').fit('max').url()} />
   {:else}
-    <meta
-      property="og:image"
-      content="https://tender-panini-0676cc.netlify.app/logo-large.png" />
+    <meta property="og:image" content="https://tender-panini-0676cc.netlify.app/logo-large.png" />
   {/if}
 </svelte:head>
 
-<article class="flow">
-  {#if post.mainImage}
-    <img
-      src={urlFor(post.mainImage.image)
-        .width(800)
-        .fit('max')
-        .auto('format')
-        .url()}
-      alt={post.mainImage.image.altText.en} />
-  {/if}
-
-  <h1>{post.title.en}</h1>
-
-  <div class="post-meta">
-    {#if authors}
-      <p>
-        <MetaAuthors {authors} />
-      </p>
+{#if post}
+  <article class="flow">
+    {#if post.mainImage}
+      <img src={urlFor(post.mainImage.image).width(800).fit('max').auto('format').url()} alt={post.mainImage.image.altText.en} />
     {/if}
-    <p>{publishDate.toDateString()}</p>
-  </div>
 
-  {#if post.sections}
-    {#each post.sections as section}
-      <section class="flow">
-        {#if section.headingLevel === 'h2'}
-          <h2>{section.headingText.en}</h2>
-        {:else if section.headingLevel === 'h3'}
-          <h3>{section.headingText.en}</h3>
-        {:else if section.headingLevel === 'h4'}
-          <h4>{section.headingText.en}</h4>
-        {:else if section.headingLevel === 'h5'}
-          <h5>{section.headingText.en}</h5>
-        {:else if section.headingLevel === 'h6'}
-          <h6>{section.headingText.en}</h6>
-        {/if}
-        <BlockContent blocks={section.content.en} {serializers} />
-      </section>
-    {/each}
-  {/if}
-  {#if $footnotes.length > 0}
-    <FootnotesList />
-  {/if}
-</article>
+    <h1>{post.title.en}</h1>
+
+    <MetaData publishedAt={post.publishedAt} authors={post.authors} />
+
+    {#if post.content}
+      <div class="flow">
+        <BlockContent blocks={post.content.en} {serializers} />
+      </div>
+    {/if}
+    {#if $footnotes.length > 0}
+      <FootnotesList />
+    {/if}
+  </article>
+{:else}
+  <p>Article not found</p>
+{/if}

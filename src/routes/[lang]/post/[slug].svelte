@@ -18,7 +18,13 @@
       theme,
       "authors": authors[]->,
       publishedAt,
-      mainImage->,
+      mainImage {
+        ...
+        asset-> {
+          ...
+        }
+      },
+      ...,
       content {
         "en": en[]{
           ...,
@@ -88,7 +94,7 @@
   {/if}
 
   {#if post && post.mainImage}
-    <meta property="og:image" content={urlFor(post.mainImage.image).size(1200, 630).format('jpg').fit('max').url()} />
+    <meta property="og:image" content={urlFor(post.mainImage).size(1200, 630).format('jpg').fit('max').url()} />
   {:else}
     <meta property="og:image" content="https://tender-panini-0676cc.netlify.app/logo-large.png" />
   {/if}
@@ -97,12 +103,18 @@
 {#if post}
   <article class="flow">
     {#if post.mainImage}
-      <img src={urlFor(post.mainImage.image).width(800).fit('max').auto('format').url()} alt={post.mainImage.image.altText.en} />
+      <img src={urlFor(post.mainImage).width(800).fit('max').auto('format').url()} alt={post.mainImage} />
     {/if}
 
     <h1>{post.title.en}</h1>
 
     <MetaData publishedAt={post.publishedAt} authors={post.authors} />
+
+    {#if post.longDescription}
+      <div class="flow">
+        <BlockContent blocks={post.longDescription.en} {serializers} />
+      </div>
+    {/if}
 
     {#if post.content}
       <div class="flow">

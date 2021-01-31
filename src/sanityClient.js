@@ -6,7 +6,7 @@ const clientWithoutAuth = sanityClient({
   useCdn: true
 })
 
-const clientWithToken = sanityClient({
+export const clientWithToken = sanityClient({
   projectId: 'tuiw9zvo',
   dataset: 'production',
   token: process.env.SANITY_READ,

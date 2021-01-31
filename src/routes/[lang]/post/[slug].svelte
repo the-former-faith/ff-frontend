@@ -1,5 +1,6 @@
 <script context="module">
   import client from '../../../sanityClient'
+  import { clientWithToken } from '../../../sanityClient'
   import BlockContent from '@movingbrands/svelte-portable-text'
   import FootnotesList from '../../../components/FootnotesList.svelte'
   import serializers from '../../../components/serializers'
@@ -71,9 +72,8 @@
 
     footnotes.update(() => [])
 
-    const post = await client.fetch(query, { slug }).catch((err) => this.error(404, err))
-
-    console.log(post)
+    //const post = await client.fetch(query, { slug }).catch((err) => this.error(404, err))
+    const post = await clientWithToken.fetch(query, { slug }).catch((err) => this.error(404, err))
 
     return { post, slug }
   }

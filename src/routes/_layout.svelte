@@ -12,12 +12,12 @@
 
   onMount(async () => {
     let sanityUser = await clientWithCredentials.users.getById('me')
-    console.log(sanityUser)
-    console.log($session.user)
-    if (!R.equals($session.user, sanityUser)) {
+    //console.log(sanityUser)
+    //console.log($session.user)
+    /*if (!R.equals($session.user, sanityUser)) {
       document.cookie = `user=${JSON.stringify(sanityUser)}`
       //location.reload()
-    }
+    }*/
   })
 </script>
 

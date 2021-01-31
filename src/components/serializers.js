@@ -11,6 +11,7 @@ import LangTag from './LangTag.svelte';
 import ChartBlock from './ChartBlock.svelte';
 import BlockQuote from './BlockQuote.svelte';
 import QuoteTag from './QuoteTag.svelte';
+import MapBlock from './MapBlock.svelte';
 
 export default {
   marks: {
@@ -96,6 +97,15 @@ export default {
         props: {
           source: node.source,
           text: node.text
+        }
+      })
+    },
+    mapObject: ({ node, children }) => {
+      return ({
+        component: MapBlock,
+        childNodes: children,
+        props: {
+          points: node.points,
         }
       })
     }

@@ -36,11 +36,15 @@
             }
           },
           _type == "imageObject" => {
-            image {
-              ...,
-              asset-> {
-                ...
-              }
+            ...,
+            asset-> {
+              ...
+            }
+          },
+          _type == "newspaperArticleObject" => {
+            ...,
+            newspaperArticle -> {
+              mainImage
             }
           },
           markDefs[]{

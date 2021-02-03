@@ -60,9 +60,18 @@ export default {
       component: ImageObject,
       childNodes: children,
       props: {
-        image: node.image,
-        alt: node.image.asset.alt,
-        caption: node.image.caption
+        image: node.asset,
+        caption: node.caption
+      },
+    })},
+    newspaperArticleObject: ({ node, children }) => {
+      return ({
+      component: ImageObject,
+      childNodes: children,
+      props: {
+        image: node.newspaperArticle.mainImage.asset,
+        caption: node.caption,
+        ratio: {x:1,y:1}
       },
     })},
     videoObject: ({ node, children }) => {

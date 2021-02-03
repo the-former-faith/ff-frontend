@@ -5,9 +5,8 @@
   import BlockContent from '@movingbrands/svelte-portable-text'
   import serializers from './serializersSimple'
   export let image
-  export let alt
   export let caption
-  export let ratio
+  export let ratio //object
   const urlFor = (source) => urlBuilder(client).image(source)
 
   const findRatioHeightbyWidth = (x, y) => {
@@ -20,7 +19,8 @@
       .width(width)
       .height(ratio ? findRatioHeightbyWidth(width, ratio) : undefined)
       .auto('format')
-      .fit('max')
+      .fit(ratio ? 'crop' : 'max')
+      .crop('entropy')
       .url()
   }
 
@@ -32,7 +32,7 @@
 </script>
 
 <figure>
-  <img {alt} srcset={srcSet.toString()} src={processedUrl(image, 600)} sizes="(min-width: 1024px) 1024px, 96vw" loading="lazy" />
+  <img alt={image.alt} srcset={srcSet.toString()} src={processedUrl(image, 600)} sizes="(min-width: 1024px) 1024px, 96vw" loading="lazy" />
 
   {#if caption}
     <figcaption>

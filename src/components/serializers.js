@@ -60,9 +60,9 @@ export default {
       component: ImageObject,
       childNodes: children,
       props: {
-        url: node.imageFile.image,
-        alt: node.imageFile.image.altText.en,
-        caption: node.caption
+        image: node.image,
+        alt: node.image.asset.alt,
+        caption: node.image.caption
       },
     })},
     videoObject: ({ node, children }) => {

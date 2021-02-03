@@ -4,7 +4,7 @@
   import client from '../sanityClient'
   import BlockContent from '@movingbrands/svelte-portable-text'
   import serializers from './serializersSimple'
-  export let url
+  export let image
   export let alt
   export let caption
   export let ratio
@@ -27,17 +27,12 @@
   const sizes = [300, 400, 600, 800, 1000, 1200, 2000, 2400]
 
   const srcSet = sizes.map((x) => {
-    return `${processedUrl(url, x)} ${x}w`
+    return `${processedUrl(image, x)} ${x}w`
   })
 </script>
 
 <figure>
-  <img
-    {alt}
-    srcset={srcSet.toString()}
-    src={processedUrl(url, 600)}
-    sizes="(min-width: 1024px) 1024px, 96vw"
-    loading="lazy" />
+  <img {alt} srcset={srcSet.toString()} src={processedUrl(image, 600)} sizes="(min-width: 1024px) 1024px, 96vw" loading="lazy" />
 
   {#if caption}
     <figcaption>

@@ -11,7 +11,6 @@
 					"authors": authors[]-> {
 						title
 					},
-					publishedAt,
 					slug,
 					mainImage->
 				}`
@@ -35,15 +34,10 @@
   {#each posts as post}
     <li>
       <h3>
-        <a
-          rel="prefetch"
-          href="en/post/{post.slug.en.current}">{post.title.en}</a>
+        <a rel="prefetch" href="en/post/{post.slug.en.current}">{post.title.en}</a>
       </h3>
       {#if post.mainImage}
-        <ImageObject
-          url={post.mainImage.image}
-          alt={post.mainImage.image.altText.en}
-          ratio={{ x: 4, y: 3 }} />
+        <ImageObject url={post.mainImage.image} alt={post.mainImage.image.altText.en} ratio={{ x: 4, y: 3 }} />
       {/if}
       <div class="post-meta">
         {#if post.authors}
@@ -51,7 +45,7 @@
             <MetaAuthors authors={post.authors} />
           </p>
         {/if}
-        <p>{new Date(post.publishedAt).toDateString()}</p>
+        <p>{new Date(post._createdAt).toDateString()}</p>
       </div>
     </li>
   {/each}

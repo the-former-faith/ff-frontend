@@ -18,7 +18,6 @@
       title,
       theme,
       "authors": authors[]->,
-      publishedAt,
       mainImage {
         ...
         asset-> {
@@ -37,9 +36,11 @@
             }
           },
           _type == "imageObject" => {
-            ...,
-            "imageFile": imageFile->{
-              ...
+            image {
+              ...,
+              asset-> {
+                ...
+              }
             }
           },
           markDefs[]{
@@ -103,12 +104,12 @@
 {#if post}
   <article class="flow">
     {#if post.mainImage}
-      <img src={urlFor(post.mainImage).width(800).fit('max').auto('format').url()} alt={post.mainImage} />
+      <img src={urlFor(post.mainImage).width(800).fit('max').auto('format').url()} alt={post.mainImage.alt} />
     {/if}
 
     <h1>{post.title.en}</h1>
 
-    <MetaData publishedAt={post.publishedAt} authors={post.authors} />
+    <MetaData createdAt={post._createdAt} authors={post.authors} />
 
     {#if post.longDescription}
       <div class="flow">

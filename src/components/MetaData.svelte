@@ -1,8 +1,8 @@
 <script>
   import MetaAuthors from './MetaAuthors.svelte'
-  export let publishedAt
+  export let createdAt
   export let authors
-  let date = new Date(publishedAt)
+  let date = new Date(createdAt)
 </script>
 
 <div class="post-meta">

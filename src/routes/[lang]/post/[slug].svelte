@@ -7,6 +7,7 @@
   import urlBuilder from '@sanity/image-url'
   import { footnotes } from '../../../stores.js'
   import MetaData from '../../../components/MetaData.svelte'
+  import ImageObject from '../../../components/ImageObject.svelte'
   import groq from 'groq'
 
   const urlFor = (source) => urlBuilder(client).image(source)
@@ -18,12 +19,7 @@
       title,
       theme,
       "authors": authors[]->,
-      mainImage {
-        ...
-        asset-> {
-          ...
-        }
-      },
+      mainImage->,
       ...,
       content {
         "en": en[]{
@@ -99,7 +95,7 @@
   {/if}
 
   {#if post && post.mainImage}
-    <meta property="og:image" content={urlFor(post.mainImage).size(1200, 630).format('jpg').fit('max').url()} />
+    <meta property="og:image" content={urlFor(post.mainImage.file).size(1200, 630).format('jpg').fit('max').url()} />
   {:else}
     <meta property="og:image" content="https://tender-panini-0676cc.netlify.app/logo-large.png" />
   {/if}
@@ -108,7 +104,7 @@
 {#if post}
   <article class="flow">
     {#if post.mainImage}
-      <img src={urlFor(post.mainImage).width(800).fit('max').auto('format').url()} alt={post.mainImage.alt} />
+      <ImageObject image={post.mainImage.file} ratio={{ x: 4, y: 3 }} />
     {/if}
 
     <h1>{post.title.en}</h1>

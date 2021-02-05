@@ -7,6 +7,7 @@
     return client
       .fetch(
         groq`*[_type == "post"]{
+          _createdAt,
 					title,
 					"authors": authors[]-> {
 						title
@@ -24,6 +25,7 @@
 
 <script>
   export let posts
+  console.log(posts)
 </script>
 
 <svelte:head>
@@ -37,7 +39,7 @@
         <a rel="prefetch" href="en/post/{post.slug.en.current}">{post.title.en}</a>
       </h3>
       {#if post.mainImage}
-        <ImageObject url={post.mainImage.image} alt={post.mainImage.image.altText.en} ratio={{ x: 4, y: 3 }} />
+        <ImageObject image={post.mainImage.file} ratio={{ x: 4, y: 3 }} />
       {/if}
       <div class="post-meta">
         {#if post.authors}

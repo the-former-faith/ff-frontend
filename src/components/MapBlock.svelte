@@ -1,5 +1,6 @@
 <script>
   import { Map, Marker, controls } from '@beyonk/svelte-mapbox'
+  import MapMarker from './MapMarker.svelte'
 
   const { NavigationControl, ScaleControl } = controls
 
@@ -17,7 +18,8 @@
 
 <Map accessToken={token} options={{ scrollZoom: false }} style="mapbox://styles/mattjim/ckklrh9mr143w17kcm0thu1p1" zoom={3.5} center={[-58.76666, 8.65]}>
   {#each points as point}
-    <Marker lat={point.location.lat} lng={point.location.lng} color="#870069" label={point.title} popupClassName="class-name" />
+    <!--<Marker lat={point.location.lat} lng={point.location.lng} color="#870069" label={point.title} popupClassName="class-name" />-->
+    <MapMarker lat={point.location.lat} lng={point.location.lng} color="#870069" label={point.title} popupClassName="class-name" />
   {/each}
   <NavigationControl />
   <ScaleControl />

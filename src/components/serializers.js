@@ -114,7 +114,8 @@ export default {
         component: MapBlock,
         childNodes: children,
         props: {
-          points: node.points,
+          map: node.embed,
+          caption: node.caption
         }
       })
     }

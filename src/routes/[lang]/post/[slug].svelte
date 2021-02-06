@@ -43,6 +43,21 @@
               mainImage
             }
           },
+          _type == "mapObject" => {
+            ...,
+            embed -> {
+              ...,
+              points[]-> {
+                ...,
+                mainImage-> {
+                  file
+                },
+                "coordinates": location-> {
+                  ...coordinates
+                }
+              }
+            }
+          },
           markDefs[]{
             ...,
             _type == "internalLink" => {

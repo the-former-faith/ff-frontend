@@ -1,41 +1,67 @@
 <script>
   import { Map, Marker, controls } from '@beyonk/svelte-mapbox'
+  import BlockContent from '@movingbrands/svelte-portable-text'
   import MapMarker from './MapMarker.svelte'
+  import serializers from './serializersSimple'
 
   const { NavigationControl, ScaleControl } = controls
 
   let token = 'pk.eyJ1IjoibWF0dGppbSIsImEiOiJja2tsaXZ6cGcwZ3ZkMnZwcmExNjhwZGFxIn0.CJ_95QqWns1zY2MqV7j3Uw'
-  let lng = -58.76666
-  let lat = 8.65
-  let zoom = 2
 
-  export let points
+  export let map
+  export let caption
+  let { center, zoom } = map
 
-  let noScriptMarkers = points.map((point) => {
-    return `pin-s-l+870069(${point.location.lng},${point.location.lat})`
+  let points = map.points
+
+  let pointsWithCoordinates = points.filter((point) => point.coordinates)
+
+  let noScriptMarkers = pointsWithCoordinates.map((point, i) => {
+    return `pin-s-${i + 1}+870069(${point.coordinates.lng},${point.coordinates.lat})`
   })
 </script>
 
-<Map accessToken={token} options={{ scrollZoom: false }} style="mapbox://styles/mattjim/ckklrh9mr143w17kcm0thu1p1" zoom={3.5} center={[-58.76666, 8.65]}>
-  {#each points as point}
-    <!--<Marker lat={point.location.lat} lng={point.location.lng} color="#870069" label={point.title} popupClassName="class-name" />-->
-    <MapMarker lat={point.location.lat} lng={point.location.lng} color="#870069" label={point.title} popupClassName="class-name" />
-  {/each}
-  <NavigationControl />
-  <ScaleControl />
-</Map>
-
-<noscript />
-
-<p>
-  <img
-    src={`https://api.mapbox.com/styles/v1/mattjim/ckklrh9mr143w17kcm0thu1p1/static/${noScriptMarkers.join()}/${lng},${lat},${zoom}/500x300@2x?access_token=${token}&logo=false`}
-    alt="Map of the Edmund Pettus Bridge in Selma, Alabama."
-  />
-</p>
+<figure>
+  <Map accessToken={token} options={{ scrollZoom: false }} style="mapbox://styles/mattjim/ckklrh9mr143w17kcm0thu1p1" {zoom} center={[center.lng, center.lat]}>
+    {#each pointsWithCoordinates as point}
+      <!--<Marker lat={point.coordinates.lat} lng={point.coordinates.lng} color="#870069" label={point.title.en} popupClassName="class-name" />-->
+      <MapMarker lat={point.coordinates.lat} lng={point.coordinates.lng} label={point.title.en} image={point.mainImage} />
+    {/each}
+    <NavigationControl />
+    <ScaleControl />
+  </Map>
+  <noscript>
+    <img
+      src={`https://api.mapbox.com/styles/v1/mattjim/ckklrh9mr143w17kcm0thu1p1/static/${noScriptMarkers.join()}/${center.lng},${center.lat},${zoom}/500x300@2x?access_token=${token}&logo=false`}
+      alt={map.title.en}
+    />
+  </noscript>
+  <figcaption>
+    {#if caption}
+      <BlockContent blocks={caption} {serializers} />
+    {:else}
+      <strong>{map.title.en}</strong>
+    {/if}
+    <noscript>
+      <p>Map points:</p>
+      <ol>
+        {#each pointsWithCoordinates as point}
+          <li>{point.title.en}</li>
+        {/each}
+      </ol>
+    </noscript>
+  </figcaption>
+</figure>
 
 <style>
   :global(.mapboxgl-map) {
     height: 90vh !important;
+  }
+
+  :global(.image-marker) {
+    border-radius: 50%;
+    border: 2px solid purple;
+    height: 50px;
+    width: 50px;
   }
 </style>

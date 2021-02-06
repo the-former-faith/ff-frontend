@@ -1,10 +1,7 @@
 <script>
-  import { getContext, onMount } from 'svelte'
+  //I got a lot of code for this from https://imfeld.dev/writing/svelte_domless_components
+  import { getContext } from 'svelte'
   import { contextKey } from '@beyonk/svelte-mapbox'
-  import urlBuilder from '@sanity/image-url'
-  import client from '../sanityClient'
-
-  const urlFor = (source) => urlBuilder(client).image(source)
 
   const { getMap, getMapbox } = getContext(contextKey)
   const map = getMap()
@@ -18,27 +15,16 @@
   export let lng
   export let label = 'Marker'
   export let popupClassName
-  export let markerOffset = [0, 0]
-  export let popupOffset = 10
-  export let color = '#870069'
+  export let markerOffset = [40, 0]
+  export let popupOffset = 15
   export let popup = true
-  export let image
 
   let marker
 
   $: marker && move(lng, lat)
 
-  onMount(() => {
-    let el
-    if (image) {
-      el = document.createElement('img')
-      let src = urlFor(image.file).width(100).height(100).auto('format').fit('crop').crop('entropy').url()
-      el.src = src
-      //el.alt = image.alt.en
-      el.className = 'image-marker'
-    }
-
-    marker = new mapbox.Marker(el ? el : { color, offset: markerOffset })
+  function createMarker(markerElement) {
+    marker = new mapbox.Marker({ element: markerElement, offset: markerOffset })
 
     if (popup) {
       const popupEl = new mapbox.Popup({
@@ -51,10 +37,23 @@
 
     marker.setLngLat({ lng, lat }).addTo(map)
 
-    return () => marker.remove()
-  })
+    return {
+      destroy() {
+        if (marker) {
+          marker.remove()
+          marker = undefined
+        }
+      },
+    }
+  }
 
   export function getMarker() {
     return marker
   }
 </script>
+
+<div use:createMarker>
+  {#if marker}
+    <slot />
+  {/if}
+</div>

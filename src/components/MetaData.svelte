@@ -4,6 +4,7 @@
   export let authors
   export let parent
   export let pageStart
+  export let source
   let date = new Date(createdAt)
 </script>
 
@@ -21,5 +22,8 @@
   {/if}
   {#if pageStart}
     <p>Page {pageStart}</p>
+  {/if}
+  {#if source}
+    <p><a href={source}>source</a></p>
   {/if}
 </div>

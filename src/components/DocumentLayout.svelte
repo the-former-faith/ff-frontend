@@ -1,7 +1,3 @@
-<script context="module">
-  import { footnotes } from './../stores.js'
-</script>
-
 <script>
   import BlockContent from '@movingbrands/svelte-portable-text'
   import FootnotesList from './FootnotesList.svelte'
@@ -47,7 +43,7 @@
 
     <h1>{post.title.en}</h1>
 
-    <MetaData createdAt={post._createdAt} authors={post.authors} parent={post.parent} pageStart={post.pageStart} />
+    <MetaData createdAt={post._createdAt} authors={post.authors} parent={post.parent} pageStart={post.pageStart} source={post.url} />
 
     {#if post.longDescription}
       <div class="flow">

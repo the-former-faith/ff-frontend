@@ -1,31 +1,46 @@
 <script context="module">
   import BlockContent from '@movingbrands/svelte-portable-text'
   import serializers from './serializersSimple'
-  import MetaAuthors from './MetaAuthors.svelte'
   import { footnotes } from '../stores.js'
+  import { stores } from '@sapper/app'
+  import CitationBook from './Citations/CitationBook.svelte'
+  import CitationWebsiteArticle from './Citations/CitationWebsiteArticle.svelte'
+  import CitationNewspaperArticle from './Citations/CitationNewspaperArticle.svelte'
 </script>
 
-<aside>
-  <hr />
-  <h2>Footnotes</h2>
-  <ol>
-    {#each $footnotes as footnote, i}
-      <li id={`footnote-${i + 1}`}>
-        <BlockContent blocks={footnote.content} {serializers} />
-        {#if footnote.citations}
-          {#each footnote.citations as citation}
-            {#if citation.source}
-              <p>
-                <strong>{citation.source.title.en}</strong>
-                {#if citation.source.authors} by <MetaAuthors authors={citation.source.authors} />{/if}
-                {#if citation.source.newspaper} in <em>{citation.source.newspaper.title}</em>{/if}
-                {#if citation.pageStart}, page {citation.pageStart}{/if}
-                {#if citation.pageEnd} to {citation.pageEnd}{/if}
-              </p>
-            {/if}
-          {/each}
-        {/if}
-      </li>
-    {/each}
-  </ol>
-</aside>
+<script>
+  const { page } = stores()
+  const citationBlocks = {
+    citationNewspaperArticle: CitationNewspaperArticle,
+    citationWebsiteArticle: CitationWebsiteArticle,
+    citationBook: CitationBook,
+  }
+</script>
+
+{#if $footnotes.length > 0}
+  <aside>
+    <hr />
+    <h2>Footnotes</h2>
+    <ol>
+      {#each $footnotes as footnote, i}
+        <li id={`footnote-${i + 1}`}>
+          <BlockContent blocks={footnote.content} {serializers} />
+          {#if footnote.citations}
+            {#each footnote.citations as citation}
+              {#if citation.source}
+                <svelte:component this={citationBlocks[citation._type]} {citation} />
+              {/if}
+            {/each}
+          {/if}
+          <a href={`${$page.path}#footnote-link-${i + 1}`}>&#10149; Jump back</a>
+        </li>
+      {/each}
+    </ol>
+  </aside>
+{/if}
+
+<style>
+  aside {
+    clear: both;
+  }
+</style>

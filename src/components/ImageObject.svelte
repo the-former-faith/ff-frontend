@@ -21,7 +21,7 @@
       .width(width)
       .height(ratio ? findRatioHeightbyWidth(width, ratio) : undefined)
       .auto('format')
-      .fit(ratio ? 'crop' : 'max')
+      .fit(ratio ? 'crop' : 'scale')
       .url()
   }
 

@@ -7,12 +7,13 @@
 
   export async function preload({ params }, session) {
     const { slug } = params
-    const query = groq`*[_type == "post" && slug.en.current == $slug]{
+    const query = groq`*[_type == "newspaperArticle" && slug.en.current == $slug]{
       _id,
       title,
       theme,
       "authors": authors[]->,
-      mainImage->,
+      file->,
+      parent->,
       ...,
       content {
         "en": en[]{

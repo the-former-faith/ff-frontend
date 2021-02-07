@@ -15,8 +15,8 @@
   export let lng
   export let label = 'Marker'
   export let popupClassName
-  export let markerOffset = [40, 0]
-  export let popupOffset = [40, -20]
+  export let markerOffset = [0, -20]
+  export let popupOffset = [0, -36]
   export let popup = true
 
   let marker

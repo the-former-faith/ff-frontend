@@ -59,6 +59,12 @@ body {
   line-height: 1.5;
 }
 
+/* Add a hack for sup*/
+sup {
+  display: inline-block;
+  margin-right: 8px;
+}
+
 /* Remove list styles on ul, ol elements with a class attribute */
 ul[class],
 ol[class] {
@@ -338,11 +344,13 @@ ul.main-menu {
   display: flex;
   flex-wrap: wrap;
   text-transform: uppercase;
+  border: 1px solid;
 }
 
 .post-meta p {
   border: 1px solid;
   padding: 0.5rem;
+  flex: 1 1 auto;
 }
 
 /*-- Posts list --*/
@@ -364,5 +372,44 @@ ul.posts-list {
 
 .posts-list .post-meta p {
   border: none;
+  padding: 0.5rem;
+}
+
+/*-- Single post --*/
+
+.flow figure {
+  border: 2px solid;
+}
+
+@media screen and (min-width: 768px) {
+  .flow figure {
+    float: left;
+    max-width: 50vw;
+    margin: 1rem 1rem 1rem 0;
+  }
+
+  .flow figure:nth-of-type(odd) {
+    float: right;
+    margin: 1rem 0 1rem 1rem;
+  }
+}
+
+@media screen and (min-width: 1112px) {
+  .flow figure {
+    margin: 1rem 1rem 1rem -100px;
+  }
+
+  .flow figure:nth-of-type(odd) {
+    margin: 1rem -100px 1rem 1rem;
+  }
+}
+
+.flow figure img {
+  max-width: initial;
+  width: 100%;
+}
+
+.flow figure figcaption {
+  border-top: 2px solid;
   padding: 0.5rem;
 }

@@ -68,7 +68,7 @@
 
 <style>
   :global(.mapboxgl-map) {
-    height: 90vh !important;
+    height: 70vh !important;
   }
 
   .marker {

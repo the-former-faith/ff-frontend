@@ -65,15 +65,24 @@ export default {
       },
     })},
     newspaperArticleObject: ({ node, children }) => {
+      //Move this funky math stuff into the image function,
+      //Since I already have some math stuff for ratio there.
+      let image = node.embed.file
+      let hotspot = image.hotspot
+      let dimensions= image.asset.metadata.dimensions
       return ({
-      component: ImageObject,
-      childNodes: children,
-      props: {
-        image: node.newspaperArticle.mainImage.asset,
-        caption: node.caption,
-        ratio: {x:1,y:1}
-      },
-    })},
+        component: ImageObject,
+        childNodes: children,
+        props: {
+          image: image,
+          caption: node.caption,
+          ratio: {
+            x: dimensions.width * hotspot.width,
+            y: dimensions.height * hotspot.height
+          }
+        },
+      })
+    },
     videoObject: ({ node, children }) => {
       return ({
       component: VideoObject,

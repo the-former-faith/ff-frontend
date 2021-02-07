@@ -7,11 +7,13 @@
   export let image
   export let caption
   export let ratio //object
+
   const urlFor = (source) => urlBuilder(client).image(source)
 
   const findRatioHeightbyWidth = (x, y) => {
     const commonDenominator = x / y.x
-    return commonDenominator * y.y
+    const commonHeight = commonDenominator * y.y
+    return Math.round(commonHeight)
   }
 
   const processedUrl = (url, width) => {
@@ -20,7 +22,6 @@
       .height(ratio ? findRatioHeightbyWidth(width, ratio) : undefined)
       .auto('format')
       .fit(ratio ? 'crop' : 'max')
-      .crop('entropy')
       .url()
   }
 

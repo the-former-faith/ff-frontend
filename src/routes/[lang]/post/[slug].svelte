@@ -39,8 +39,11 @@
           },
           _type == "newspaperArticleObject" => {
             ...,
-            newspaperArticle -> {
-              mainImage
+            embed -> {
+              file {
+                ...,
+                asset->
+              }
             }
           },
           _type == "mapObject" => {

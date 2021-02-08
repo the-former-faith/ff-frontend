@@ -43,7 +43,7 @@
 
     <h1>{post.title.en}</h1>
 
-    <MetaData createdAt={post._createdAt} authors={post.authors} parent={post.parent} pageStart={post.pageStart} source={post.url} />
+    <MetaData createdAt={post.date ? post.date.time : post._createdAt} authors={post.authors} parent={post.parent} pageStart={post.pageStart} source={post.url} />
 
     {#if post.longDescription}
       <div class="flow">

@@ -413,3 +413,7 @@ ul.posts-list {
   border-top: 2px solid;
   padding: 0.5rem;
 }
+
+.flow li {
+  margin-top: 1rem;
+}

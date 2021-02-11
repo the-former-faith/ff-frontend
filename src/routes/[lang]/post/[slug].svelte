@@ -26,13 +26,18 @@
           },
           _type == "imageObject" => {
             ...,
-            asset-> {
-              ...
+            embed -> {
+              file {
+                ...,
+                asset->
+              }
             }
           },
           _type == "newspaperArticleObject" => {
             ...,
             embed -> {
+              ...,
+              parent->,
               file {
                 ...,
                 asset->

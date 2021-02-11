@@ -1,11 +1,11 @@
 <script>
   import MetaAuthors from './../MetaAuthors.svelte'
-  export let citation
+  export let source
 </script>
 
 <p>
-  <strong>{citation.source.title.en}</strong>
-  {#if citation.source.authors} by <MetaAuthors authors={citation.source.authors} />{/if}
-  {#if citation.source.pageStart}, page {citation.source.pageStart}{/if}
-  {#if citation.source.pageEnd} to {citation.source.pageEnd}{/if}
+  <strong>{source.title.en}</strong>
+  {#if source.authors} by <MetaAuthors authors={source.authors} />{/if}
+  {#if source.pageStart}, page {source.pageStart}{/if}
+  {#if source.pageEnd} to {source.pageEnd}{/if}
 </p>

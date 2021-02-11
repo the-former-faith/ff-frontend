@@ -28,7 +28,7 @@
           {#if footnote.citations}
             {#each footnote.citations as citation}
               {#if citation.source}
-                <svelte:component this={citationBlocks[citation._type]} {citation} />
+                <svelte:component this={citationBlocks[citation._type]} source={citation.source} />
               {/if}
             {/each}
           {/if}
@@ -42,5 +42,6 @@
 <style>
   aside {
     clear: both;
+    font-size: 0.8em;
   }
 </style>

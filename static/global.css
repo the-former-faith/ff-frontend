@@ -384,7 +384,7 @@ ul.posts-list {
 @media screen and (min-width: 768px) {
   .flow figure {
     float: left;
-    max-width: 50vw;
+    max-width: 30vw;
     margin: 1rem 1rem 1rem 0;
   }
 
@@ -416,4 +416,10 @@ ul.posts-list {
 
 .flow li {
   margin-top: 1rem;
+}
+
+.flow li::marker {
+  font-size: 2rem;
+  font-weight: 600;
+  font-variation-settings: 'wdth' 10, 'CNTR' 0;
 }

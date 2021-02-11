@@ -60,7 +60,7 @@ export default {
       component: ImageObject,
       childNodes: children,
       props: {
-        image: node.asset,
+        image: node.embed.file,
         caption: node.caption
       },
     })},
@@ -79,7 +79,8 @@ export default {
           ratio: {
             x: dimensions.width * hotspot.width,
             y: dimensions.height * hotspot.height
-          }
+          },
+          source: node.embed
         },
       })
     },

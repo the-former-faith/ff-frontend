@@ -27,7 +27,7 @@
           },
           _type == "imageObject" => {
             ...,
-            asset-> {
+            imageDoc-> {
               ...
             }
           },

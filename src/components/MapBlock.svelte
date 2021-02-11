@@ -71,6 +71,11 @@
     height: 70vh !important;
   }
 
+  figcaption {
+    font-size: 0.8em;
+    line-height: 1.2;
+  }
+
   .marker {
     height: 40px;
     width: 40px;

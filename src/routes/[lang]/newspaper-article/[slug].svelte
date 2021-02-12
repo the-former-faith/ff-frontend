@@ -1,6 +1,6 @@
 <script context="module">
   import client from '../../../sanityClient'
-  import { clientWithToken } from '../../../sanityClient'
+  //import { clientWithToken } from '../../../sanityClient'
   import DocumentLayout from '../../../components/DocumentLayout.svelte'
   import groq from 'groq'
   import { footnotes } from '../../../stores'
@@ -85,8 +85,8 @@
 
     footnotes.update(() => [])
 
-    //const post = await client.fetch(query, { slug }).catch((err) => this.error(404, err))
-    const post = await clientWithToken.fetch(query, { slug }).catch((err) => this.error(404, err))
+    const post = await client.fetch(query, { slug }).catch((err) => this.error(404, err))
+    //const post = await clientWithToken.fetch(query, { slug }).catch((err) => this.error(404, err))
 
     return { post, slug }
   }

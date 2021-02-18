@@ -1,8 +1,7 @@
 <script context="module">
   import client from '../../sanityClient.js'
   import groq from 'groq'
-  import ImageObject from '../../components/ImageObject.svelte'
-  import MetaAuthors from '../../components/MetaAuthors.svelte'
+
   export function preload() {
     return client
       .fetch(
@@ -24,6 +23,8 @@
 </script>
 
 <script>
+  import DocumentList from '../../components/DocumentList.svelte'
+
   export let posts
 </script>
 
@@ -31,23 +32,4 @@
   <title>The Former Faith</title>
 </svelte:head>
 <h2>Latest Articles</h2>
-<ul class="posts-list">
-  {#each posts as post}
-    <li>
-      <h3>
-        <a rel="prefetch" href="en/post/{post.slug.en.current}">{post.title.en}</a>
-      </h3>
-      {#if post.mainImage}
-        <ImageObject image={post.mainImage.file} ratio={{ x: 4, y: 3 }} />
-      {/if}
-      <div class="post-meta">
-        {#if post.authors}
-          <p>
-            <MetaAuthors authors={post.authors} />
-          </p>
-        {/if}
-        <p>{new Date(post._createdAt).toDateString()}</p>
-      </div>
-    </li>
-  {/each}
-</ul>
+<DocumentList {posts} />

@@ -7,6 +7,7 @@
       .fetch(
         groq`*[_type == "post"]{
           _createdAt,
+          _type,
 					title,
 					"authors": authors[]-> {
 						title

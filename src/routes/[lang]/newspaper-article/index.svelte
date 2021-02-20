@@ -7,12 +7,13 @@
       .fetch(
         groq`*[_type == "newspaperArticle"]{
           _createdAt,
+          _type,
 					title,
 					"authors": authors[]-> {
 						title
 					},
 					slug,
-					file->
+					file
 				}`
       )
       .then((posts) => {
@@ -24,12 +25,11 @@
 
 <script>
   import DocumentList from '../../../components/DocumentList.svelte'
-
   export let posts
 </script>
 
 <svelte:head>
   <title>Newspaper Articles Archive</title>
 </svelte:head>
-<h2>Latest Articles</h2>
+<h2>Newspaper Articles Archive</h2>
 <DocumentList {posts} />

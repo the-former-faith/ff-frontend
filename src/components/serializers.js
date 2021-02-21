@@ -2,16 +2,17 @@
 // https://github.com/movingbrands/svelte-portable-text
 import BlockContent from '@movingbrands/svelte-portable-text';
 
-import Link from './Link.svelte';
-import AbbrTag from './AbbrTag.svelte';
-import FootnoteTag from './FootnoteTag.svelte';
-import ImageObject from './ImageObject.svelte';
-import VideoObject from './VideoObject.svelte';
-import LangTag from './LangTag.svelte';
-import ChartBlock from './ChartBlock.svelte';
-import BlockQuote from './BlockQuote.svelte';
-import QuoteTag from './QuoteTag.svelte';
-import MapBlock from './MapBlock.svelte';
+import Link from './Link.svelte'
+import AbbrTag from './AbbrTag.svelte'
+import AudioObject from './AudioObject.svelte'
+import FootnoteTag from './FootnoteTag.svelte'
+import ImageObject from './ImageObject.svelte'
+import VideoObject from './VideoObject.svelte'
+import LangTag from './LangTag.svelte'
+import ChartBlock from './ChartBlock.svelte'
+import BlockQuote from './BlockQuote.svelte'
+import QuoteTag from './QuoteTag.svelte'
+import MapBlock from './MapBlock.svelte'
 
 export default {
   marks: {
@@ -55,6 +56,14 @@ export default {
     })
   },
   types: {
+    audioObject: ({ node, children }) => {
+      return ({
+      component: AudioObject,
+      childNodes: children,
+      props: {
+        embed: node.embed
+      },
+    })},
     imageObject: ({ node, children }) => {
       return ({
       component: ImageObject,

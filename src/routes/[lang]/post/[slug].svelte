@@ -17,6 +17,25 @@
       content {
         "en": en[]{
           ...,
+          _type == "audioObject" => {
+            ...,
+            embed -> {
+              ...,
+              cover {
+                asset->
+              },
+              "files": files[] {
+                asset->,
+                ...
+              },
+              "transcriptions": transcriptions[] {
+                transcription {
+                  asset->,
+                  ...
+                }
+              }
+            }
+          },
           _type == "blockQuoteObject" => {
             ...,
             "source": source {

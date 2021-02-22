@@ -98,10 +98,11 @@ export default {
       component: VideoObject,
       childNodes: children,
       props: {
-        url: node.url,
-        startTime: node.startTime,
-        endTime: node.endTime,
-        caption: node.caption
+        embed: node.embed
+        //url: node.url,
+        //startTime: node.startTime,
+        //endTime: node.endTime,
+        //caption: node.caption,
       },
     })},
     chartBlock: ({ node, children }) => {

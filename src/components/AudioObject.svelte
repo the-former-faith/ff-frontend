@@ -26,7 +26,5 @@
 
   video {
     border: 2px solid;
-    height: 100px;
-    width: 100%;
   }
 </style>

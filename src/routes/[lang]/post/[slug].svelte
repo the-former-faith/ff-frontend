@@ -36,6 +36,25 @@
               }
             }
           },
+          _type == "videoObject" => {
+            ...,
+            embed -> {
+              ...,
+              cover {
+                asset->
+              },
+              "files": files[] {
+                asset->,
+                ...
+              },
+              "transcriptions": transcriptions[] {
+                transcription {
+                  asset->,
+                  ...
+                }
+              }
+            }
+          },
           _type == "blockQuoteObject" => {
             ...,
             "source": source {

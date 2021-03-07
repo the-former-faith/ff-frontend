@@ -12,7 +12,7 @@
       title,
       theme,
       "authors": authors[]->,
-      file->,
+      mainImage->,
       narrations[]{
         ...,
         file {

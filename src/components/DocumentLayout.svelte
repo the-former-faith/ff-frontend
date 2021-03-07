@@ -40,6 +40,7 @@
     <meta property="og:video" content={filterVideo(post.narrations)[0].file.asset.url} />
     <meta property="og:video:url" content={filterVideo(post.narrations)[0].file.asset.url} />
     <meta property="og:video:secure_url" content={filterVideo(post.narrations)[0].file.asset.url} />
+    <meta property="og:video:type" content="video/mp4" />
   {/if}
 
   {#if post && image}

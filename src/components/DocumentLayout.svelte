@@ -6,10 +6,12 @@
   import MetaData from './MetaData.svelte'
   import ImageObject from './ImageObject.svelte'
   import client from '../sanityClient'
+  import AudioObject from './AudioObject.svelte'
 
   const urlFor = (source) => urlBuilder(client).image(source)
 
   export let post
+  console.log(post)
   let image
   if (post.mainImage) {
     image = post.mainImage.file
@@ -28,6 +30,10 @@
     <meta property="og:type" content="article" />
   {/if}
 
+  {#if post.narrations}
+    <meta property="og:audio" content="https://cdn.sanity.io/files/tuiw9zvo/production/73f2a44b4bbf7456cb9bc2e345b6571e5986e3af.mp3" />
+  {/if}
+
   {#if post && image}
     <meta property="og:image" content={urlFor(image).size(1200, 630).format('jpg').fit('max').url()} />
   {:else}
@@ -43,7 +49,14 @@
 
     <h1>{post.title.en}</h1>
 
-    <MetaData createdAt={post.date ? post.date.time : post._createdAt} authors={post.authors} parent={post.parent} pageStart={post.pageStart} source={post.url} />
+    <MetaData createdAt={post.date ? post.date.time : post._createdAt} authors={post.authors} parent={post.parent} pageStart={post.pageStart} source={post.source} />
+
+    {#if post.narrations}
+      <div class="narration">
+        <p><strong>Listen to narration for this sermon:</strong></p>
+        <AudioObject embed={post.narrations} files={post.narrations} />
+      </div>
+    {/if}
 
     {#if post.longDescription}
       <div class="flow">
@@ -61,3 +74,13 @@
 {:else}
   <p>Article not found</p>
 {/if}
+
+<style>
+  .narration {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .narration p {
+    margin-right: 1rem;
+  }
+</style>

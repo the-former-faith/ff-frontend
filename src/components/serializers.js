@@ -5,6 +5,7 @@ import BlockContent from '@movingbrands/svelte-portable-text';
 import Link from './Link.svelte'
 import AbbrTag from './AbbrTag.svelte'
 import AudioObject from './AudioObject.svelte'
+import BibleTag from './BibleTag.svelte'
 import FootnoteTag from './FootnoteTag.svelte'
 import ImageObject from './ImageObject.svelte'
 import VideoObject from './VideoObject.svelte'
@@ -13,6 +14,7 @@ import ChartBlock from './ChartBlock.svelte'
 import BlockQuote from './BlockQuote.svelte'
 import QuoteTag from './QuoteTag.svelte'
 import MapBlock from './MapBlock.svelte'
+import PageBreakTag from './PageBreakTag.svelte'
 
 export default {
   marks: {
@@ -20,6 +22,16 @@ export default {
       component: AbbrTag,
       childNodes: children,
       props: mark,
+    }),
+    bibleTag: ({ children, mark }) => ({
+      component: BibleTag,
+      childNodes: children,
+      props: {
+        book: mark.book,
+        chapter: mark.chapter,
+        verse: mark.verse,
+        verseEnd: mark.verseEnd
+      },
     }),
     footnote: ({ children, mark }) => ({
       component: FootnoteTag,
@@ -44,6 +56,11 @@ export default {
     }),
     link: ({ children, mark }) => ({
       component: Link,
+      childNodes: children,
+      props: mark,
+    }),
+    pageBreak: ({ children, mark }) => ({
+      component: PageBreakTag,
       childNodes: children,
       props: mark,
     }),

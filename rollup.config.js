@@ -1,5 +1,4 @@
 import path from 'path';
-import dotenv from 'dotenv';
 import resolve from '@rollup/plugin-node-resolve';
 import svelte from 'rollup-plugin-svelte';
 import replace from '@rollup/plugin-replace';
@@ -10,7 +9,6 @@ import { terser } from 'rollup-plugin-terser';
 import config from 'sapper/config/rollup.js';
 import pkg from './package.json';
 
-dotenv.config();
 const mode = process.env.NODE_ENV;
 const sanityRead = process.env.SANITY_READ;
 const dev = mode === 'development';

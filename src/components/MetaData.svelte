@@ -15,7 +15,7 @@
     </p>
   {/if}
   {#if parent}
-    <p>{parent.title}</p>
+    <p>{parent.title.en}</p>
   {/if}
   {#if date}
     <p>{date.toDateString()}</p>

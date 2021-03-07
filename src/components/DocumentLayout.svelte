@@ -11,7 +11,13 @@
   const urlFor = (source) => urlBuilder(client).image(source)
 
   export let post
-  console.log(post)
+
+  const filterVideo = (files) => {
+    return files.filter((x) => {
+      return x.file.asset.extension === 'mp4'
+    })
+  }
+
   let image
   if (post.mainImage) {
     image = post.mainImage.file
@@ -30,8 +36,8 @@
     <meta property="og:type" content="article" />
   {/if}
 
-  {#if post.youTube}
-    <meta property="og:video" content="https://www.youtube.com/v/{post.youTube}" />
+  {#if post.narrations}
+    <meta property="og:video" content={filterVideo(post.narrations)[0].file.asset.url} />
   {/if}
 
   {#if post && image}

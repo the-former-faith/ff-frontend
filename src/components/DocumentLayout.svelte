@@ -30,8 +30,8 @@
     <meta property="og:type" content="article" />
   {/if}
 
-  {#if post.narrations}
-    <meta property="og:audio" content="https://cdn.sanity.io/files/tuiw9zvo/production/73f2a44b4bbf7456cb9bc2e345b6571e5986e3af.mp3" />
+  {#if post.youTube}
+    <meta property="og:video" content="https://www.youtube.com/v/{post.youTube}" />
   {/if}
 
   {#if post && image}

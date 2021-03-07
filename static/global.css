@@ -250,7 +250,7 @@ blockquote {
 
 ul.main-menu {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 1rem;
   grid-column: -1;
   text-align: center;

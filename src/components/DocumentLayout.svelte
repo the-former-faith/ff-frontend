@@ -46,7 +46,7 @@
   {#if post && image}
     <meta property="og:image" content={urlFor(image).size(1200, 630).format('jpg').fit('max').url()} />
   {:else}
-    <meta property="og:image" content="https://tender-panini-0676cc.netlify.app/logo-large.png" />
+    <!--<meta property="og:image" content="https://tender-panini-0676cc.netlify.app/logo-large.png" />-->
   {/if}
 </svelte:head>
 

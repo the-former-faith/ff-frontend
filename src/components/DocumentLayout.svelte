@@ -36,14 +36,6 @@
     <meta property="og:type" content="article" />
   {/if}
 
-  {#if post.narrations}
-    <meta property="og:video:url" content={filterVideo(post.narrations)[0].file.asset.url} />
-    <meta property="og:video:secure_url" content={filterVideo(post.narrations)[0].file.asset.url} />
-    <meta property="og:video:type" content="video/mp4" />
-    <meta property="og:video:width" content="1920" />
-    <meta property="og:video:height" content="1080" />
-  {/if}
-
   {#if post && image}
     <meta property="og:image" content={urlFor(image).size(1200, 630).format('jpg').fit('max').url()} />
     <meta property="og:image:width" content="1200" />

@@ -73,6 +73,9 @@
         <BlockContent blocks={post.content.en} {serializers} />
       </div>
     {/if}
+
+    <slot />
+
     <FootnotesList />
   </article>
 {:else}

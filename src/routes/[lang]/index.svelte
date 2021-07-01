@@ -5,7 +5,7 @@
   export function preload() {
     return client
       .fetch(
-        groq`*[_type == "post"]{
+        groq`*[_type == "post" || _type == "postLink"]{
           _createdAt,
           _type,
 					title,

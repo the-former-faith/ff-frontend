@@ -44,11 +44,13 @@
     word-break: break-word;
     hyphens: auto;
   }
-  .md {
-    grid-column: span 2;
-  }
-  .lg {
-    grid-column: span 3;
-    grid-row: span 2;
+  @media screen and (min-width: 768px) {
+    .md {
+      grid-column: span 2;
+    }
+    .lg {
+      grid-column: span 3;
+      grid-row: span 2;
+    }
   }
 </style>

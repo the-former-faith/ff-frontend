@@ -9,7 +9,6 @@
   <ul class="main-menu" role="navigation">
     <li><a href="/en/">home</a></li>
     <li><a href="/en/newspaper-article/">archive</a></li>
-    <li><a href="/en/sermon/">sermons</a></li>
     <li><a href="/en/about/">about</a></li>
   </ul>
 </header>

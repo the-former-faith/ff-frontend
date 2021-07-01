@@ -31,5 +31,8 @@
 <svelte:head>
   <title>Newspaper Articles Archive</title>
 </svelte:head>
+
+<li><a href="/en/sermon/">sermons</a></li>
+
 <h2>Newspaper Articles Archive</h2>
 <DocumentList {posts} />

@@ -250,7 +250,7 @@ blockquote {
 
 ul.main-menu {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 1rem;
   grid-column: -1;
   text-align: center;
@@ -357,10 +357,11 @@ ul.main-menu {
 ul.posts-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+  gap: 1px;
 }
 
 .posts-list li {
-  border: 1px solid;
+  outline: 1px solid;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -368,6 +369,11 @@ ul.posts-list {
 
 .posts-list h3 {
   padding: 0.5rem;
+}
+
+.posts-list .post-meta {
+  border: none;
+  border-top: 1px solid;
 }
 
 .posts-list .post-meta p {

@@ -32,7 +32,7 @@
   <title>Newspaper Articles Archive</title>
 </svelte:head>
 
-<li><a href="/en/sermon/">sermons</a></li>
+<a href="/en/sermon/">sermons</a>
 
 <h2>Newspaper Articles Archive</h2>
 <DocumentList {posts} />

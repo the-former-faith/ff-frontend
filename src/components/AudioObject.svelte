@@ -1,7 +1,6 @@
 <script>
   export let embed
   export let files
-  console.log(files)
 </script>
 
 <!-- svelte-ignore a11y-media-has-caption -->

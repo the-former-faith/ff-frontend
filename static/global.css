@@ -340,7 +340,7 @@ ul.main-menu {
 /*--- Posts page ---*/
 
 .post-meta {
-  font-size: var(--step--1);
+  font-size: var(--step--2);
   display: flex;
   flex-wrap: wrap;
   text-transform: uppercase;
@@ -351,6 +351,7 @@ ul.main-menu {
   border: 1px solid;
   padding: 0.5rem;
   flex: 1 1 auto;
+  font-weight: 500;
 }
 
 /*-- Posts list --*/
@@ -368,7 +369,7 @@ ul.posts-list {
 }
 
 .posts-list h3 {
-  padding: 0.5rem;
+  padding: 1rem;
 }
 
 .posts-list .post-meta {
@@ -378,7 +379,7 @@ ul.posts-list {
 
 .posts-list .post-meta p {
   border: none;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
 }
 
 /*-- Single post --*/

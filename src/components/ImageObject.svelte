@@ -55,6 +55,10 @@
 </figure>
 
 <style>
+  img {
+    margin: 0 auto;
+  }
+
   figcaption {
     font-size: 0.8em;
     line-height: 1.2;

@@ -17,7 +17,7 @@
 
 <ul class="posts-list">
   {#each posts as post}
-    <li class={getTitleSize(post.title.en.length)}>
+    <li class="{getTitleSize(post.title.en.length)} {post.mainImage ? 'has-image' : ''}">
       <h3>
         <a rel="prefetch" href="en/{post._type.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}/{post.slug.en.current}">{post.title.en}</a>
       </h3>
@@ -45,12 +45,14 @@
     hyphens: auto;
   }
   @media screen and (min-width: 768px) {
+    .has-image {
+      grid-row: span 2;
+    }
     .md {
       grid-column: span 2;
     }
     .lg {
       grid-column: span 3;
-      grid-row: span 2;
     }
   }
 </style>

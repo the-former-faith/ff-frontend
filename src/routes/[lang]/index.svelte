@@ -14,7 +14,7 @@
 					},
 					slug,
 					mainImage->
-				}`
+				} | order(_createdAt desc)`
       )
       .then((posts) => {
         return { posts }

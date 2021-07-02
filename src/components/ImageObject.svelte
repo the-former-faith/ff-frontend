@@ -1,5 +1,4 @@
 <script>
-  // https://www.npmjs.com/package/@sanity/image-url
   import urlBuilder from '@sanity/image-url'
   import client from '../sanityClient'
   import BlockContent from '@movingbrands/svelte-portable-text'
@@ -35,7 +34,7 @@
 </script>
 
 <figure>
-  <img alt={image.alt} srcset={srcSet.toString()} src={processedUrl(image, 600)} sizes="(min-width: 1024px) 30vw, 96vw" loading="lazy" />
+  <img alt={image.alt.en} srcset={srcSet.toString()} src={processedUrl(image, 600)} sizes="(min-width: 1024px) 33vw, 96vw" loading="lazy" />
 
   {#if caption || source}
     <figcaption>
@@ -56,15 +55,19 @@
 
 <style>
   img {
-    margin: 0 auto;
+    margin: 0 auto auto;
+  }
+
+  figure {
+    margin: 0 auto auto;
   }
 
   figcaption {
-    font-size: 0.8em;
+    font-size: var(--step--2);
     line-height: 1.2;
   }
 
   footer {
-    font-size: 0.8em;
+    font-size: var(--step--2);
   }
 </style>

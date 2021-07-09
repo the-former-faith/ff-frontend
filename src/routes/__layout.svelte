@@ -3,12 +3,12 @@
   import Footer from '../components/Footer.svelte'
   import YouTubeScriptTag from '../components/YouTubeScriptTag.svelte'
   import * as R from 'ramda'
-  import { stores } from '@sapper/app'
+  import { getStores } from '$app/stores'
   import { onMount } from 'svelte'
   import { clientWithCredentials } from '../sanityClient.js'
   export let segment
 
-  const { session } = stores()
+  const { session } = getStores()
 
   onMount(async () => {
     let sanityUser = await clientWithCredentials.users.getById('me')

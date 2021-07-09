@@ -2,14 +2,14 @@
   import BlockContent from '@movingbrands/svelte-portable-text'
   import serializers from './serializersSimple'
   import { footnotes } from '../stores.js'
-  import { stores } from '@sapper/app'
+  import { getStores } from '$app/stores'
   import CitationBook from './Citations/CitationBook.svelte'
   import CitationWebsiteArticle from './Citations/CitationWebsiteArticle.svelte'
   import CitationNewspaperArticle from './Citations/CitationNewspaperArticle.svelte'
 </script>
 
 <script>
-  const { page } = stores()
+  const { page } = getStores()
   const citationBlocks = {
     citationNewspaperArticle: CitationNewspaperArticle,
     citationWebsiteArticle: CitationWebsiteArticle,

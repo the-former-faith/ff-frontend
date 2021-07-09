@@ -19,7 +19,7 @@
   {#each posts as post}
     <li class="{getTitleSize(post.title.en.length)} {post.mainImage ? 'has-image' : ''}">
       <h3>
-        <a rel="prefetch" href="en/{post._type.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}/{post.slug.en.current}">{post.title.en}</a>
+        <a sveltekit:prefetch href="en/{post._type.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}/{post.slug.en.current}">{post.title.en}</a>
       </h3>
       {#if post.mainImage}
         <ImageObject image={post.mainImage.file} ratio={{ x: 4, y: 3 }} />

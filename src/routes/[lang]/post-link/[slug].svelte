@@ -5,8 +5,8 @@
   import groq from 'groq'
   import { footnotes } from '../../../stores'
 
-  export async function preload({ params }, session) {
-    const { slug } = params
+  export async function load({ page }) {
+    const { slug } = page.params
     const query = groq`*[_type == "postLink" && slug.en.current == $slug]{
       _id,
       title,

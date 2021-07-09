@@ -1,7 +1,7 @@
 <script>
   import Logo from './Logo.svelte'
-  import { stores } from '@sapper/app'
-  const { page } = stores()
+  import { getStores } from '$app/stores'
+  const { page } = getStores()
 </script>
 
 <header role="banner" class="site-header  {$page.path === '/en' || $page.path === '/en/' ? 'home' : ''}">

@@ -2,7 +2,7 @@
   import client from '../../../sanityClient.js'
   import groq from 'groq'
 
-  export function preload() {
+  export function load() {
     return client
       .fetch(
         groq`*[_type == "sermon"]{

@@ -1,7 +1,7 @@
 <script>
   import { footnotes } from '../stores.js'
-  import { stores } from '@sapper/app'
-  const { page } = stores()
+  import { stores } from '$app/stores'
+  const { page } = getStores()
   export let mark
   footnotes.update((n) => [...n, mark])
   export let position = $footnotes.length

@@ -1,8 +1,8 @@
 <script>
-  import LogoSmall from "./LogoSmall.svelte"
-  import LogoLarge from "./LogoLarge.svelte"
-  import { stores } from '@sapper/app'
-  const { page } = stores()
+  import LogoSmall from './LogoSmall.svelte'
+  import LogoLarge from './LogoLarge.svelte'
+  import { getStores } from '$app/stores'
+  const { page } = getStores()
 </script>
 
 <!--A bug in Chrome is making the page show up as '/en/' instead of '/en'. 

@@ -1,23 +1,19 @@
 {
-  "name": "TODO",
-  "description": "TODO",
-  "version": "0.0.1",
+  "name": "ff-frontend",
+  "description": "A blog built using Sanity and Sveltekit",
+  "version": "0.1.1",
+  "type": "module",
   "scripts": {
-    "dev": "sapper dev",
-    "build": "sapper build --legacy",
-    "export": "sapper export --legacy",
-    "start": "node __sapper__/build"
+    "dev": "svelte-kit dev",
+    "build": "svelte-kit build",
+    "export": "svelte-kit export",
+    "start": "node build"
   },
   "dependencies": {
     "@sanity/client": "^1.150.7",
     "@sanity/image-url": "^0.140.22",
-    "compression": "^1.7.1",
-    "cookie-parser": "^1.4.5",
-    "dotenv": "^8.6.0",
     "groq": "^0.147.0",
-    "polka": "^1.0.0-next.15",
     "ramda": "^0.27.1",
-    "sirv": "^1.0.12",
     "svelte-frappe-charts": "^1.8.3"
   },
   "devDependencies": {
@@ -26,18 +22,11 @@
     "@babel/plugin-transform-runtime": "^7.14.5",
     "@babel/preset-env": "^7.14.7",
     "@babel/runtime": "^7.14.6",
-    "@beyonk/svelte-mapbox": "^7.6.0",
+    "@beyonk/svelte-mapbox": "^7.7.1",
     "@movingbrands/svelte-portable-text": "0.0.11",
-    "@rollup/plugin-babel": "^5.3.0",
-    "@rollup/plugin-commonjs": "^14.0.0",
-    "@rollup/plugin-node-resolve": "^8.0.0",
-    "@rollup/plugin-replace": "^2.4.2",
-    "@rollup/plugin-url": "^5.0.0",
     "@sanity/block-content-to-hyperscript": "^2.0.10",
-    "rollup": "^2.52.6",
-    "rollup-plugin-svelte": "^6.0.0",
-    "rollup-plugin-terser": "^7.0.0",
-    "sapper": "^0.28.0",
+    "@sveltejs/adapter-netlify": "next",
+    "@sveltejs/kit": "next",
     "svelte": "^3.38.3"
   }
 }

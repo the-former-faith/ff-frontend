@@ -1,28 +1,31 @@
 import sanityClient from '@sanity/client'
 
-const clientWithoutAuth = sanityClient({
+const client = sanityClient({
   projectId: 'tuiw9zvo',
   dataset: 'production',
   useCdn: true
 })
 
-export const clientWithToken = sanityClient({
-  projectId: 'tuiw9zvo',
-  dataset: 'production',
-  token: process.env.SANITY_READ,
-  useCdn: false
-})
+// export const clientWithToken = sanityClient({
+//   projectId: 'tuiw9zvo',
+//   dataset: 'production',
+//   token: import.meta.env.VITE_SANITY_READ,
+//   useCdn: false
+// })
 
-export const clientWithCredentials = sanityClient({
-  projectId: 'tuiw9zvo',
-  dataset: 'production',
-  withCredentials: true,
-  useCdn: false
-})
+// export const clientWithCredentials = sanityClient({
+//   projectId: 'tuiw9zvo',
+//   dataset: 'production',
+//   withCredentials: true,
+//   useCdn: false
+// })
 
-const setClient = (x) => x ? clientWithToken : clientWithoutAuth
+//const setClient = (x) => x ? clientWithToken : clientWithoutAuth
 
 //Change this to be set with a store
-const client = setClient(false)
+//const client = setClient(false)
+//const client = clientWithoutAuth
+
+console.log(client)
 
 export default client

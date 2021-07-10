@@ -2,7 +2,7 @@ import adapter from '@sveltejs/adapter-netlify'
 
 const config = {
 	// options passed to svelte.compile (https://svelte.dev/docs#svelte_compile)
-	compilerOptions: null,
+	//compilerOptions: null,
 
 	// an array of file extensions that should be treated as Svelte components
 	extensions: ['.svelte'],
@@ -10,7 +10,7 @@ const config = {
 	kit: {
 		adapter:  adapter(),
 		amp: false,
-		appDir: '_app',
+		//appDir: '_app',
 		files: {
 			assets: 'static',
 			//lib: 'src/lib',
@@ -36,26 +36,14 @@ const config = {
 			pages: ['*']
 		},
 		router: true,
-		ssr: true,
+		//ssr: true,
 		//target: null,
 		trailingSlash: 'never',
-		package: {
-			dir: 'package',
-			exports: {
-				include: ['**'],
-				exclude: ['_*', '**/_*']
-			},
-			files: {
-				include: ['**'],
-				exclude: []
-			},
-			//emitTypes: true
-		},
-		vite: () => ({})
+		//vite: () => ({})
 	},
 
 	// options passed to svelte.preprocess (https://svelte.dev/docs#svelte_preprocess)
-	preprocess: null
+	//preprocess: null
 };
 
 export default config;

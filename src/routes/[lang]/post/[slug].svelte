@@ -5,6 +5,7 @@
   import groq from 'groq'
   import { footnotes } from '$lib/scripts/stores'
 
+
   export async function load({ page }) {
     const { slug } = page.params
     const query = groq`*[_type == "post" && slug.en.current == $slug]{
@@ -127,10 +128,15 @@
 
     footnotes.update(() => [])
 
-    const post = await client.fetch(query, { slug }).catch((err) => this.error(404, err))
+    const res = await client.fetch(query, { slug }).catch((err) => this.error(404, err))
     //const post = await clientWithToken.fetch(query, { slug }).catch((err) => this.error(404, err))
 
-    return { post, slug }
+    if (res) return { props: { post: await res, slug: slug } }
+
+    return {
+      status: res.status,
+      error: new Error()
+    }
   }
 </script>
 

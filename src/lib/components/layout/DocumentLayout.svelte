@@ -1,4 +1,5 @@
 <script>
+  import { assets } from '$app/paths'
   import BlockContent from '@movingbrands/svelte-portable-text'
   import FootnotesList from '$lib/components/layout/FootnotesList.svelte'
   import serializers from '$lib/scripts/serializers'
@@ -28,7 +29,7 @@
 
 <svelte:head>
   {#if post.theme !== 'defaultTheme'}
-    <link rel="stylesheet" href={`/styles/${post.theme}.css`} />
+    <link rel="stylesheet" href={`${assets}/styles/${post.theme}.css`} />
   {/if}
   {#if post}
     <title>{post.title.en}</title>

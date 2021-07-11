@@ -1,5 +1,5 @@
 <script context="module">
-  import client from '../../sanityClient.js'
+  import client from '$lib/scripts/sanityClient.js'
   import groq from 'groq'
 
   export async function load() {
@@ -28,7 +28,7 @@
 </script>
 
 <script>
-  import DocumentList from '../../components/DocumentList.svelte'
+  import DocumentList from '$lib/components/layout/DocumentList.svelte'
 
   export let posts
 

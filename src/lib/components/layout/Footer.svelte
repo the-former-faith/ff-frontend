@@ -1,8 +1,8 @@
 <script>
-	import Cc from './Icons/Cc.svelte'
-	import CcShareAlike from './Icons/CcShareAlike.svelte'
-	import CcAttribution from './Icons/CcAttribution.svelte'
-	import LogoLarge from './LogoLarge.svelte'
+	import Cc from '$lib/components/icons/Cc.svelte'
+	import CcShareAlike from '$lib/components/icons/CcShareAlike.svelte'
+	import CcAttribution from '$lib/components/icons/CcAttribution.svelte'
+	import LogoLarge from '$lib/components/icons/LogoLarge.svelte'
 </script>
 
 <footer class="site-footer">

@@ -1,12 +1,12 @@
 <script>
   import BlockContent from '@movingbrands/svelte-portable-text'
-  import FootnotesList from './FootnotesList.svelte'
-  import serializers from './serializers'
+  import FootnotesList from '$lib/components/layout/FootnotesList.svelte'
+  import serializers from '$lib/scripts/serializers'
   import urlBuilder from '@sanity/image-url'
-  import MetaData from './MetaData.svelte'
-  import ImageObject from './ImageObject.svelte'
-  import client from '../sanityClient'
-  import AudioObject from './AudioObject.svelte'
+  import MetaData from '$lib/components/layout/MetaData.svelte'
+  import ImageBlock from '$lib/components/blocks/ImageBlock.svelte'
+  import client from '$lib/scripts/sanityClient'
+  import AudioBlock from '$lib/components/blocks/AudioBlock.svelte'
 
   const urlFor = (source) => urlBuilder(client).image(source)
 
@@ -48,7 +48,7 @@
 {#if post}
   <article class="flow">
     {#if image}
-      <ImageObject {image} ratio={post._type === 'newspaperArticle' ? undefined : { x: 4, y: 3 }} />
+      <ImageBlock {image} ratio={post._type === 'newspaperArticle' ? undefined : { x: 4, y: 3 }} />
     {/if}
 
     <h1>{post.title.en}</h1>
@@ -58,7 +58,7 @@
     {#if post.narrations}
       <div class="narration">
         <p><strong>Listen to narration for this sermon:</strong></p>
-        <AudioObject embed={post.narrations} files={post.narrations} />
+        <AudioBlock embed={post.narrations} files={post.narrations} />
       </div>
     {/if}
 

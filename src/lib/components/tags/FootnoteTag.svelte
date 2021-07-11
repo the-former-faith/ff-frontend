@@ -1,6 +1,6 @@
 <script>
-  import { footnotes } from '../stores.js'
-  import { stores } from '$app/stores'
+  import { footnotes } from '$lib/scripts/stores.js'
+  import { getStores } from '$app/stores'
   const { page } = getStores()
   export let mark
   footnotes.update((n) => [...n, mark])

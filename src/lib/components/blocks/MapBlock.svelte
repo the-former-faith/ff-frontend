@@ -1,10 +1,10 @@
 <script>
   import { Map, controls } from '@beyonk/svelte-mapbox'
   import BlockContent from '@movingbrands/svelte-portable-text'
-  import MapMarker from './MapMarker.svelte'
-  import serializers from './serializersSimple'
+  import MapMarker from '$lib/components/blocks/MapMarker.svelte'
+  import serializers from '$lib/scripts/serializersSimple'
   import urlBuilder from '@sanity/image-url'
-  import client from '../sanityClient'
+  import client from '$lib/scripts/sanityClient'
 
   const urlFor = (source) => urlBuilder(client).image(source)
 

@@ -41,7 +41,7 @@ const config = {
 		trailingSlash: 'never',
 		vite: {
 			optimizeDeps: {
-				include: ['@sanity/block-content-to-hyperscript/internals']
+				include: ['@sanity/block-content-to-hyperscript/internals','fastq']
 			}
 		}
 	},

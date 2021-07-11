@@ -1,9 +1,9 @@
 <script>
   import urlBuilder from '@sanity/image-url'
-  import client from '../sanityClient'
+  import client from '$lib/scripts/sanityClient'
   import BlockContent from '@movingbrands/svelte-portable-text'
-  import CitationNewspaperArticle from './Citations/CitationNewspaperArticle.svelte'
-  import serializers from './serializersSimple'
+  import CitationNewspaperArticle from '$lib/components/citations/CitationNewspaperArticle.svelte'
+  import serializers from '$lib/scripts/serializersSimple'
   export let image
   export let caption
   export let source

@@ -1,5 +1,5 @@
 <script>
-  import MetaAuthors from './../MetaAuthors.svelte'
+  import MetaAuthors from '$lib/components/layout/MetaAuthors.svelte'
   export let source
 </script>
 

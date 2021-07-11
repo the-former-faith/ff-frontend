@@ -1,6 +1,6 @@
 <script>
-  import Nav from '../components/Nav.svelte'
-  import Footer from '../components/Footer.svelte'
+  import Nav from '$lib/components/layout/Nav.svelte'
+  import Footer from '$lib/components/layout/Footer.svelte'
   //import YouTubeScriptTag from '../components/YouTubeScriptTag.svelte'
   //import * as R from 'ramda'
   //import { getStores } from '$app/stores'

@@ -1,9 +1,9 @@
 <script context="module">
-  import client from '../../../sanityClient'
+  import client from '$lib/scripts/sanityClient'
   //import { clientWithToken } from '../../../sanityClient'
-  import DocumentLayout from '../../../components/DocumentLayout.svelte'
+  import DocumentLayout from '$lib/components/layout/DocumentLayout.svelte'
   import groq from 'groq'
-  import { footnotes } from '../../../stores'
+  import { footnotes } from '$lib/scripts/stores'
 
   export async function load({ page }) {
     const { slug } = page.params

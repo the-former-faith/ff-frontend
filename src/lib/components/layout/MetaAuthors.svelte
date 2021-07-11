@@ -1,5 +1,5 @@
 <script>
-	import { displayTitles } from '../utilities'
+	import { displayTitles } from '$lib/scripts/utilities'
     export let authors
     let titles = displayTitles(authors)
 </script>

@@ -1,6 +1,6 @@
 <script context="module">
   import BlockContent from '@movingbrands/svelte-portable-text'
-  import serializers from './serializersSimple'
+  import serializers from '$lib/scripts/serializersSimple'
 </script>
 
 <script>

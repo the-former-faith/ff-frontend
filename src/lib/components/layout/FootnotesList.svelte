@@ -1,11 +1,11 @@
 <script context="module">
   import BlockContent from '@movingbrands/svelte-portable-text'
-  import serializers from './serializersSimple'
-  import { footnotes } from '../stores.js'
+  import serializers from '$lib/scripts/serializersSimple'
+  import { footnotes } from '$lib/scripts/stores.js'
   import { getStores } from '$app/stores'
-  import CitationBook from './Citations/CitationBook.svelte'
-  import CitationWebsiteArticle from './Citations/CitationWebsiteArticle.svelte'
-  import CitationNewspaperArticle from './Citations/CitationNewspaperArticle.svelte'
+  import CitationBook from '$lib/components/citations/CitationBook.svelte'
+  import CitationWebsiteArticle from '$lib/components/citations/CitationWebsiteArticle.svelte'
+  import CitationNewspaperArticle from '$lib/components/citations/CitationNewspaperArticle.svelte'
 </script>
 
 <script>

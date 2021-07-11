@@ -1,6 +1,6 @@
 <script>
-  import ImageObject from './ImageObject.svelte'
-  import MetaAuthors from './MetaAuthors.svelte'
+  import ImageBlock from '$lib/components/blocks/ImageBlock.svelte'
+  import MetaAuthors from '$lib/components/layout/MetaAuthors.svelte'
 
   export let posts
 
@@ -22,10 +22,10 @@
         <a sveltekit:prefetch href="en/{post._type.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}/{post.slug.en.current}">{post.title.en}</a>
       </h3>
       {#if post.mainImage}
-        <ImageObject image={post.mainImage.file} ratio={{ x: 4, y: 3 }} />
+        <ImageBlock image={post.mainImage.file} ratio={{ x: 4, y: 3 }} />
       {/if}
       {#if post.file}
-        <ImageObject image={post.file} ratio={{ x: 4, y: 3 }} />
+        <ImageBlock image={post.file} ratio={{ x: 4, y: 3 }} />
       {/if}
       <div class="post-meta">
         {#if post.authors}

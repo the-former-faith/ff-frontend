@@ -2,19 +2,19 @@
 // https://github.com/movingbrands/svelte-portable-text
 import BlockContent from '@movingbrands/svelte-portable-text';
 
-import Link from './Link.svelte'
-import AbbrTag from './AbbrTag.svelte'
-import AudioObject from './AudioObject.svelte'
-import BibleTag from './BibleTag.svelte'
-import FootnoteTag from './FootnoteTag.svelte'
-import ImageObject from './ImageObject.svelte'
-import VideoObject from './VideoObject.svelte'
-import LangTag from './LangTag.svelte'
-import ChartBlock from './ChartBlock.svelte'
-import BlockQuote from './BlockQuote.svelte'
-import QuoteTag from './QuoteTag.svelte'
-import MapBlock from './MapBlock.svelte'
-import PageBreakTag from './PageBreakTag.svelte'
+import LinkTag from '$lib/components/tags/LinkTag.svelte'
+import AbbrTag from '$lib/components/tags/AbbrTag.svelte'
+import AudioBlock from '$lib/components/blocks/AudioBlock.svelte'
+import BibleTag from '$lib/components/tags/BibleTag.svelte'
+import FootnoteTag from '$lib/components/tags/FootnoteTag.svelte'
+import ImageBlock from '$lib/components/blocks/ImageBlock.svelte'
+import VideoBlock from '$lib/components/blocks/VideoBlock.svelte'
+import LangTag from '$lib/components/tags/LangTag.svelte'
+import ChartBlock from '$lib/components/blocks/ChartBlock.svelte'
+import BlockQuoteBlock from '$lib/components/blocks/BlockQuoteBlock.svelte'
+import QuoteTag from '$lib/components/tags/QuoteTag.svelte'
+import MapBlock from '$lib/components/blocks/MapBlock.svelte'
+import PageBreakTag from '$lib/components/tags/PageBreakTag.svelte'
 
 export default {
   marks: {
@@ -55,7 +55,7 @@ export default {
       }
     }),
     link: ({ children, mark }) => ({
-      component: Link,
+      component: LinkTag,
       childNodes: children,
       props: mark,
     }),
@@ -75,7 +75,7 @@ export default {
   types: {
     audioObject: ({ node, children }) => {
       return ({
-      component: AudioObject,
+      component: AudioBlock,
       childNodes: children,
       props: {
         embed: node.embed
@@ -83,7 +83,7 @@ export default {
     })},
     imageObject: ({ node, children }) => {
       return ({
-      component: ImageObject,
+      component: ImageBlock,
       childNodes: children,
       props: {
         image: node.embed.file,
@@ -97,7 +97,7 @@ export default {
       let hotspot = image.hotspot
       let dimensions= image.asset.metadata.dimensions
       return ({
-        component: ImageObject,
+        component: ImageBlock,
         childNodes: children,
         props: {
           image: image,
@@ -112,7 +112,7 @@ export default {
     },
     videoObject: ({ node, children }) => {
       return ({
-      component: VideoObject,
+      component: VideoBlock,
       childNodes: children,
       props: {
         embed: node.embed
@@ -138,7 +138,7 @@ export default {
     },
     blockQuoteObject: ({ node, children }) => {
       return ({
-        component: BlockQuote,
+        component: BlockQuoteBlock,
         childNodes: children,
         props: {
           source: node.source,

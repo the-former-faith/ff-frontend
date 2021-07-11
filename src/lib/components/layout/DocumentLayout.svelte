@@ -11,7 +11,7 @@
 
   const urlFor = (source) => urlBuilder(client).image(source)
 
-  export let post
+  export let doc
 
   const filterVideo = (files) => {
     return files.filter((x) => {
@@ -20,24 +20,24 @@
   }
 
   let image
-  if (post.mainImage) {
-    image = post.mainImage.file
-  } else if (post.file) {
-    image = post.file
+  if (doc.mainImage) {
+    image = doc.mainImage.file
+  } else if (doc.file) {
+    image = doc.file
   }
 </script>
 
 <svelte:head>
-  {#if post.theme !== 'defaultTheme'}
-    <link rel="stylesheet" href={`${assets}/styles/${post.theme}.css`} />
+  {#if doc.theme !== 'defaultTheme'}
+    <link rel="stylesheet" href={`${assets}/styles/${doc.theme}.css`} />
   {/if}
-  {#if post}
-    <title>{post.title.en}</title>
-    <meta property="og:title" content={post.title.en} />
+  {#if doc}
+    <title>{doc.title.en}</title>
+    <meta property="og:title" content={doc.title.en} />
     <meta property="og:type" content="article" />
   {/if}
 
-  {#if post && image}
+  {#if doc && image}
     <meta property="og:image" content={urlFor(image).size(1200, 630).format('jpg').fit('max').url()} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -46,32 +46,32 @@
   {/if}
 </svelte:head>
 
-{#if post}
+{#if doc}
   <article class="flow">
     {#if image}
-      <ImageBlock {image} ratio={post._type === 'newspaperArticle' ? undefined : { x: 4, y: 3 }} />
+      <ImageBlock {image} ratio={doc._type === 'newspaperArticle' ? undefined : { x: 4, y: 3 }} />
     {/if}
 
-    <h1>{post.title.en}</h1>
+    <h1>{doc.title.en}</h1>
 
-    <MetaData createdAt={post.date ? post.date.time : post._createdAt} authors={post.authors} parent={post.parent} pageStart={post.pageStart} source={post.source} />
+    <MetaData createdAt={doc.date ? doc.date.time : doc._createdAt} authors={doc.authors} parent={doc.parent} pageStart={doc.pageStart} source={doc.source} />
 
-    {#if post.narrations}
+    {#if doc.narrations}
       <div class="narration">
         <p><strong>Listen to narration for this sermon:</strong></p>
-        <AudioBlock embed={post.narrations} files={post.narrations} />
+        <AudioBlock embed={doc.narrations} files={doc.narrations} />
       </div>
     {/if}
 
-    {#if post.longDescription}
+    {#if doc.longDescription}
       <div class="flow">
-        <BlockContent blocks={post.longDescription.en} {serializers} />
+        <BlockContent blocks={doc.longDescription.en} {serializers} />
       </div>
     {/if}
 
-    {#if post.content}
+    {#if doc.content}
       <div class="flow">
-        <BlockContent blocks={post.content.en} {serializers} />
+        <BlockContent blocks={doc.content.en} {serializers} />
       </div>
     {/if}
 

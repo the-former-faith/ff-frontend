@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Antarctica VF';
-  src: url('./fonts/antarctica-vf.woff2') format('woff2');
+  src: url('../fonts/antarctica-vf.woff2') format('woff2');
   font-weight: 1 900;
   unicode-range: U+0020-007e, U+00a0-00be;
   font-display: swap;
@@ -8,14 +8,14 @@
 
 @font-face {
   font-family: 'Antarctica';
-  src: url('./fonts/antarctica-regular.woff2') format('woff2');
+  src: url('../fonts/antarctica-regular.woff2') format('woff2');
   font-weight: 400;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Antarctica';
-  src: url('./fonts/antarctica-bold.woff2') format('woff2');
+  src: url('../fonts/antarctica-bold.woff2') format('woff2');
   font-weight: 700;
   font-display: swap;
 }
@@ -134,9 +134,6 @@ body {
   color: var(--color-foreground);
   background-color: var(--color-background);
   font-family: 'Antarctica', sans-serif;
-}
-
-#sapper {
   display: grid;
   grid-template-columns: minmax(1rem, auto) minmax(auto, 1024px) minmax(1rem, auto);
   padding-top: 2rem;

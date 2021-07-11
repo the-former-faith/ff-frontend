@@ -22,7 +22,7 @@
 </script>
 
 <svelte:head>
-  <link rel='stylesheet' href='{assets}/global.css'>
+  <link rel='stylesheet' href='{assets}/styles/global.css'>
 </svelte:head>
 
 <Nav />

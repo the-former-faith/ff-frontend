@@ -1,6 +1,5 @@
 <script context="module">
   import client from '$lib/scripts/sanityClient'
-  //import { clientWithToken } from '../../../sanityClient'
   import DocumentLayout from '$lib/components/layout/DocumentLayout.svelte'
   import groq from 'groq'
   import { footnotes } from '$lib/scripts/stores'
@@ -129,19 +128,15 @@
     footnotes.update(() => [])
 
     const res = await client.fetch(query, { slug }).catch((err) => this.error(404, err))
-    //const post = await clientWithToken.fetch(query, { slug }).catch((err) => this.error(404, err))
 
-    if (res) return { props: { post: await res, slug: slug } }
-
-    return {
-      status: res.status,
-      error: new Error()
-    }
+    if (res) return { props: { doc: await res, slug: slug } }
   }
 </script>
 
 <script>
-  export let post
+  export let doc
 </script>
 
-<DocumentLayout {post} />
+<DocumentLayout {doc}>
+  <!--<p>Read the full post <a href={doc.source}>here</a>.</p>-->
+</DocumentLayout>

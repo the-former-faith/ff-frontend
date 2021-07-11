@@ -10,8 +10,8 @@ const c = [
 	() => import("../../../src/routes/[lang]/sermon/index.svelte"),
 	() => import("../../../src/routes/[lang]/sermon/[slug].svelte"),
 	() => import("../../../src/routes/[lang]/about.svelte"),
-	() => import("../../../src/routes/[lang]/post/index.svelte"),
-	() => import("../../../src/routes/[lang]/post/[slug].svelte")
+	() => import("../../../src/routes/[lang]/[doctype]/index.svelte"),
+	() => import("../../../src/routes/[lang]/[doctype]/[slug].svelte")
 ];
 
 const d = decodeURIComponent;
@@ -44,11 +44,11 @@ export const routes = [
 	// src/routes/[lang]/about.svelte
 	[/^\/([^/]+?)\/about\/?$/, [c[0], c[10]], [c[1]], (m) => ({ lang: d(m[1])})],
 
-	// src/routes/[lang]/post/index.svelte
-	[/^\/([^/]+?)\/post\/?$/, [c[0], c[11]], [c[1]], (m) => ({ lang: d(m[1])})],
+	// src/routes/[lang]/[doctype]/index.svelte
+	[/^\/([^/]+?)\/([^/]+?)\/?$/, [c[0], c[11]], [c[1]], (m) => ({ lang: d(m[1]), doctype: d(m[2])})],
 
-	// src/routes/[lang]/post/[slug].svelte
-	[/^\/([^/]+?)\/post\/([^/]+?)\/?$/, [c[0], c[12]], [c[1]], (m) => ({ lang: d(m[1]), slug: d(m[2])})]
+	// src/routes/[lang]/[doctype]/[slug].svelte
+	[/^\/([^/]+?)\/([^/]+?)\/([^/]+?)\/?$/, [c[0], c[12]], [c[1]], (m) => ({ lang: d(m[1]), doctype: d(m[2]), slug: d(m[3])})]
 ];
 
 export const fallback = [c[0](), c[1]()];

@@ -39,7 +39,7 @@
   {#if caption || source}
     <figcaption>
       {#if caption}
-        <BlockContent blocks={caption} {serializers} />
+        <!-- <BlockContent blocks={caption} {serializers} /> -->
       {/if}
       {#if caption && source}
         <hr />

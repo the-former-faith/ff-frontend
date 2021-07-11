@@ -26,6 +26,4 @@ const client = sanityClient({
 //const client = setClient(false)
 //const client = clientWithoutAuth
 
-console.log(client)
-
 export default client

@@ -39,7 +39,11 @@ const config = {
 		//ssr: true,
 		//target: null,
 		trailingSlash: 'never',
-		//vite: () => ({})
+		vite: {
+			optimizeDeps: {
+				include: ['@sanity/block-content-to-hyperscript/internals']
+			}
+		}
 	},
 
 	// options passed to svelte.preprocess (https://svelte.dev/docs#svelte_preprocess)

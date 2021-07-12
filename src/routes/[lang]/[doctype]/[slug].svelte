@@ -3,11 +3,15 @@
   import DocumentLayout from '$lib/components/layout/DocumentLayout.svelte'
   import groq from 'groq'
   import { footnotes } from '$lib/scripts/stores'
+  import { convertToCamelCase } from '$lib/scripts/utilities'
 
 
   export async function load({ page }) {
-    const { slug } = page.params
-    const query = groq`*[_type == "post" && slug.en.current == $slug]{
+    const { slug, doctype } = page.params
+
+    const doctypeCamelCase = convertToCamelCase(doctype)
+
+    const query = groq`*[_type == $doctypeCamelCase && slug.en.current == $slug]{
       _id,
       title,
       theme,
@@ -127,7 +131,7 @@
 
     footnotes.update(() => [])
 
-    const res = await client.fetch(query, { slug }).catch((err) => this.error(404, err))
+    const res = await client.fetch(query, { slug, doctypeCamelCase }).catch((err) => this.error(404, err))
 
     if (res) return { props: { doc: await res, slug: slug } }
   }

@@ -3,7 +3,7 @@
     return this.fetch(`${params.lang}/post.json`)
       .then((r) => r.json())
       .then((posts) => {
-        return { posts, page.params }
+        return { posts, page }
       })
   }
 </script>

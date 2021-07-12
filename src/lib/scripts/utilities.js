@@ -14,3 +14,7 @@ export const displayName = (x) => combineNames(x) || ''
 const extractTitles = (x) => x.map(y => y.title.en)
 
 export const displayTitles = (x) => extractTitles(x)
+
+// Text Conversion
+
+export const convertToCamelCase = (x) => x.replace(/-([a-z])/g, (g)=> g[1].toUpperCase())

@@ -5,8 +5,8 @@ const c = [
 	() => import("../../../src/routes/[lang]/index.svelte"),
 	() => import("../../../src/routes/[lang]/newspaper-article/index.svelte"),
 	() => import("../../../src/routes/[lang]/newspaper-article/[slug].svelte"),
-	() => import("../../../src/routes/[lang]/post-link/index.svelte"),
-	() => import("../../../src/routes/[lang]/post-link/[slug].svelte"),
+	() => import("../../../src/routes/[lang]/post-link-OLD/index.svelte"),
+	() => import("../../../src/routes/[lang]/post-link-OLD/[slug].svelte"),
 	() => import("../../../src/routes/[lang]/sermon/index.svelte"),
 	() => import("../../../src/routes/[lang]/sermon/[slug].svelte"),
 	() => import("../../../src/routes/[lang]/about.svelte"),
@@ -29,11 +29,11 @@ export const routes = [
 	// src/routes/[lang]/newspaper-article/[slug].svelte
 	[/^\/([^/]+?)\/newspaper-article\/([^/]+?)\/?$/, [c[0], c[5]], [c[1]], (m) => ({ lang: d(m[1]), slug: d(m[2])})],
 
-	// src/routes/[lang]/post-link/index.svelte
-	[/^\/([^/]+?)\/post-link\/?$/, [c[0], c[6]], [c[1]], (m) => ({ lang: d(m[1])})],
+	// src/routes/[lang]/post-link-OLD/index.svelte
+	[/^\/([^/]+?)\/post-link-OLD\/?$/, [c[0], c[6]], [c[1]], (m) => ({ lang: d(m[1])})],
 
-	// src/routes/[lang]/post-link/[slug].svelte
-	[/^\/([^/]+?)\/post-link\/([^/]+?)\/?$/, [c[0], c[7]], [c[1]], (m) => ({ lang: d(m[1]), slug: d(m[2])})],
+	// src/routes/[lang]/post-link-OLD/[slug].svelte
+	[/^\/([^/]+?)\/post-link-OLD\/([^/]+?)\/?$/, [c[0], c[7]], [c[1]], (m) => ({ lang: d(m[1]), slug: d(m[2])})],
 
 	// src/routes/[lang]/sermon/index.svelte
 	[/^\/([^/]+?)\/sermon\/?$/, [c[0], c[8]], [c[1]], (m) => ({ lang: d(m[1])})],

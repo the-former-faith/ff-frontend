@@ -5,7 +5,6 @@
   import { footnotes } from '$lib/scripts/stores'
   import { convertToCamelCase } from '$lib/scripts/utilities'
 
-
   export async function load({ page }) {
     const { slug, doctype } = page.params
 
@@ -17,6 +16,13 @@
       theme,
       "authors": authors[]->,
       mainImage->,
+      narrations[]{
+        ...,
+        file {
+          asset->
+        }
+      },
+      parent->,
       ...,
       content {
         "en": en[]{

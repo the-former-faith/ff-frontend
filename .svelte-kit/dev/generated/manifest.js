@@ -5,10 +5,6 @@ const c = [
 	() => import("../../../src/routes/[lang]/index.svelte"),
 	() => import("../../../src/routes/[lang]/newspaper-article/index.svelte"),
 	() => import("../../../src/routes/[lang]/newspaper-article/[slug].svelte"),
-	() => import("../../../src/routes/[lang]/post-link-OLD/index.svelte"),
-	() => import("../../../src/routes/[lang]/post-link-OLD/[slug].svelte"),
-	() => import("../../../src/routes/[lang]/sermon/index.svelte"),
-	() => import("../../../src/routes/[lang]/sermon/[slug].svelte"),
 	() => import("../../../src/routes/[lang]/about.svelte"),
 	() => import("../../../src/routes/[lang]/[doctype]/index.svelte"),
 	() => import("../../../src/routes/[lang]/[doctype]/[slug].svelte")
@@ -29,26 +25,14 @@ export const routes = [
 	// src/routes/[lang]/newspaper-article/[slug].svelte
 	[/^\/([^/]+?)\/newspaper-article\/([^/]+?)\/?$/, [c[0], c[5]], [c[1]], (m) => ({ lang: d(m[1]), slug: d(m[2])})],
 
-	// src/routes/[lang]/post-link-OLD/index.svelte
-	[/^\/([^/]+?)\/post-link-OLD\/?$/, [c[0], c[6]], [c[1]], (m) => ({ lang: d(m[1])})],
-
-	// src/routes/[lang]/post-link-OLD/[slug].svelte
-	[/^\/([^/]+?)\/post-link-OLD\/([^/]+?)\/?$/, [c[0], c[7]], [c[1]], (m) => ({ lang: d(m[1]), slug: d(m[2])})],
-
-	// src/routes/[lang]/sermon/index.svelte
-	[/^\/([^/]+?)\/sermon\/?$/, [c[0], c[8]], [c[1]], (m) => ({ lang: d(m[1])})],
-
-	// src/routes/[lang]/sermon/[slug].svelte
-	[/^\/([^/]+?)\/sermon\/([^/]+?)\/?$/, [c[0], c[9]], [c[1]], (m) => ({ lang: d(m[1]), slug: d(m[2])})],
-
 	// src/routes/[lang]/about.svelte
-	[/^\/([^/]+?)\/about\/?$/, [c[0], c[10]], [c[1]], (m) => ({ lang: d(m[1])})],
+	[/^\/([^/]+?)\/about\/?$/, [c[0], c[6]], [c[1]], (m) => ({ lang: d(m[1])})],
 
 	// src/routes/[lang]/[doctype]/index.svelte
-	[/^\/([^/]+?)\/([^/]+?)\/?$/, [c[0], c[11]], [c[1]], (m) => ({ lang: d(m[1]), doctype: d(m[2])})],
+	[/^\/([^/]+?)\/([^/]+?)\/?$/, [c[0], c[7]], [c[1]], (m) => ({ lang: d(m[1]), doctype: d(m[2])})],
 
 	// src/routes/[lang]/[doctype]/[slug].svelte
-	[/^\/([^/]+?)\/([^/]+?)\/([^/]+?)\/?$/, [c[0], c[12]], [c[1]], (m) => ({ lang: d(m[1]), doctype: d(m[2]), slug: d(m[3])})]
+	[/^\/([^/]+?)\/([^/]+?)\/([^/]+?)\/?$/, [c[0], c[8]], [c[1]], (m) => ({ lang: d(m[1]), doctype: d(m[2]), slug: d(m[3])})]
 ];
 
 export const fallback = [c[0](), c[1]()];

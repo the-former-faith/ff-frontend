@@ -1,36 +1,40 @@
 <script context="module">
-  export function load({ page }) {
-    return this.fetch(`${params.lang}/post.json`)
-      .then((r) => r.json())
-      .then((posts) => {
-        return { posts, page }
-      })
+  import client from '$lib/scripts/sanityClient'
+  import { convertToCamelCase } from '$lib/scripts/utilities'
+  import groq from 'groq'
+
+  export async function load({ page }) {
+    const { doctype } = page.params
+
+    const doctypeCamelCase = convertToCamelCase(doctype)
+
+    const query = groq`*[_type == $doctypeCamelCase]{
+      _createdAt,
+      _type,
+      title,
+      "authors": authors[]-> {
+        title
+      },
+      slug,
+      file
+    }`
+
+    const res = await client.fetch(query, { doctypeCamelCase }).catch((err) => this.error(404, err))
+
+    if (res) return { props: { docs: await res } }
   }
 </script>
 
 <script>
-  export let posts
+  import DocumentList from '$lib/components/layout/DocumentList.svelte'
+  export let docs
 </script>
 
 <svelte:head>
-  <title>Blog</title>
+  <title>Newspaper Articles Archive</title>
 </svelte:head>
 
-<h1>Recent posts</h1>
+<a href="/en/sermon/">sermons</a>
 
-<ul>
-  {#each posts as post}
-    <!-- we're using the non-standard `rel=prefetch` attribute to
-				tell Sapper to load the data for the page as soon as
-				the user hovers over the link or taps it, instead of
-				waiting for the 'click' event -->
-    <li><a sveltekit:prefetch href="en/post/{post.slug}">{post.title}</a></li>
-  {/each}
-</ul>
-
-<style>
-  ul {
-    margin: 0 0 1em 0;
-    line-height: 1.5;
-  }
-</style>
+<h2>Newspaper Articles Archive</h2>
+<DocumentList {docs} />

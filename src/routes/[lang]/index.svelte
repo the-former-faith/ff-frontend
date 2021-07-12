@@ -5,7 +5,7 @@
   export async function load() {
     const res = await client
       .fetch(
-        groq`*[_type == "post" || _type == "postLink" || _type == "sermon"]{
+        groq`*[_type == "post" || _type == "postLink"]{
           _createdAt,
           _type,
   				title,
@@ -17,7 +17,7 @@
   			} | order(_createdAt desc)`
       )
 
-    if (res) return { props: { posts: await res } }
+    if (res) return { props: { docs: await res } }
 
     return {
       status: res.status,
@@ -30,7 +30,7 @@
 <script>
   import DocumentList from '$lib/components/layout/DocumentList.svelte'
 
-  export let posts
+  export let docs
 
 </script>
 
@@ -38,4 +38,4 @@
   <title>The Former Faith</title>
 </svelte:head>
 <h2>Latest Articles</h2>
-<DocumentList {posts} />
+<DocumentList {docs} />

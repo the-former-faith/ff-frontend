@@ -1,5 +1,5 @@
 <script>
-  import { assets } from '$app/paths'
+  import { assets, base } from '$app/paths'
   import Nav from '$lib/components/layout/Nav.svelte'
   import Footer from '$lib/components/layout/Footer.svelte'
   //import YouTubeScriptTag from '../components/YouTubeScriptTag.svelte'
@@ -23,6 +23,7 @@
 
 <svelte:head>
   <link rel='stylesheet' href='{assets}/styles/global.css'>
+  <link rel='icon' type='image/png' href='{base}/favicon.png'>
 </svelte:head>
 
 <Nav />

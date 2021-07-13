@@ -1,6 +1,6 @@
 <script context="module">
   import client from '$lib/scripts/sanityClient'
-  import { convertToCamelCase } from '$lib/scripts/utilities'
+  import { convertToCamelCase, convertToTitleCase } from '$lib/scripts/utilities'
   import groq from 'groq'
 
   export async function load({ page }) {
@@ -16,25 +16,25 @@
         title
       },
       slug,
-      file
-    }`
+      mainImage->
+    } | order(_createdAt desc)`
 
     const res = await client.fetch(query, { doctypeCamelCase }).catch((err) => this.error(404, err))
 
-    if (res) return { props: { docs: await res } }
+    if (res) return { props: { docs: await res, doctype: doctype } }
   }
 </script>
 
 <script>
   import DocumentList from '$lib/components/layout/DocumentList.svelte'
   export let docs
+  export let doctype
 </script>
 
 <svelte:head>
-  <title>Newspaper Articles Archive</title>
+  <title>{convertToTitleCase(doctype, '-')} Archives</title>
 </svelte:head>
 
-<a href="/en/sermon/">sermons</a>
+<h2>{convertToTitleCase(doctype, '-')} Archives</h2>
 
-<h2>Newspaper Articles Archive</h2>
 <DocumentList {docs} />

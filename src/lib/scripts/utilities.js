@@ -18,3 +18,11 @@ export const displayTitles = (x) => extractTitles(x)
 // Text Conversion
 
 export const convertToCamelCase = (x) => x.replace(/-([a-z])/g, (g)=> g[1].toUpperCase())
+
+export const convertToTitleCase = (phrase, delimiter) => {
+    return phrase
+        .toLowerCase()
+        .split(delimiter)
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+}

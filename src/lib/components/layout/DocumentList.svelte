@@ -1,6 +1,7 @@
 <script>
   import ImageBlock from '$lib/components/blocks/ImageBlock.svelte'
   import MetaAuthors from '$lib/components/layout/MetaAuthors.svelte'
+  import { base } from '$app/paths'
 
   export let docs
 
@@ -19,7 +20,7 @@
   {#each docs as doc}
     <li class="{getTitleSize(doc.title.en.length)} {doc.mainImage ? 'has-image' : ''}">
       <h3>
-        <a sveltekit:prefetch href="en/{doc._type.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}/{doc.slug.en.current}">{doc.title.en}</a>
+        <a sveltekit:prefetch href="{base}/en/{doc._type.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}/{doc.slug.en.current}">{doc.title.en}</a>
       </h3>
       {#if doc.mainImage}
         <ImageBlock image={doc.mainImage.file} ratio={{ x: 4, y: 3 }} />

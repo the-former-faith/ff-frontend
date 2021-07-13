@@ -16,6 +16,7 @@
       theme,
       "authors": authors[]->,
       mainImage->,
+      file->,
       narrations[]{
         ...,
         file {

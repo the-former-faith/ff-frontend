@@ -16,6 +16,7 @@
         title
       },
       slug,
+      file,
       mainImage->
     } | order(_createdAt desc)`
 
@@ -29,6 +30,7 @@
   import DocumentList from '$lib/components/layout/DocumentList.svelte'
   export let docs
   export let doctype
+  console.log(docs)
 </script>
 
 <svelte:head>

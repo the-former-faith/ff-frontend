@@ -31,10 +31,27 @@
   const srcSet = sizes.map((x) => {
     return `${processedUrl(image, x)} ${x}w`
   })
+
+  const getSizeFromString = (x) => x.split('-')[2].split('x')
+
+  const increaseRatio = (x) => Object.values(x).map(y => y * 100)
+
+  console.log()
+
+  const dimensions = ratio ? increaseRatio(ratio) : getSizeFromString(image.asset._ref) 
+
 </script>
 
 <figure>
-  <img alt={image.alt.en} srcset={srcSet.toString()} src={processedUrl(image, 600)} sizes="(min-width: 1024px) 33vw, 96vw" loading="lazy" />
+  <img 
+    alt={image.alt.en} 
+    srcset={srcSet.toString()} 
+    src={processedUrl(image, 600)} 
+    sizes="(min-width: 1024px) 33vw, 96vw" 
+    loading="lazy"
+    width={dimensions[0]}
+    height={dimensions[1]} 
+  />
 
   {#if caption || source}
     <figcaption>
@@ -56,6 +73,8 @@
 <style>
   img {
     margin: 0 auto auto;
+    height: auto;
+    width: 100%;
   }
 
   figure {

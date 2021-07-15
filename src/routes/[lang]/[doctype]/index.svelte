@@ -33,7 +33,7 @@
 
     const res = await client.fetch(query, { doctypeCamelCase }).catch((err) => this.error(404, err))
 
-    if (res) return { props: { docs: await res, doctype: doctype }, ...redirect }
+    if (res) return { props: { docs: await res, doctype: doctype, currentPage: currentPage }, ...redirect }
   }
 </script>
 
@@ -53,14 +53,50 @@
 
 <h2>{convertToTitleCase(doctype, '-')} Archives</h2>
 
-<p>Total Results: {docs.count}</p>
-
-{#if pages > 1}
-  <ul>
-    {#each Array(pages) as _, i}
-      <li><a href="{$page.path}?page={i + 1}">{i + 1}</a></li>
-    {/each}
-  </ul>
-{/if}
-
 <DocumentList docs={docs.list} />
+
+<nav role="navigation" aria-label="Pagination Navigation">
+  <ul>
+    <li class="total">
+      <p>Total Results: {docs.count}</p>
+    </li>
+    {#if pages > 1}
+      {#each Array(pages) as _, i}
+        <li>
+          <a 
+            sveltekit:prefetch 
+            aria-current="{i + 1 == currentPage}" 
+            href="{$page.path}?page={i + 1}">{i + 1}
+          </a>
+        </li>
+      {/each}
+    {/if}
+  </ul>
+</nav>
+
+<style>
+  ul {
+    margin-top: 2rem;
+    list-style: none;
+    display: grid;
+    gap: 1px;
+    grid-auto-columns: minmax(48px, auto);
+    grid-auto-rows: 48px;
+    grid-auto-flow: column;
+    align-content: center;
+    justify-content: center;
+  }
+
+  a {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    outline: 1px solid;
+  }
+
+  .total {
+    padding-right: 1rem;
+    align-self: center;
+  }
+</style>

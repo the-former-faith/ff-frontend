@@ -1,7 +1,7 @@
 // https://www.sanity.io/docs/what-you-need-to-know-about-block-text/presenting-block-text
 // https://github.com/movingbrands/svelte-portable-text
 import BlockContent from '@movingbrands/svelte-portable-text';
-
+import InternalLinkTag from '$lib/components/tags/InternalLinkTag.svelte'
 import LinkTag from '$lib/components/tags/LinkTag.svelte'
 import AbbrTag from '$lib/components/tags/AbbrTag.svelte'
 import AudioBlock from '$lib/components/blocks/AudioBlock.svelte'
@@ -41,9 +41,17 @@ export default {
       }
     }),
     internalLink: ({ children, mark }) => ({
-      component: Link,
+      component: LinkTag,
       childNodes: children,
       props: {
+        href: `/en/${mark.type}/${mark.slug}`
+      },
+    }),
+    personLink: ({ children, mark }) => ({
+      component: InternalLinkTag,
+      childNodes: children,
+      props: {
+        mark: mark,
         href: `/en/${mark.type}/${mark.slug}`
       },
     }),

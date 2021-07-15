@@ -115,6 +115,11 @@
               "lang": en,
               "type": @.reference->_type,
             },
+            _type == "personLink" => {
+              "slug": @.reference->slug.en.current,
+              "lang": en,
+              "type": @.reference->_type,
+            },
             _type == "footnote" => {
               ...,
               "citations": citations[]{

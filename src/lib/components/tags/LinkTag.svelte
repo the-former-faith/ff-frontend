@@ -2,6 +2,6 @@
   export let href;
 </script>
 
-<a {href} >
+<a rel="external" {href} >
   <slot />
 </a>

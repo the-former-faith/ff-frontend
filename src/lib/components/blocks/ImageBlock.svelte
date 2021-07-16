@@ -23,6 +23,7 @@
       .height(ratio ? findRatioHeightbyWidth(width, ratio) : undefined)
       .auto('format')
       .fit(ratio ? 'crop' : 'scale')
+      .quality(90)
       .url()
   }
 
@@ -79,6 +80,7 @@
 
   figure {
     margin: 0 auto auto;
+    width: 100%;
   }
 
   figcaption {

@@ -145,6 +145,9 @@
 
     const res = await client.fetch(query, { slug, doctypeCamelCase }).catch((err) => this.error(404, err))
 
+    const wikiP = await fetch(`https://en.wikipedia.org/w/api.php?origin=*&action=parse&section=0&prop=text&page=Dwight_L._Moody&format=json&formatversion=2`)
+      .then(x => x.json())
+
     if (res) return { props: { doc: await res, slug: slug } }
   }
 </script>

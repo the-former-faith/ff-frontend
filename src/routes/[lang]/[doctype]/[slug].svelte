@@ -11,6 +11,17 @@
     const doctypeCamelCase = convertToCamelCase(doctype)
 
     const query = groq`*[_type == $doctypeCamelCase && slug.en.current == $slug]{
+      "referencedBy": *[ references(^._id) ]{
+        _createdAt,
+        _type,
+        title,
+        "authors": authors[]-> {
+          title
+        },
+        slug,
+        file,
+        mainImage->
+      },
       _id,
       title,
       theme,
@@ -145,17 +156,22 @@
 
     const res = await client.fetch(query, { slug, doctypeCamelCase }).catch((err) => this.error(404, err))
 
-    const wikiP = await fetch(`https://en.wikipedia.org/w/api.php?origin=*&action=parse&section=0&prop=text&page=Dwight_L._Moody&format=json&formatversion=2`)
-      .then(x => x.json())
-
-    if (res) return { props: { doc: await res, slug: slug } }
+    if (res) return { 
+      props: 
+        { 
+          doc: await res, 
+          slug: slug, 
+          wikiP: await res.content ? null :  await fetch(`https://en.wikipedia.org/w/api.php?origin=*&action=parse&section=0&prop=text&page=Dwight_L._Moody&format=json&formatversion=2`).then(x => x.json())
+        } 
+      }
   }
 </script>
 
 <script>
   export let doc
+  export let wikiP
 </script>
 
-<DocumentLayout {doc}>
+<DocumentLayout {doc} {wikiP}>
   <!--<p>Read the full post <a href={doc.source}>here</a>.</p>-->
 </DocumentLayout>

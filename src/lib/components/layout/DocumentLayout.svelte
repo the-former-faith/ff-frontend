@@ -8,10 +8,12 @@
   import ImageBlock from '$lib/components/blocks/ImageBlock.svelte'
   import client from '$lib/scripts/sanityClient'
   import AudioBlock from '$lib/components/blocks/AudioBlock.svelte'
+  import DocumentList from '$lib/components/layout/DocumentList.svelte'
 
   const urlFor = (source) => urlBuilder(client).image(source)
 
   export let doc
+  export let wikiP
 
   const filterVideo = (files) => {
     return files.filter((x) => {
@@ -73,6 +75,16 @@
       <div class="flow">
         <BlockContent blocks={doc.content.en} {serializers} />
       </div>
+    {/if}
+
+    {#if wikiP}
+      <div class="flow ">
+        {@html wikiP.parse.text}
+      </div>
+    {/if}
+
+    {#if doc.referencedBy}
+      <DocumentList docs={doc.referencedBy} />
     {/if}
 
     <slot />

@@ -170,6 +170,7 @@
 <script>
   export let doc
   export let wikiP
+  //console.log(doc)
 </script>
 
 <DocumentLayout {doc} {wikiP}>

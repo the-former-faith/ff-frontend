@@ -8,6 +8,7 @@
   export let caption
   export let source
   export let ratio //object
+  console.log(image)
 
   const urlFor = (url) => urlBuilder(client).image(url)
 
@@ -33,13 +34,14 @@
     return `${processedUrl(image, x)} ${x}w`
   })
 
-  const getSizeFromString = (x) => x.split('-')[2].split('x')
+  const getSizeFromString = (x) => {
+    const dimensions = x.split('-')[2]
+    return dimensions ? dimensions.split('x') : undefined
+  }
 
   const increaseRatio = (x) => Object.values(x).map(y => y * 100)
 
-  console.log()
-
-  const dimensions = ratio ? increaseRatio(ratio) : getSizeFromString(image.asset._ref) 
+  const dimensions = ratio ? increaseRatio(ratio) : [image.asset.metadata.dimensions.width, image.asset.metadata.dimensions.height] 
 
 </script>
 
@@ -57,7 +59,7 @@
   {#if caption || source}
     <figcaption>
       {#if caption}
-        <!-- <BlockContent blocks={caption} {serializers} /> -->
+        <BlockContent blocks={caption} {serializers} />
       {/if}
       {#if caption && source}
         <hr />

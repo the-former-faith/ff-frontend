@@ -58,6 +58,10 @@
 
     <MetaData createdAt={doc.date ? doc.date.time : doc._createdAt} authors={doc.authors} parent={doc.parent} pageStart={doc.pageStart} source={doc.source} />
 
+    {#if doc._type === 'postLink'}
+      <p class="callout">This is an interesting article that I found on the internet. Read the full post <a href={doc.source}>here</a>.</p>
+    {/if}
+
     {#if doc.narrations}
       <div class="narration">
         <p><strong>Listen to narration for this sermon:</strong></p>
@@ -97,6 +101,10 @@
 {/if}
 
 <style>
+  .callout {
+    border: 2px solid;
+    padding: 1rem;
+  }
   .narration {
     display: flex;
     flex-wrap: wrap;

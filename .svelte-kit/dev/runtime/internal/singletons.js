@@ -1,4 +1,4 @@
-/** @type {import('./router').Router} */
+/** @type {import('./router').Router?} */
 let router;
 
 /** @type {string} */
@@ -7,7 +7,7 @@ let base = '';
 /** @type {string} */
 let assets = '/.';
 
-/** @param {import('./router').Router} _ */
+/** @param {import('./router').Router?} _ */
 function init(_) {
 	router = _;
 }

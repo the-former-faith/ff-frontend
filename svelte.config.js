@@ -32,7 +32,6 @@ const config = {
 		prerender: {
 			crawl: true,
 			enabled: true,
-			force: false,
 			pages: ['*']
 		},
 		router: true,

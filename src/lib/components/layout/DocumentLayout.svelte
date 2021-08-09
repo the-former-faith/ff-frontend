@@ -83,7 +83,7 @@
       </div>
     {/if}-->
 
-    {#if doc.referencedBy}
+    {#if doc.referencedBy.length > 0}
       <h3>Referenced By</h3>
       <DocumentList docs={doc.referencedBy} />
     {/if}

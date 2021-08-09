@@ -1,5 +1,5 @@
 <script>
-  export async function preload(page, session) {
+  export async function load() {
     return this.redirect(200, 'en/')
   }
   if (typeof window !== 'undefined') {

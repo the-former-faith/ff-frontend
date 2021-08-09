@@ -1,36 +1,41 @@
 <script context="module">
-  import client from '../../sanityClient.js'
+  import client from '$lib/scripts/sanityClient.js'
   import groq from 'groq'
 
-  export function preload() {
-    return client
+  export async function load() {
+    const res = await client
       .fetch(
         groq`*[_type == "post" || _type == "postLink"]{
           _createdAt,
           _type,
-					title,
-					"authors": authors[]-> {
-						title
-					},
-					slug,
-					mainImage->
-				} | order(_createdAt desc)`
+  				title,
+  				"authors": authors[]-> {
+  					title
+  				},
+  				slug,
+  				mainImage->
+  			} | order(_createdAt desc)`
       )
-      .then((posts) => {
-        return { posts }
-      })
-      .catch((err) => this.error(500, err))
+
+    if (res) return { props: { docs: await res } }
+
+    return {
+      status: res.status,
+      error: new Error()
+    }
+
   }
 </script>
 
 <script>
-  import DocumentList from '../../components/DocumentList.svelte'
+  import DocumentList from '$lib/components/layout/DocumentList.svelte'
 
-  export let posts
+  export let docs
+
 </script>
 
 <svelte:head>
   <title>The Former Faith</title>
 </svelte:head>
 <h2>Latest Articles</h2>
-<DocumentList {posts} />
+<DocumentList {docs} />

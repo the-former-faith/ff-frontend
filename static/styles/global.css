@@ -1,0 +1,393 @@
+@font-face {
+  font-family: 'Antarctica VF';
+  src: url('../fonts/antarctica-vf.woff2') format('woff2');
+  font-weight: 1 900;
+  unicode-range: U+0020-007e, U+00a0-00be;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Antarctica';
+  src: url('../fonts/antarctica-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Antarctica';
+  src: url('../fonts/antarctica-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+
+/*--- Reset ---*/
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default padding */
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  max-width: 100vw;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* Add a hack for sup*/
+sup {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+/* Remove list styles on ul, ol elements with a class attribute */
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Natural flow and rhythm in articles by default */
+.flow > * + * {
+  margin-top: 1rem;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Blur images when they have no alt attribute */
+/*img:not([alt]) {
+  filter: blur(10px);
+}*/
+
+/* Remove all animations and transitions for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/*--- End Reset ---*/
+
+:root {
+  /*--- Colors ---*/
+  --color-action: #870069;
+  --color-foreground: #000;
+  --color-background: #fff;
+  /*--- Typographic scale ---*/
+  /* @link https://utopia.fyi/generator-mk-ii?c=320,18,1.25,1140,22,1.25,5,2, */
+  --step--2: clamp(0.72rem, 0.6576rem + 0.3122vw, 0.88rem);
+  --step--1: clamp(0.9rem, 0.822rem + 0.3902vw, 1.1rem);
+  --step-0: clamp(1.125rem, 1.0274rem + 0.4878vw, 1.375rem);
+  --step-1: clamp(1.4063rem, 1.2843rem + 0.6098vw, 1.7188rem);
+  --step-2: clamp(1.7581rem, 1.6057rem + 0.7622vw, 2.1488rem);
+  --step-3: clamp(2.1975rem, 2.007rem + 0.9524vw, 2.6856rem);
+  --step-4: clamp(2.7469rem, 2.5088rem + 1.1902vw, 3.3569rem);
+  --step-5: clamp(3.4331rem, 3.1353rem + 1.489vw, 4.1963rem);
+}
+
+body {
+  color: var(--color-foreground);
+  background-color: var(--color-background);
+  font-family: 'Antarctica', sans-serif;
+  display: grid;
+  grid-template-columns: minmax(1rem, auto) minmax(auto, 1024px) minmax(1rem, auto);
+  padding-top: 2rem;
+  min-height: 100vh;
+}
+
+main,
+.site-header {
+  grid-column: 2;
+}
+
+@supports (font-variation-settings: normal) {
+  body {
+    font-family: 'Antarctica VF', sans-serif;
+    font-size: var(--step-0);
+    font-weight: 350;
+    font-variation-settings: 'wdth' 70, 'CNTR' 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 400;
+    font-variation-settings: 'wdth' 20, 'CNTR' 0;
+    margin: 0;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: var(--step-5);
+}
+
+h2 {
+  font-size: var(--step-4);
+}
+
+h3 {
+  font-size: var(--step-3);
+}
+
+h4 {
+  font-size: var(--step-2);
+}
+
+h5 {
+  font-size: var(--step-1);
+}
+
+h6 {
+  font-size: var(--step-0);
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    --color-foreground: #ddd8ca;
+    --color-background: #1d1722;
+  }
+}
+
+a {
+  color: var(--color-action);
+}
+
+blockquote {
+  border-left: 5px solid var(--color-foreground);
+  font-size: 0.8em;
+  padding-left: 1rem;
+}
+
+.chart-container {
+  width: 100%;
+}
+
+.frappe-chart.chart {
+  width: 100% !important;
+}
+
+/*--- Main Menu ---*/
+
+.site-logo {
+  text-align: center;
+}
+
+.site-logo svg {
+  width: 100%;
+  max-width: 200px;
+}
+
+/*--- Site footer ---*/
+.site-footer {
+  display: grid;
+  grid-template-columns: minmax(1rem, auto) minmax(auto, 1024px) minmax(1rem, auto);
+  color: var(--color-background);
+  background-color: var(--color-foreground);
+  grid-column: 1 / -1;
+  font-size: var(--step--1);
+  margin-top: 2rem;
+}
+
+.site-footer-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  grid-column: 2;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+
+.site-footer-wrapper > * {
+  flex: 1;
+  min-width: 180px;
+  padding: 0.5rem;
+}
+
+.site-footer .logo {
+  max-width: 180px;
+}
+
+.site-footer svg {
+  width: 100%;
+  fill: var(--color-background) !important;
+}
+
+.site-footer .license {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, auto));
+  grid-template-rows: min-content;
+  row-gap: 0.5rem;
+}
+
+.site-footer .license svg {
+  fill: var(--color-background);
+  width: 2rem;
+}
+
+.site-footer .license-logos {
+  text-decoration: none;
+  display: grid;
+  grid-template-columns: repeat(3, min-content);
+  grid-gap: 0.5rem;
+}
+
+.site-footer a {
+  color: var(--color-background);
+}
+
+.bar-list li {
+  list-style: none;
+  border-top: 1px solid;
+  padding: 0.5rem 0;
+}
+
+/*--- Posts page ---*/
+
+.post-meta {
+  font-size: var(--step--2);
+  display: flex;
+  flex-wrap: wrap;
+  text-transform: uppercase;
+  border: 1px solid;
+}
+
+.post-meta p {
+  border: 1px solid;
+  padding: 0.5rem;
+  flex: 1 1 auto;
+  font-weight: 500;
+}
+
+/*-- Posts list --*/
+ul.posts-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+  gap: 1px;
+}
+
+.posts-list li {
+  outline: 1px solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.posts-list h3 {
+  padding: 1rem;
+}
+
+.posts-list .post-meta {
+  border: none;
+  border-top: 1px solid;
+}
+
+.posts-list .post-meta p {
+  border: none;
+  padding: 0.5rem 1rem;
+}
+
+/*-- Single post --*/
+
+.flow figure {
+  border: 2px solid;
+}
+
+@media screen and (min-width: 768px) {
+  .flow figure {
+    float: left;
+    max-width: 30vw;
+    margin: 1rem 1rem 1rem 0;
+  }
+
+  .flow figure:nth-of-type(odd) {
+    float: right;
+    margin: 1rem 0 1rem 1rem;
+  }
+}
+
+@media screen and (min-width: 1112px) {
+  .flow figure {
+    margin: 1rem 1rem 1rem -100px;
+  }
+
+  .flow figure:nth-of-type(odd) {
+    margin: 1rem -100px 1rem 1rem;
+  }
+}
+
+.flow figure img {
+  max-width: initial;
+  width: 100%;
+}
+
+.flow figure figcaption {
+  border-top: 2px solid;
+  padding: 0.5rem;
+}
+
+.flow li {
+  margin-top: 1rem;
+}
+
+.flow li::marker {
+  font-size: 2rem;
+  font-weight: 600;
+  font-variation-settings: 'wdth' 10, 'CNTR' 0;
+}

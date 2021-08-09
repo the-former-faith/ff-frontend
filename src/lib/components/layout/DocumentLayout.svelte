@@ -14,6 +14,7 @@
 
   export let doc
   export let wikiP
+  console.log(doc)
 
   const filterVideo = (files) => {
     return files.filter((x) => {

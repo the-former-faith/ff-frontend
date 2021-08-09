@@ -103,7 +103,8 @@ export default {
       //Since I already have some math stuff for ratio there.
       let image = node.embed.file
       let hotspot = image.hotspot
-      let dimensions= image.asset.metadata.dimensions
+      let dimensions = image.asset.metadata.dimensions
+      
       return ({
         component: ImageBlock,
         childNodes: children,
@@ -111,8 +112,8 @@ export default {
           image: image,
           caption: node.caption,
           ratio: {
-            x: dimensions.width * hotspot.width,
-            y: dimensions.height * hotspot.height
+            x: hotspot ? dimensions.width * hotspot.width : dimensions.width,
+            y: hotspot ? dimensions.height * hotspot.height : dimensions.height
           },
           source: node.embed
         },

@@ -8,7 +8,7 @@
   export let caption
   export let source
   export let ratio //object
-  console.log(image)
+  const metadata = image.asset.metadata
 
   const urlFor = (url) => urlBuilder(client).image(url)
 
@@ -41,7 +41,21 @@
 
   const increaseRatio = (x) => Object.values(x).map(y => y * 100)
 
-  const dimensions = ratio ? increaseRatio(ratio) : [image.asset.metadata.dimensions.width, image.asset.metadata.dimensions.height] 
+  const dimensions = () => {
+    if (ratio) {
+      return ratio
+    } else if (metadata.dimensions) {
+      return [metadata.dimensions.width, image.asset.metadata.dimensions.height]
+    } else {
+      const sizeFromString = getSizeFromString(image.asset._ref)
+
+      if (sizeFromString) {
+        return sizeFromString
+      } else {
+        return [200, 'auto']
+      }
+    }  
+  }
 
 </script>
 

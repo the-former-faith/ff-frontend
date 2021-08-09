@@ -77,13 +77,14 @@
       </div>
     {/if}
 
-    {#if wikiP}
+    <!--{#if wikiP}
       <div class="flow ">
         {@html wikiP.parse.text}
       </div>
-    {/if}
+    {/if}-->
 
     {#if doc.referencedBy}
+      <h3>Referenced By</h3>
       <DocumentList docs={doc.referencedBy} />
     {/if}
 

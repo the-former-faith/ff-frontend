@@ -53,14 +53,15 @@
     hyphens: auto;
   }
   @media screen and (min-width: 768px) {
-    .has-image {
-      grid-row: span 2;
-    }
     .md {
       grid-column: span 2;
     }
     .lg {
       grid-column: span 3;
+    }
+    .md.has-image,
+    .lg.has-image {
+      grid-row: span 2;
     }
   }
 </style>

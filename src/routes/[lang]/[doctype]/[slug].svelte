@@ -25,7 +25,7 @@
       _id,
       title,
       theme,
-      "authors": authors[]->,
+      "authors": [...authors[_type match 'reference']->, ...authors[!defined(_type)] ],
       mainImage->,
       file->,
       narrations[]{

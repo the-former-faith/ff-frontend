@@ -42,6 +42,7 @@
   export let docs
   export let doctype
   export let currentPage
+  console.log(docs)
 
   const pages = Math.ceil(docs.count / 50)
 
@@ -53,7 +54,7 @@
 
 <h2>{convertToTitleCase(doctype, '-')} Archives</h2>
 
-<DocumentList docs={docs.list} />
+<!--<DocumentList docs={docs.list} />-->
 
 <nav role="navigation" aria-label="Pagination Navigation">
   <ul>

@@ -54,7 +54,7 @@
 
 <h2>{convertToTitleCase(doctype, '-')} Archives</h2>
 
-<!--<DocumentList docs={docs.list} />-->
+<DocumentList docs={docs.list} />
 
 <nav role="navigation" aria-label="Pagination Navigation">
   <ul>
@@ -67,7 +67,7 @@
           <a 
             sveltekit:prefetch 
             aria-current="{i + 1 == currentPage}" 
-            href="{$page.path}?page={i + 1}">{i + 1}
+            href="{$page.path}?page={i + 1}"><span class="hidden">Go to page </span>{i + 1}
           </a>
         </li>
       {/each}
@@ -99,5 +99,15 @@
   .total {
     padding-right: 1rem;
     align-self: center;
+  }
+
+  .hidden {
+    clip: rect(0 0 0 0); 
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap; 
+    width: 1px;
   }
 </style>

@@ -41,6 +41,13 @@
 </ul>
 
 <style>
+  ul {
+    background-image: repeating-linear-gradient(-45deg, rgb(0, 0, 0), rgb(0, 0, 0) 1px, rgb(255, 255, 255) 1px, rgb(255, 255, 255) 10px);
+    outline: 1px solid;
+  }
+  li {
+    background-color: #fff;
+  }
   h3 {
     word-break: break-word;
     hyphens: auto;

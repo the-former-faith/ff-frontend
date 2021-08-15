@@ -135,7 +135,7 @@ body {
   background-color: var(--color-background);
   font-family: 'Antarctica', sans-serif;
   display: grid;
-  grid-template-columns: minmax(1rem, auto) minmax(auto, 1024px) minmax(1rem, auto);
+  grid-template-columns: minmax(1rem, auto) minmax(auto, 1200px) minmax(1rem, auto);
   padding-top: 2rem;
   min-height: 100vh;
 }

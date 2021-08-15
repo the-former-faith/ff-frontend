@@ -27,4 +27,6 @@ export const routes = [
 	[/^\/([^/]+?)\/([^/]+?)\/([^/]+?)\/?$/, [c[0], c[6]], [c[1]], (m) => ({ lang: d(m[1]), doctype: d(m[2]), slug: d(m[3])})]
 ];
 
+// we import the root layout/error components eagerly, so that
+// connectivity errors after initialisation don't nuke the app
 export const fallback = [c[0](), c[1]()];

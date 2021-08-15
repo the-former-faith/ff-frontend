@@ -5,7 +5,7 @@
   export async function load() {
     const res = await client
       .fetch(
-        groq`*[_type == "post" || _type == "postLink"]{
+        groq`*[_type == "post" || _type == "postLink" || featured == true]{
           _createdAt,
           _type,
   				title,

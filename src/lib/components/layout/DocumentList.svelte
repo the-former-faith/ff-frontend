@@ -41,19 +41,27 @@
 </ul>
 
 <style>
+  ul {
+    background-image: repeating-linear-gradient(-45deg, rgb(0, 0, 0), rgb(0, 0, 0) 1px, rgb(255, 255, 255) 1px, rgb(255, 255, 255) 10px);
+    outline: 1px solid;
+  }
+  li {
+    background-color: #fff;
+  }
   h3 {
     word-break: break-word;
     hyphens: auto;
   }
   @media screen and (min-width: 768px) {
-    .has-image {
-      grid-row: span 2;
-    }
     .md {
       grid-column: span 2;
     }
     .lg {
       grid-column: span 3;
+    }
+    .md.has-image,
+    .lg.has-image {
+      grid-row: span 2;
     }
   }
 </style>

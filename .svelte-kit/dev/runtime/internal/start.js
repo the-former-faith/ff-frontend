@@ -173,14 +173,15 @@ class Router {
 	 */
 	parse(url) {
 		if (this.owns(url)) {
-			const path = decodeURIComponent(url.pathname.slice(this.base.length) || '/');
+			const path = url.pathname.slice(this.base.length) || '/';
 
-			const routes = this.routes.filter(([pattern]) => pattern.test(path));
+			const decoded_path = decodeURI(path);
+			const routes = this.routes.filter(([pattern]) => pattern.test(decoded_path));
 
 			const query = new URLSearchParams(url.search);
 			const id = `${path}?${query}`;
 
-			return { id, routes, path, query };
+			return { id, routes, path, decoded_path, query };
 		}
 	}
 
@@ -728,8 +729,7 @@ class Renderer {
 			const result = await this._load(
 				{
 					route,
-					path: info.path,
-					query: info.query
+					info
 				},
 				no_cache
 			);
@@ -905,8 +905,8 @@ class Renderer {
 	 * @param {boolean} no_cache
 	 * @returns {Promise<import('./types').NavigationResult | undefined>} undefined if fallthrough
 	 */
-	async _load({ route, path, query }, no_cache) {
-		const key = `${path}?${query}`;
+	async _load({ route, info: { path, decoded_path, query } }, no_cache) {
+		const key = `${decoded_path}?${query}`;
 
 		if (!no_cache) {
 			const cached = this.cache.get(key);
@@ -915,7 +915,7 @@ class Renderer {
 
 		const [pattern, a, b, get_params] = route;
 		// @ts-expect-error - the pattern is for the route which we've already matched to this path
-		const params = get_params ? get_params(pattern.exec(path)) : {};
+		const params = get_params ? get_params(pattern.exec(decoded_path)) : {};
 
 		const changed = this.current.page && {
 			path: path !== this.current.page.path,

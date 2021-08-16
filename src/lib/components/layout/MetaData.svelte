@@ -9,7 +9,7 @@
 </script>
 
 <div class="post-meta">
-  {#if authors}
+  {#if authors.length > 0}
     <p>
       <MetaAuthors {authors} />
     </p>

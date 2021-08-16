@@ -15,24 +15,16 @@
   export let doc
   export let wikiP
 
-  const filterVideo = (files) => {
-    return files.filter((x) => {
-      return x.file.asset.extension === 'mp4'
-    })
-  }
+  // const filterVideo = (files) => {
+  //   return files.filter((x) => {
+  //     return x.file.asset.extension === 'mp4'
+  //   })
+  // }
 
-  let image
-  if (doc.mainImage) {
-    image = doc.mainImage.file
-  } else if (doc.file) {
-    image = doc.file
-  }
+  $: image = doc.mainImage ? doc.mainImage.file : doc.file
 </script>
 
 <svelte:head>
-  {#if doc.theme !== 'defaultTheme'}
-    <link rel="stylesheet" href={`${assets}/styles/${doc.theme}.css`} />
-  {/if}
   {#if doc}
     <title>{doc.title.en}</title>
     <meta property="og:title" content={doc.title.en} />
@@ -51,7 +43,10 @@
 {#if doc}
   <article class="flow">
     {#if image}
-      <ImageBlock {image} ratio={doc._type === 'newspaperArticle' ? undefined : { x: 4, y: 3 }} />
+      <!--Not sure if key is really needed or if this is a bug in SvelteKit-->
+      {#key doc}
+        <ImageBlock {image} ratio={doc._type === 'newspaperArticle' ? undefined : { x: 4, y: 3 }} />
+      {/key}
     {/if}
 
     <h1>{doc.title.en}</h1>

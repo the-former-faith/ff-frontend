@@ -41,12 +41,38 @@
 </ul>
 
 <style>
-  ul {
-    background-image: repeating-linear-gradient(-45deg, rgb(0, 0, 0), rgb(0, 0, 0) 1px, rgb(255, 255, 255) 1px, rgb(255, 255, 255) 10px);
+  /*-- Posts list --*/
+  .posts-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+    gap: 1px;
+    background-image: repeating-linear-gradient(-45deg, var(--color-foreground), var(--color-foreground) 1px, transparent 1px, transparent 10px);
     outline: 1px solid;
   }
+
+h3 {
+  padding: 1rem;
+}
+
+.post-meta {
+  border: none;
+  border-top: 1px solid;
+  padding: 0.5rem 1rem;
+}
+
+.posts-list .post-meta p {
+  border: none;
+  line-height: 1.2;
+  padding: 0;
+}
+
   li {
-    background-color: #fff;
+    background-color: var(--color-background);
+    outline: 2px solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0;
   }
   h3 {
     word-break: break-word;

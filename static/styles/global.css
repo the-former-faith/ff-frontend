@@ -317,36 +317,6 @@ blockquote {
   flex: 1 1 auto;
 }
 
-/*-- Posts list --*/
-ul.posts-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, auto));
-  gap: 1px;
-}
-
-.posts-list li {
-  outline: 2px solid;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.posts-list h3 {
-  padding: 1rem;
-}
-
-.posts-list .post-meta {
-  border: none;
-  border-top: 1px solid;
-  padding: 0.5rem 1rem;
-}
-
-.posts-list .post-meta p {
-  border: none;
-  line-height: 1.2;
-  padding: 0;
-}
-
 /*-- Single post --*/
 
 .flow figure {

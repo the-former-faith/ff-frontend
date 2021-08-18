@@ -50,7 +50,7 @@
       const sizeFromString = getSizeFromString(image.asset._ref)
 
       if (sizeFromString) {
-        return sizeFromString
+        return increaseRatio(sizeFromString)
       } else {
         return [200, 'auto']
       }

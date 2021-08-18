@@ -16,29 +16,31 @@
   }
 </script>
 
-<ul class="posts-list">
-  {#each docs as doc}
-    <li class="{getTitleSize(doc.title.en.length)} {doc.mainImage ? 'has-image' : ''}">
-      <h3>
-        <a sveltekit:prefetch href="{base}/en/{doc._type.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}/{doc.slug.en.current}">{doc.title.en}</a>
-      </h3>
-      {#if doc.mainImage}
-        <ImageBlock image={doc.mainImage.file} ratio={{ x: 4, y: 3 }} />
-      {/if}
-      {#if doc.file}
-        <ImageBlock image={doc.file} ratio={{ x: 4, y: 3 }} />
-      {/if}
-      <div class="post-meta">
-        {#if doc.authors}
-          <p>
-            <MetaAuthors authors={doc.authors} />
-          </p>
+{#key docs}
+  <ul class="posts-list">
+    {#each docs as doc}
+      <li class="{getTitleSize(doc.title.en.length)} {doc.mainImage ? 'has-image' : ''}" id={doc.slug.en.current}>
+        <h3>
+          <a sveltekit:prefetch href="{base}/en/{doc._type.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}/{doc.slug.en.current}">{doc.title.en}</a>
+        </h3>
+        {#if doc.mainImage}
+          <ImageBlock image={doc.mainImage.file} ratio={{ x: 4, y: 3 }} />
         {/if}
-        <p>{new Date(doc._createdAt).toDateString()}</p>
-      </div>
-    </li>
-  {/each}
-</ul>
+        {#if doc.file}
+          <ImageBlock image={doc.file} ratio={{ x: 4, y: 3 }} />
+        {/if}
+        <div class="post-meta">
+          {#if doc.authors}
+            <p>
+              <MetaAuthors authors={doc.authors} />
+            </p>
+          {/if}
+          <p>{new Date(doc._createdAt).toDateString()}</p>
+        </div>
+      </li>
+    {/each}
+  </ul>
+{/key}
 
 <style>
   /*-- Posts list --*/
@@ -47,7 +49,7 @@
     grid-template-columns: repeat(auto-fit, minmax(200px, auto));
     gap: 1px;
     background-image: repeating-linear-gradient(-45deg, var(--color-foreground), var(--color-foreground) 1px, transparent 1px, transparent 10px);
-    outline: 1px solid;
+    outline: 2px solid;
   }
 
 h3 {

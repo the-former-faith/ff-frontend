@@ -8,6 +8,7 @@
     const { doctype } = page.params
     const currentPage = page.query.get('page')
     let redirect = {}
+    const divisor = 25
 
     if (!currentPage) {
       redirect.redirect = `${page.path}?page=1`
@@ -27,13 +28,13 @@
         slug,
         file,
         mainImage->
-      } | order(_createdAt desc)[${currentPage - 1}...${currentPage * 50}],
+      } | order(_createdAt desc)| [${currentPage * divisor - divisor}...${(currentPage * divisor) - 1}],
       "count": count(*[_type == $doctypeCamelCase])
     }`
 
     const res = await client.fetch(query, { doctypeCamelCase }).catch((err) => this.error(404, err))
 
-    if (res) return { props: { docs: await res, doctype: doctype, currentPage: currentPage }, ...redirect }
+    if (res) return { props: { docs: await res, doctype: doctype, currentPage: currentPage, divisor: divisor }, ...redirect }
   }
 </script>
 
@@ -42,9 +43,9 @@
   export let docs
   export let doctype
   export let currentPage
-  console.log(docs)
+  export let divisor
 
-  const pages = Math.ceil(docs.count / 50)
+  const pages = Math.ceil(docs.count / divisor)
 
 </script>
 

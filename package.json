@@ -25,6 +25,6 @@
     "@sanity/block-content-to-hyperscript": "^2.0.10",
     "@sveltejs/adapter-netlify": "next",
     "@sveltejs/kit": "next",
-    "svelte": "^3.38.3"
+    "svelte": "^3.49.0"
   }
 }
